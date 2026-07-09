@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DINOGUESSR — Guess the Dinosaur</title>
+  
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  /* Special theme overrides for the ending modal */
+.modal.special-yutyrannus {
+  background: #e6f2ff !important;
+  border-color: #4a90e2 !important;
+  color: #1a2b4c !important;
+  box-shadow: 0 0 30px rgba(74, 144, 226, 0.6) !important;
+}
+.modal.special-yutyrannus h2, .modal.special-yutyrannus .dino-name {
+  color: #2c4c7e !important;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.modal.special-oxalaia {
+  background: #1c2e24 !important;
+  border-color: #2ecc71 !important;
+  color: #e2f7eb !important;
+  box-shadow: 0 0 30px rgba(46, 204, 113, 0.6) !important;
+}
+.modal.special-oxalaia h2, .modal.special-oxalaia .dino-name {
+  color: #2ecc71 !important;
+}
+.modal.special-oxalaia .modal-close {
+  color: #e2f7eb !important;
+}
+</style>
+</head>
+<body class="theme-dino">
+
+<div class="wrap">
+
+  <header>
+    <h1>DINO<span>GUESSR</span></h1>
+    <p id="headerSubtext">Identify the dinosaur!</p>
+  </header>
+
+  <div class="mode-selector">
+    <button class="mode-btn active" id="modeDino">Dinosaurs</button>
+    <button class="mode-btn" id="modePtero">Pterosaurs</button>
+    <button class="mode-btn" id="modeMarine">Marine Reptiles</button>
+  </div>
+
+  <div class="panel">
+    <div class="guess-row">
+      <div class="input-container">
+        <input type="text" id="guessInput" placeholder="Type a name..." autocomplete="off">
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+      <button id="guessBtn">Guess</button>
+    </div>
+
+    <div class="secondary-actions">
+      <button id="hintBtn">Hint</button>
+      <button id="giveUpBtn">Give Up</button>
+      <button id="playAgainMain" style="background: var(--green); color: var(--bone); flex: 1 1 140px; display: none;">Play Again</button>
+    </div>
+
+    <div id="hintBox"></div>
+    <div class="guess-count" id="guessCount">Guesses: 0</div>
+    <div id="statsDisplay" style="text-align:center; color: var(--stone-light); font-size: 0.8rem; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); line-height: 1.4;">
+      Win Streak: 0 | Max Streak: 0 | Matches Won: 0/0
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="table-container">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Name</th>
+            <th style="width: 10%;">1st Letter</th>
+            <th style="width: 13%;">Period</th>
+            <th style="width: 12%;">Diet</th>
+            <th style="width: 15%;">Continent</th>
+            <th style="width: 12%;">Clade</th>
+            <th style="width: 12%;">Family</th>
+            <th style="width: 8%;">Length</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+          <tr><td colspan="8" class="empty-state">Make your first guess above to begin excavating clues.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><span class="swatch sw-green"></span> Exact match</span>
+      <span><span class="swatch sw-yellow"></span> Close / directional</span>
+      <span><span class="swatch sw-red"></span> No match</span>
+    </div>
+  </div>
+
+  <footer>DINOGuessr, made by beamxyz. All Rights Reserved by siscon.fun.</footer>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalCloseBtn">&times;</button>
+    <h2 id="modalTitle">SPECIMEN IDENTIFIED</h2>
+    <div class="dino-name" id="modalDinoName"></div>
+    <div class="dino-sub" id="modalDinoSub"></div>
+    <p class="msg" id="modalMsg"></p>
+    <a href="#" target="_blank" rel="noopener" class="wiki-link" id="wikiLink">View on Wikipedia →</a>
+    <button id="playAgainBtn">Play Again</button>
+  </div>
+</div>
+
+
+  <script src="dinosaurs.js"></script>
+  <script src="pterosaurs.js"></script>
+  <script src="marinereptiles.js"></script>
+
+<script>
+  /* ---------------- GAME STATE ---------------- */
+  let currentDb = DINOSAURS;
+  let target = null;
+  let guessCount = 0;
+  let hintIndex = 0;
+  let gameOver = false;
+
+  const guessInput = document.getElementById("guessInput");
+  const suggestionsBox = document.getElementById("suggestions");
+  const guessBtn = document.getElementById("guessBtn");
+  const hintBtn = document.getElementById("hintBtn");
+  const giveUpBtn = document.getElementById("giveUpBtn");
+  const hintBox = document.getElementById("hintBox");
+  const resultsBody = document.getElementById("resultsBody");
+  const guessCountEl = document.getElementById("guessCount");
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDinoName = document.getElementById("modalDinoName");
+  const modalDinoSub = document.getElementById("modalDinoSub");
+  const modalMsg = document.getElementById("modalMsg");
+  const wikiLink = document.getElementById("wikiLink");
+  const playAgainBtn = document.getElementById("playAgainBtn");
+  const modalCloseBtn = document.getElementById("modalCloseBtn");
+  const headerSubtext = document.getElementById("headerSubtext");
+
+  const modeDino = document.getElementById("modeDino");
+  const modePtero = document.getElementById("modePtero");
+  const modeMarine = document.getElementById("modeMarine");
+
+  function startGame(){
+    target = currentDb[Math.floor(Math.random() * currentDb.length)];
+    guessCount = 0;
+    hintIndex = 0;
+    gameOver = false;
+    guessInput.value = "";
+    guessInput.disabled = false;
+    guessBtn.disabled = false;
+    hintBtn.disabled = false;
+    giveUpBtn.disabled = false;
+    hintBtn.textContent = "Hint";
+    hintBox.style.display = "none";
+    hintBox.textContent = "";
+    guessCountEl.textContent = "Guesses: 0";
+    resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess above to begin excavating clues.</td></tr>';
+    modalOverlay.classList.remove("show");
+    suggestionsBox.style.display = "none";
+  }
+
+  /* ---------------- MODE TABS ---------------- */
+  function switchMode(db, activeBtn, subtext, bgFile) {
+    if(currentDb === db) return;
+    currentDb = db;
+    [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
+    activeBtn.classList.add("active");
+    headerSubtext.textContent = subtext;
+    document.documentElement.style.setProperty('--bg-image', `url("${bgFile}")`);
+    if (db === DINOSAURS) document.body.className = "theme-dino";
+    else if (db === PTEROSAURS) document.body.className = "theme-ptero";
+    else if (db === MARINEREPTILES) document.body.className = "theme-marine";
+    startGame();
+  }
+
+  modeDino.addEventListener("click", () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", "images/dinoguessrbackground.jpg"));
+  modePtero.addEventListener("click", () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg"));
+  modeMarine.addEventListener("click", () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg"));
+
+  /* ---------------- AUTOCOMPLETE ---------------- */
+      guessInput.addEventListener("input", () => {
+    const val = guessInput.value.trim().toLowerCase();
+    suggestionsBox.innerHTML = "";
+    if(!val || gameOver){
+      suggestionsBox.style.display = "none";
+      return;
+    }
+    
+    // FIX: Lowercase both the database name and the typed value, then use .startsWith()
+    const matches = currentDb.filter(d => d.name.toLowerCase().startsWith(val)).slice(0, 8);
+    
+    if(matches.length === 0){
+      suggestionsBox.style.display = "none";
+      return;
+    }
+    matches.forEach(d => {
+      const div = document.createElement("div");
+      div.textContent = d.name;
+      div.addEventListener("click", () => {
+        guessInput.value = d.name;
+        suggestionsBox.style.display = "none";
+        guessInput.focus();
+      });
+      suggestionsBox.appendChild(div);
+    });
+    suggestionsBox.style.display = "block";
+  });
+
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest(".input-container")){
+      suggestionsBox.style.display = "none";
+    }
+  });
+
+  guessInput.addEventListener("keydown", (e) => {
+    if(e.key === "Enter"){
+      e.preventDefault();
+      suggestionsBox.style.display = "none";
+      submitGuess();
+    }
+  });
+
+  guessBtn.addEventListener("click", submitGuess);
+
+  /* ---------------- GUESS SUBMISSION ---------------- */
+  function submitGuess(){
+    if(gameOver) return;
+    const raw = guessInput.value.trim();
+    if(!raw) return;
+
+    const guessed = currentDb.find(d => d.name.toLowerCase() === raw.toLowerCase());
+    if(!guessed){
+      flashInputError();
+      return;
+    }
+
+    guessCount++;
+    guessCountEl.textContent = "Guesses: " + guessCount;
+    renderRow(guessed);
+    guessInput.value = "";
+
+    if(guessed.name.toLowerCase() === target.name.toLowerCase()){
+      endGame(true);
+    }
+  }
+
+  function flashInputError(){
+    guessInput.style.borderColor = "var(--red)";
+    guessInput.placeholder = "Specimen not found — check spelling";
+    setTimeout(() => {
+      guessInput.style.borderColor = "var(--stone)";
+      guessInput.placeholder = "Type a name...";
+    }, 1200);
+  }
+
+  /* ---------------- ROW RENDERING & COMPARISON ---------------- */
+  function renderRow(guessed){
+    if(resultsBody.querySelector(".empty-state")){
+      resultsBody.innerHTML = "";
+    }
+
+    const relatedFamilies = [
+      ["Muttaburrasaurinae", "Iguanodontian", "Rhabdodontomorph"],
+      ["Hadrosaurid", "Iguanodontian"],
+      ["Hadrosaurid", "Hadrosauromorph"],
+      ["Dilophosaurid", "Neotheropoda", "Allosaurid", "Tetanuran"],
+      ["Hypsilophodontid", "Ornithopoda"],
+      ["Megalosaurid", "Abelisaurid", "Tetanuran"],
+      ["Ceratopsid", "Marginocephalian"],
+      ["Pachycephalosaurid", "Pachycephalosaurian"],
+      ["Tyrannosaurid", "Tyrannosauroid", "Coelurosauria"],
+      ["Scansoriopterygid", "Maniraptoran"],
+      ["Spinosaurid", "Megalosaurid"],
+      ["Diplodocoid", "Titanosaur", "Brachiosaurid", "Eusauropoda"],
+      ["Diplodocoid", "Dicraeosaurid"],
+      ["Sauropod", "Sauropodomorph"],
+      ["Titanosaur", "Titanosauriform"],
+      ["Massopoda", "Plateosaurid"],
+      ["Unaysaurid", "Plateosaurid"],
+      ["Paravian", "Avialan"],
+      ["Paravian", "Dromaeosaurid"],
+      ["Neovenatorid", "Allosaurid", "Metriacanthosaurid", "Carcharodontosaurid"],      
+      ["Oviraptosaur", "Oviraptorid"],
+      ["Sauropod", "Sauropodomorph"],
+      ["Psittacosaurid", "Ceratopsid"],
+      ["Neoceratopsian", "Ceratopsid"],
+      ["Iguanodontid", "Hadrosaurid", "Styracosterna"],
+      ["Stegosaurid", "Huayangosaurid"],
+      ["Sauropoda", "Neosauropoda", "Macronaria"],
+      ["Therizinosaurid", "Maniraptoran", "Coelurosauria"],
+      ["Oviraptorid", "Oviraptorosauria", "Maniraptoran"],
+      ["Troodontid", "Maniraptoran", "Coelurosauria"],
+      ["Ornithomimid", "Ornithomimosauria", "Deinocheirid"],
+      ["Abelisaurid", "Ceratosaurid", "Theropoda"],
+      ["Dreadnoughtus", "Titanosaur", "Sauropoda"],
+      ["Brachiosaurid", "Sauropoda", "Macronaria"]
+  ];
+
+  const isCloseSubgroupMatch = (sub1, sub2) => {
+      if (!sub1 || !sub2) return false;
+      return relatedFamilies.some(cluster => 
+        cluster.some(item => item.toLowerCase() === sub1.toLowerCase()) && 
+        cluster.some(item => item.toLowerCase() === sub2.toLowerCase())
+      );
+    };
+
+
+
+    const row = document.createElement("tr");
+
+    // NAME
+    const nameCell = makeCell(guessed.name, guessed.name.toLowerCase() === target.name.toLowerCase());
+    nameCell.classList.add("name-cell");
+    row.appendChild(nameCell);
+
+    // FIRST LETTER
+    const guessLetter = guessed.name[0].toUpperCase();
+    const targetLetter = target.name[0].toUpperCase();
+    row.appendChild(makeCell(guessLetter, guessLetter === targetLetter));
+
+    // PERIOD (Era match is now exact)
+    row.appendChild(makeCell(guessed.period, guessed.period === target.period));
+
+    // DIET
+    row.appendChild(makeCell(guessed.diet, guessed.diet === target.diet));
+
+    // CONTINENT
+    row.appendChild(makeCell(guessed.continent, guessed.continent === target.continent));
+
+    // CLADE
+    row.appendChild(makeCell(guessed.group, guessed.group === target.group));
+
+    // FAMILY
+    const familyCell = document.createElement("td");
+    familyCell.textContent = guessed.subgroup;
+
+    if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
+      familyCell.classList.add("cell-correct"); // Green for exact match
+    } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
+      familyCell.classList.add("cell-close");   // Yellow for nearby/contested cladistics!
+    } else {
+      familyCell.classList.add("cell-wrong");   // Red for completely unrelated clades (like Ceratopsian)
+    }
+    row.appendChild(familyCell);
+
+    // LENGTH (with directional arrow)
+    row.appendChild(makeLengthCell(guessed.length));
+
+    resultsBody.appendChild(row);
+  }
+
+  function makeCell(text, isMatch){
+    const td = document.createElement("td");
+    td.textContent = text;
+    td.classList.add(isMatch ? "cell-correct" : "cell-wrong");
+    return td;
+  }
+
+  function makeLengthCell(guessLength){
+    const td = document.createElement("td");
+    const diff = target.length - guessLength;
+    if(Math.abs(diff) < 0.5){
+      td.textContent = guessLength + "m";
+      td.classList.add("cell-correct");
+    } else {
+      td.textContent = guessLength + "m";
+      td.classList.add("cell-wrong");
+      const arrow = document.createElement("span");
+      arrow.classList.add("arrow");
+      arrow.textContent = diff > 0 ? "↑" : "↓";
+      td.appendChild(arrow);
+    }
+    return td;
+  }
+
+  /* ---------------- HINT ---------------- */
+  hintBtn.addEventListener("click", () => {
+    if(gameOver) return;
+    if(hintIndex >= target.hints.length){
+      hintBtn.disabled = true;
+      return;
+    }
+    hintBox.style.display = "block";
+    hintBox.textContent = "Clue " + (hintIndex + 1) + ": " + target.hints[hintIndex];
+    hintIndex++;
+    if(hintIndex >= target.hints.length){
+      hintBtn.disabled = true;
+      hintBtn.textContent = "No More Hints";
+    }
+  });
+
+/* ---------------- GIVE UP ---------------- */
+  giveUpBtn.addEventListener("click", () => {
+    if (gameOver) return;
+    
+    const confirmGiveUp = confirm("Are you sure you want to give up? This will break your current win streak!");
+    if (confirmGiveUp) {
+      endGame(false);
+    }
+  });
+
+  /* ---------------- STAT TRACKING SETTINGS ---------------- */
+  const statsDisplay = document.getElementById("statsDisplay");
+  const playAgainMain = document.getElementById("playAgainMain");
+
+  // Get existing stats or initialize default ones
+  function getStats() {
+    const saved = localStorage.getItem("dinoguessr_stats");
+    return saved ? JSON.parse(saved) : {
+      gamesPlayed: 0,
+      gamesWon: 0,
+      currentStreak: 0,
+      maxStreak: 0,
+      guessDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 }
+    };
+  }
+
+  // Refreshes the numbers shown on the home page layout
+  function renderStatsOnHomePage() {
+    const stats = getStats();
+    statsDisplay.textContent = `Win Streak: ${stats.currentStreak} | Max Streak: ${stats.maxStreak} | Matches Won: ${stats.gamesWon}/${stats.gamesPlayed}`;
+  }
+
+  function updateStats(won, finalGuesses) {
+    let stats = getStats();
+    stats.gamesPlayed++;
+
+    if (won) {
+      stats.gamesWon++;
+      stats.currentStreak++;
+      if (stats.currentStreak > stats.maxStreak) {
+        stats.maxStreak = stats.currentStreak;
+      }
+      if (finalGuesses >= 1 && finalGuesses <= 5) {
+        stats.guessDistribution[finalGuesses]++;
+      } else {
+        stats.guessDistribution["6+"]++;
+      }
+    } else {
+      stats.currentStreak = 0; // Reset streak on giving up or losing
+    }
+
+    localStorage.setItem("dinoguessr_stats", JSON.stringify(stats));
+    renderStatsOnHomePage();
+    return stats;
+  }
+
+  /* ---------------- END GAME / MODAL ---------------- */
+  function endGame(won){
+    gameOver = true;
+    guessInput.disabled = true;
+    guessBtn.disabled = true;
+    hintBtn.disabled = true;
+    giveUpBtn.style.display = "none";
+    playAgainMain.style.display = "block";
+
+    updateStats(won, guessCount);
+
+    // 1. Reset any old special styling from previous games
+    const modalElement = document.querySelector(".modal");
+    modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
+
+    modalDinoName.textContent = target.name;
+    modalDinoSub.textContent = `${target.period} · ${target.diet} · ${target.group} (${target.subgroup})`;
+
+    // 2. Check for our special easter-egg specimens
+    if (won && target.name.toLowerCase().includes("yutyrannus")) {
+      modalElement.classList.add("special-yutyrannus");
+      modalTitle.textContent = "YOOOO THATS SO NICHE";
+      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses! You braved the cold environments of Liaoning to uncover this rare find.`;
+      
+    } else if (won && target.name.toLowerCase().includes("oxalaia")) {
+      modalElement.classList.add("special-oxalaia");
+      modalTitle.textContent = "you're not niche bud.";
+      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses! The ghost of the coastal mangrove swamps has been identified.`;
+      
+    } else {
+      // Standard layout for all other entries
+      modalTitle.textContent = won ? "SPECIMEN IDENTIFIED!" : "SPECIMEN REVEALED";
+      modalTitle.style.color = won ? "var(--green)" : "var(--red)";
+      modalMsg.textContent = won
+        ? `Excellent work! You identified it in ${guessCount} guess${guessCount === 1 ? "" : "es"}.`
+        : `The correct specimen was ${target.name}. Better luck on the next dig!`;
+    }
+
+    const wikiSlug = target.wiki.replace(/ /g, "_");
+    wikiLink.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(wikiSlug);
+
+    modalOverlay.classList.add("show");
+  }
+  modalCloseBtn.addEventListener("click", () => {
+    modalOverlay.classList.remove("show");
+    const rows = resultsBody.querySelectorAll("tr");
+    let discovered = false;
+    rows.forEach(r => {
+      if (r.cells[0] && r.cells[0].textContent.toLowerCase() === target.name.toLowerCase()) {
+        discovered = true;
+      }
+    });
+    if(!discovered) {
+      renderRow(target);
+    }
+  });
+
+  // Wire up both Play Again buttons (the one in the pop-up modal and the one on the home screen)
+  playAgainBtn.addEventListener("click", resetToNewRound);
+  playAgainMain.addEventListener("click", resetToNewRound);
+
+  function resetToNewRound() {
+    // Restore button layouts for the active round
+    giveUpBtn.style.display = "block";
+    playAgainMain.style.display = "none";
+    startGame();
+  }
+
+  /* ---------------- INIT ---------------- */
+  hintBtn.textContent = "Hint";
+  renderStatsOnHomePage(); // Display saved stats right away when the player first visits
+  startGame();
+
+  // Prevent desktop browser zooming via keyboard and mouse wheel
+  window.addEventListener('keydown', function (e) {
+      if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
+          e.preventDefault();
+      }
+  }, { passive: false });
+
+  window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) {
+          e.preventDefault();
+      }
+  }, { passive: false });
+</script>
+</body>
+</html>
