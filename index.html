@@ -7,23 +7,7 @@
   
   <link rel="stylesheet" href="styles.css">
   <style>
-.slideshow-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
-  opacity: 0;
-  transition: opacity 1.5s ease-in-out;
-}
-
-.slideshow-bg.active {
-  opacity: 0.35;
-}
-    
+  /* Special theme overrides for the ending modal */
 .modal.special-yutyrannus {
   background: #e6f2ff !important;
   border-color: #4a90e2 !important;
@@ -55,12 +39,30 @@
   border: 1px dashed #e74c3c !important;
   text-align: center;
 }
+/* Dynamic Crossfade Background Slideshow Styles */
+.slideshow-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out; /* Regulates crossfade speed */
+}
+
+.slideshow-bg.active {
+  opacity: 0.35; /* Dims backgrounds so white text is highly readable */
+}
 </style>
 </head>
 <body class="theme-dino">
+  
   <div id="bg-layer-1" class="slideshow-bg active"></div>
   <div id="bg-layer-2" class="slideshow-bg"></div>
-  
+
 <div class="wrap">
 
   <header>
@@ -250,7 +252,7 @@
     suggestionsBox.style.display = "none";
   }
 
- /* ---------------- MODE TABS ---------------- */
+  /* ---------------- MODE TABS ---------------- */
   function switchMode(db, activeBtn, subtext) {
     if(currentDb === db) return;
     currentDb = db;
@@ -270,11 +272,12 @@
     }
     startGame();
   }
-
+  
   modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!");
   modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!");
   modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!");
-  
+
+
  let hiddenColumnIndex = -1;
 
   const subModeEndless = document.getElementById("subModeEndless");
@@ -823,6 +826,7 @@
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+    // Format with leading zeros (e.g., 05h 09m 02s)
     const hStr = hours.toString().padStart(2, '0');
     const mStr = minutes.toString().padStart(2, '0');
     const sStr = seconds.toString().padStart(2, '0');
@@ -907,8 +911,9 @@
     currentCategoryKey = categoryKey;
     currentImageIndex = 0;
     
-    changeBackground(true);
+    changeBackground(true); // Loads original wallpaper frame instantly
 
+    // Cycles backdrops automatically every 7 seconds
     slideshowInterval = setInterval(() => {
       changeBackground(false);
     }, 7000);
