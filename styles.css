@@ -57,6 +57,11 @@ body.theme-marine {
 
 *{box-sizing:border-box;}
 
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body{
   margin:0;
   background-color: #1a1613;
@@ -69,7 +74,7 @@ body{
   min-height:100vh;
   display:flex;
   justify-content:center;
-  padding: 20px 12px 60px;
+  padding:  12px 12px 30px;   /* was 20px 12px 60px */
 }
 .wrap{
   width:100%;
@@ -80,8 +85,8 @@ body{
 
 header{
   text-align:center;
-  margin-bottom: 22px;
-  padding-bottom: 16px;
+  margin-bottom: 12px;   /* was 22px */
+  padding-bottom: 10px;  /* was 16px */
   border-bottom: 2px solid var(--accent-dark);
 }
 
@@ -108,7 +113,7 @@ header p{
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 8px;   /* was 15px */
 }
 .mode-btn {
   background: var(--charcoal-light);
@@ -128,8 +133,8 @@ header p{
   border: 1px solid #55493a;
   border-radius: 10px;
   box-shadow: var(--shadow);
-  padding: 18px;
-  margin-bottom: 18px;
+  padding: 14px;         /* was 18px */
+  margin-bottom: 12px;   /* was 18px */
 }
 
 .guess-row{
@@ -447,7 +452,7 @@ footer{
   text-align:center;
   color: var(--stone);
   font-size: 0.75rem;
-  margin-top: 20px;
+  margin-top: 10px;   /* was 20px */
   letter-spacing: 0.5px;
 }
 
