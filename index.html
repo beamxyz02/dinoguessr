@@ -42,10 +42,15 @@
     <p id="headerSubtext">Identify the dinosaur!</p>
   </header>
 
-  <div class="mode-selector">
+<div class="mode-selector">
     <button class="mode-btn active" id="modeDino">Dinosaurs</button>
     <button class="mode-btn" id="modePtero">Pterosaurs</button>
     <button class="mode-btn" id="modeMarine">Marine Reptiles</button>
+  </div>
+
+  <div class="mode-selector" style="margin-top: -10px; margin-bottom: 15px; gap: 8px;">
+    <button class="mode-btn active" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
+    <button class="mode-btn" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
   </div>
 
   <div class="panel">
@@ -135,6 +140,7 @@
   let guessCount = 0;
   let hintIndex = 0;
   let gameOver = false;
+  let isDailymode = false
 
   let isDailyMode = false; 
   let currentGridEmojis = "";
@@ -215,6 +221,24 @@ if (typeof isDailyMode !== 'undefined' && isDailyMode) {
   modePtero.addEventListener("click", () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg"));
   modeMarine.addEventListener("click", () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg"));
 
+  const subModeEndless = document.getElementById("subModeEndless");
+  const subModeDaily = document.getElementById("subModeDaily");
+
+  subModeEndless.addEventListener("click", () => {
+    if(!isDailyMode) return;
+    isDailyMode = false;
+    subModeDaily.classList.remove("active");
+    subModeEndless.classList.add("active");
+    startGame();
+  });
+
+  subModeDaily.addEventListener("click", () => {
+    if(isDailyMode) return;
+    isDailyMode = true;
+    subModeEndless.classList.remove("active");
+    subModeDaily.classList.add("active");
+    startGame();
+  });
   /* ---------------- AUTOCOMPLETE ---------------- */
       guessInput.addEventListener("input", () => {
     const val = guessInput.value.trim().toLowerCase();
@@ -417,6 +441,10 @@ if (typeof isDailyMode !== 'undefined' && isDailyMode) {
   /* ---------------- HINT ---------------- */
   hintBtn.addEventListener("click", () => {
     if(gameOver) return;
+    if (typeof isDailyMode !== 'undefined' && isDailyMode) {
+      alert("Hints are disabled for the Daily! You must figure this one out on your own...");
+      return;
+    }
     if(hintIndex >= target.hints.length){
       hintBtn.disabled = true;
       return;
@@ -580,8 +608,8 @@ if (typeof isDailyMode !== 'undefined' && isDailyMode) {
     shareBtn.style.display = "block";
     shareBtn.onclick = () => {
       const scoreLabel = won ? guessCount : "X";
-      const shareText = `DINOGUESSR\nSpecimen: ${target.name}\nGuesses: ${scoreLabel}/6\n\n${gridEmojis}`;
-      
+      const modeLabel = isDailyMode ? "Daily" : "Endless";
+      const shareText = `DINOGUESSR — ${modeLabel}\nSpecimen: ${target.name}\nGuesses: ${scoreLabel}/6\n\n${gridEmojis}`;      
       navigator.clipboard.writeText(shareText).then(() => {
         shareStatus.style.display = "block";
         setTimeout(() => { shareStatus.style.display = "none"; }, 2500);
