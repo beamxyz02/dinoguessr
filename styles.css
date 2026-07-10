@@ -56,7 +56,6 @@ body.theme-marine {
 }
 
 *{box-sizing:border-box;}
-body { background-color: red !important; }
 
 html, body {
   height: 100%;
@@ -134,8 +133,8 @@ header p{
   border: 1px solid #55493a;
   border-radius: 10px;
   box-shadow: var(--shadow);
-  padding: 14px;         /* was 18px */
-  margin-bottom: 12px;   /* was 18px */
+  padding: 2px !important;         /* was 18px */
+  margin-bottom: 2px !important;   /* was 18px */
 }
 
 .guess-row{
