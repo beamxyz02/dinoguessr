@@ -39,20 +39,6 @@
   border: 1px dashed #e74c3c !important;
   text-align: center;
 }
-.bg-layer {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 2.5s ease-in-out;
-}
-.bg-layer.visible {
-  opacity: 0.3;
-}
 </style>
 </head>
 <body class="theme-dino">
@@ -188,12 +174,15 @@ function cycleBackground() {
   bgIndex = (bgIndex + 1) % bgImages.length;
   bgInactiveLayer.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
 
-  // trigger the crossfade
   bgInactiveLayer.classList.add("visible");
   bgActiveLayer.classList.remove("visible");
-
-  // swap which layer is "active" for next cycle
   [bgActiveLayer, bgInactiveLayer] = [bgInactiveLayer, bgActiveLayer];
+}
+  function preloadImages(urls) {
+  urls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
 }
   /* ---------------- GAME STATE ---------------- */
   let currentDb = DINOSAURS;
@@ -811,6 +800,11 @@ modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the 
     subModeDaily.classList.add("active");
   }
   renderStatsOnHomePage(); 
+
+  preloadImages(DINO_BG_IMAGES); 
+  preloadImages(PTERO_BG_IMAGES);
+  preloadImages(MARINE_BG_IMAGES);
+  
   initBackgroundSlideshow(DINO_BG_IMAGES);
   startGame();
 
