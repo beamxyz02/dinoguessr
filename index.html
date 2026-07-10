@@ -31,6 +31,14 @@
 .modal.special-oxalaia .modal-close {
   color: #e2f7eb !important;
 }
+
+.blind-box {
+  background-color: #2c3e50 !important;
+  color: #e74c3c !important;
+  font-weight: bold;
+  border: 1px dashed #e74c3c !important;
+  text-align: center;
+}
 </style>
 </head>
 <body class="theme-dino">
@@ -49,11 +57,11 @@
   </div>
 
   <div class="mode-selector" style="margin-top: -10px; margin-bottom: 15px; gap: 8px;">
-    <button class="mode-btn" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
-    <button class="mode-btn active" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
-
+    <button class="mode-btn active" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
+    <button class="mode-btn" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
+    <button class="mode-btn" id="subModeHardcore" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #e74c3c;">Challenge</button>
   </div>
-
+  
   <div class="panel">
     <div class="guess-row">
       <div class="input-container">
@@ -236,24 +244,41 @@
   modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg");
   modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg");
   
+ let hiddenColumnIndex = -1;
+
   const subModeEndless = document.getElementById("subModeEndless");
   const subModeDaily = document.getElementById("subModeDaily");
+  const subModeHardcore = document.getElementById("subModeHardcore");
 
   subModeEndless.onclick = () => {
+    hiddenColumnIndex = -1;
     if(!isDailyMode) return;
     isDailyMode = false;
     subModeDaily.classList.remove("active");
+    subModeHardcore.classList.remove("active");
     subModeEndless.classList.add("active");
     startGame();
   };
 
   subModeDaily.onclick = () => {
+    hiddenColumnIndex = -1;
     if(isDailyMode) return;
     isDailyMode = true;
     subModeEndless.classList.remove("active");
+    subModeHardcore.classList.remove("active");
     subModeDaily.classList.add("active");
     startGame();
   };
+
+  subModeHardcore.onclick = () => {
+    isDailyMode = false;
+    subModeDaily.classList.remove("active");
+    subModeEndless.classList.remove("active");
+    subModeHardcore.classList.add("active");
+    hiddenColumnIndex = Math.floor(Math.random() * 6) + 1; 
+    startGame();
+  };
+
   /* ---------------- AUTOCOMPLETE ---------------- */
       guessInput.addEventListener("input", () => {
     const val = guessInput.value.trim().toLowerCase();
@@ -289,7 +314,6 @@
     }
   });
 
-// --- PLACE THIS INSIDE THE AUTOCOMPLETE SECTION ---
   guessInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -398,36 +422,74 @@
     const targetLetter = target.name[0].toUpperCase();
     row.appendChild(makeCell(guessLetter, guessLetter === targetLetter));
 
-    // PERIOD
-    row.appendChild(makeCell(guessed.period, guessed.period === target.period));
-
-    // DIET
-    row.appendChild(makeCell(guessed.diet, guessed.diet === target.diet));
-
-    // CONTINENT
-    row.appendChild(makeCell(guessed.continent, guessed.continent === target.continent));
-
-    // CLADE
-    row.appendChild(makeCell(guessed.group, guessed.group === target.group));
-
-    // FAMILY
-    const familyCell = document.createElement("td");
-    familyCell.textContent = guessed.subgroup;
-
-    if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
-      familyCell.classList.add("cell-correct"); // Green for exact match
-    } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
-      familyCell.classList.add("cell-close");   // Yellow for nearby/contested cladistics
+// PERIOD (Column 1)
+    if (hiddenColumnIndex === 1) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
     } else {
-      familyCell.classList.add("cell-wrong");   // Red for completely unrelated clades
+      row.appendChild(makeCell(guessed.period, guessed.period === target.period));
     }
-    row.appendChild(familyCell);
 
-    // LENGTH
-    row.appendChild(makeLengthCell(guessed.length));
+    // DIET (Column 2)
+    if (hiddenColumnIndex === 2) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.diet, guessed.diet === target.diet));
+    }
 
-    resultsBody.appendChild(row);
-  }
+    // CONTINENT (Column 3)
+    if (hiddenColumnIndex === 3) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.continent, guessed.continent === target.continent));
+    }
+
+    // CLADE (Column 4)
+    if (hiddenColumnIndex === 4) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.group, guessed.group === target.group));
+    }
+
+    // FAMILY (Column 5)
+    if (hiddenColumnIndex === 5) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      const familyCell = document.createElement("td");
+      familyCell.textContent = guessed.subgroup;
+      if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
+        familyCell.classList.add("cell-correct");
+      } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
+        familyCell.classList.add("cell-close");
+      } else {
+        familyCell.classList.add("cell-wrong");
+      }
+      row.appendChild(familyCell);
+    }
+
+    // LENGTH (Column 6)
+    if (hiddenColumnIndex === 6) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeLengthCell(guessed.length));
+    }
 
   function makeCell(text, isMatch){
     const td = document.createElement("td");
