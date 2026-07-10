@@ -98,7 +98,7 @@
     </div>
     <div class="legend">
       <span><span class="swatch sw-green"></span> Exact match</span>
-      <span><span class="swatch sw-yellow"></span> Close / directional</span>
+      <span><span class="swatch sw-yellow"></span> Related Clade/Clade Uncertain</span>
       <span><span class="swatch sw-red"></span> No match</span>
     </div>
   </div>
@@ -170,26 +170,52 @@
   const modePtero = document.getElementById("modePtero");
   const modeMarine = document.getElementById("modeMarine");
 
+  modeDino.addEventListener("click", () => {
+  currentDb = DINOSAURS;
+  setActiveMode(modeDino);
+  startGame();
+});
+
+modePtero.addEventListener("click", () => {
+  currentDb = PTEROSAURS;
+  setActiveMode(modePtero);
+  startGame();
+});
+
+modeMarine.addEventListener("click", () => {
+  currentDb = MARINE_REPTILES;
+  setActiveMode(modeMarine);
+  startGame();
+});
+  
 function startGame(){
     if (typeof isDailyMode !== 'undefined' && isDailyMode) {
       const dailyIndex = getDailySeedIndex(currentDb.length);
       target = currentDb[dailyIndex];
       
-      const lastPlayedDate = localStorage.getItem("dinoLastDailyDate");
+      let modeKey = "dino";
+      let categoryName = "Dinosaurs";
+      if (currentDb === PTEROSAURS) { modeKey = "ptero"; categoryName = "Pterosaurs"; }
+      if (currentDb === MARINE_REPTILES) { modeKey = "marine"; categoryName = "Marine Reptiles"; }
+      
+      const lastPlayedDate = localStorage.getItem(`lastDailyDate_${modeKey}`);
       const todayStr = new Date().toDateString();
+      
       if (lastPlayedDate === todayStr) {
-        alert("You already completed today's Daily Challenge! Reverting to Endless Mode.");
+        alert(`You already completed today's Daily ${categoryName} Challenge! Reverting to Endless Mode.`);
         isDailyMode = false;
         
         if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
           subModeDaily.classList.remove("active");
           subModeEndless.classList.add("active");
         }
+        
         target = currentDb[Math.floor(Math.random() * currentDb.length)];
       }
     } else {
       target = currentDb[Math.floor(Math.random() * currentDb.length)];
     }
+
     guessCount = 0;
     hintIndex = 0;
     gameOver = false;
@@ -483,7 +509,12 @@ function startGame(){
   }
   function lockDailyChallenge() {
     if (isDailyMode) {
-      localStorage.setItem("dinoLastDailyDate", new Date().toDateString());
+      // Create a unique key name depending on which mode is selected
+      let modeKey = "dino";
+      if (currentDb === PTEROSAURS) modeKey = "ptero";
+      if (currentDb === MARINE_REPTILES) modeKey = "marine";
+      
+      localStorage.setItem(`lastDailyDate_${modeKey}`, new Date().toDateString());
     }
   }
   
