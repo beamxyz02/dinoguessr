@@ -121,8 +121,11 @@
 
     <div style="margin-top: 15px;">
       <button id="shareBtn" class="action-btn" style="background: var(--green); color: #000; font-weight: bold; width: 100%; margin-bottom: 8px; display: none;">
-        Share Results 📋
+        Share Results
       </button>
+      <div id="dailyCountdownContainer" style="margin-top: 15px; font-size: 0.9rem; color: #888; display: none;">
+      Next Daily Specimen in: <span id="dailyCountdownTimer" style="font-weight: bold; color: var(--accent-color, #2ecc71);">00h 00m 00s</span>
+      </div>
       <div id="shareStatus" style="font-size: 11px; color: var(--green); margin-bottom: 10px; display: none;">Results copied to clipboard!</div>
     </div>
     <button id="playAgainBtn">Play Again</button>
@@ -636,11 +639,24 @@
     wikiLink.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(wikiSlug);
 
     modalOverlay.classList.add("show");
-
+    
+  const countdownContainer = document.getElementById("dailyCountdownContainer");
+    if (countdownContainer) {
+      if (isDailyMode) {
+        countdownContainer.style.display = "block";
+        updateCountdown(); // Run instantly
+        clearInterval(countdownInterval);
+        countdownInterval = setInterval(updateCountdown, 1000); // Tick every second
+      } else {
+        countdownContainer.style.display = "none";
+        clearInterval(countdownInterval);
+      }
+    }
    lockDailyChallenge();
   }
   modalCloseBtn.addEventListener("click", () => {
     modalOverlay.classList.remove("show");
+    clearInterval(countdownInterval);
     const rows = resultsBody.querySelectorAll("tr");
     let discovered = false;
     rows.forEach(r => {
@@ -682,6 +698,35 @@
           e.preventDefault();
       }
   }, { passive: false });
+
+  /* ---------------- DAILY COUNTDOWN TIMER ---------------- */
+  let countdownInterval = null;
+
+  function updateCountdown() {
+    const timerSpan = document.getElementById("dailyCountdownTimer");
+    if (!timerSpan) return;
+
+    const now = new Date();
+    // Calculate the exact upcoming midnight timestamp
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const diff = midnight - now;
+
+    if (diff <= 0) {
+      timerSpan.textContent = "00h 00m 00s";
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    // Format with leading zeros (e.g., 05h 09m 02s)
+    const hStr = hours.toString().padStart(2, '0');
+    const mStr = minutes.toString().padStart(2, '0');
+    const sStr = seconds.toString().padStart(2, '0');
+
+    timerSpan.textContent = `${hStr}h ${mStr}m ${sStr}s`;
+  }
 </script>
 </body>
 </html>
