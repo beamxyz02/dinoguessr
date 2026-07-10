@@ -7,7 +7,23 @@
   
   <link rel="stylesheet" href="styles.css">
   <style>
-  /* Special theme overrides for the ending modal */
+.slideshow-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.slideshow-bg.active {
+  opacity: 0.35;
+}
+    
 .modal.special-yutyrannus {
   background: #e6f2ff !important;
   border-color: #4a90e2 !important;
@@ -42,7 +58,9 @@
 </style>
 </head>
 <body class="theme-dino">
-
+  <div id="bg-layer-1" class="slideshow-bg active"></div>
+  <div id="bg-layer-2" class="slideshow-bg"></div>
+  
 <div class="wrap">
 
   <header>
@@ -233,22 +251,28 @@
   }
 
   /* ---------------- MODE TABS ---------------- */
-  function switchMode(db, activeBtn, subtext, bgFile) {
+  function switchMode(db, activeBtn, subtext,) {
     if(currentDb === db) return;
     currentDb = db;
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
-    document.documentElement.style.setProperty('--bg-image', `url("${bgFile}")`);
     
-    if (db === DINOSAURS) document.body.className = "theme-dino";
-    else if (db === PTEROSAURS) document.body.className = "theme-ptero";
-    else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
+    if (db === DINOSAURS) {
+      document.body.className = "theme-dino";
+      startSlideshow("dino");
+    } else if (db === PTEROSAURS) {
+      document.body.className = "theme-ptero";
+      startSlideshow("ptero");
+    } else if (db === MARINEREPTILES) {
+      document.body.className = "theme-marine";
+      startSlideshow("marine");
+    }
     startGame();
   }
-  modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", "images/dinoguessrbackground.jpg");
-  modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg");
-  modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg");
+  modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!");
+  modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!");
+  modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!");
   
  let hiddenColumnIndex = -1;
 
@@ -761,6 +785,7 @@
     subModeEndless.classList.remove("active");
     subModeDaily.classList.add("active");
   }
+  startSlideshow("dino");
   renderStatsOnHomePage(); 
   startGame();
 
@@ -803,6 +828,93 @@
     const sStr = seconds.toString().padStart(2, '0');
 
     timerSpan.textContent = `${hStr}h ${mStr}m ${sStr}s`;
+  }
+
+/* ---------------- CATEGORY SLIDESHOW ENGINE ---------------- */
+  const categoryImages = {
+    dino: [
+      "images/dinoguessrbackground.jpg",
+      "images/dino2.jpg",
+      "images/dino3.jpg"
+      "images/dino4.jpg"
+      "images/dino5.jpg"
+      "images/dino6.jpg"
+      "images/dino7.jpg"
+      "images/dino8.jpg"
+      "images/dino9.jpg"
+      "images/dino10.jpg"
+      "images/dino11.jpg"
+      "images/dino12.jpg"
+      "images/dino13.jpg"
+      "images/dino14.jpg"
+      "images/dino15.jpg"
+      "images/dino16.jpg"
+      "images/dino17.jpg"
+      "images/dino18.jpg"
+      "images/dino19.jpg"
+      "images/dino20.jpg"
+      "images/dino21.jpg"
+      "images/dino22.jpg"
+      "images/dino23.jpg"
+      "images/dino24.jpg"
+      "images/dino25.jpg"
+      "images/dino26.jpg"
+    ],
+    ptero: [
+      "images/pteroguessrbackground.jpg",
+      "images/ptero2.jpg"
+    ],
+    marine: [
+      "images/marineguessr.jpg",
+      "images/marine2.jpg"
+    ]
+  };
+
+  let slideshowInterval = null;
+  let currentImageIndex = 0;
+  let currentCategoryKey = "dino";
+  let useLayer1 = true;
+
+  function changeBackground(instant = false) {
+    const images = categoryImages[currentCategoryKey];
+    if (!images || images.length === 0) return;
+
+    const layer1 = document.getElementById("bg-layer-1");
+    const layer2 = document.getElementById("bg-layer-2");
+    const nextImg = images[currentImageIndex];
+
+    if (instant) {
+      layer1.style.backgroundImage = `url("${nextImg}")`;
+      layer2.style.backgroundImage = `url("${nextImg}")`;
+      layer1.classList.add("active");
+      layer2.classList.remove("active");
+      useLayer1 = true;
+    } else {
+      if (useLayer1) {
+        layer2.style.backgroundImage = `url("${nextImg}")`;
+        layer1.classList.remove("active");
+        layer2.classList.add("active");
+      } else {
+        layer1.style.backgroundImage = `url("${nextImg}")`;
+        layer2.classList.remove("active");
+        layer1.classList.add("active");
+      }
+      useLayer1 = !useLayer1;
+    }
+
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+  }
+
+  function startSlideshow(categoryKey) {
+    clearInterval(slideshowInterval);
+    currentCategoryKey = categoryKey;
+    currentImageIndex = 0;
+    
+    changeBackground(true);
+
+    slideshowInterval = setInterval(() => {
+      changeBackground(false);
+    }, 7000);
   }
 </script>
 </body>
