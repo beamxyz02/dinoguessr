@@ -169,8 +169,8 @@
   const modeDino = document.getElementById("modeDino");
   const modePtero = document.getElementById("modePtero");
   const modeMarine = document.getElementById("modeMarine");
-  
-function startGame(){
+  /* ---------------- MODE SWITCHING & GAME LOOPS ---------------- */
+  function startGame(){
     if (typeof isDailyMode !== 'undefined' && isDailyMode) {
       const dailyIndex = getDailySeedIndex(currentDb.length);
       target = currentDb[dailyIndex];
@@ -178,7 +178,7 @@ function startGame(){
       let modeKey = "dino";
       let categoryName = "Dinosaurs";
       if (currentDb === PTEROSAURS) { modeKey = "ptero"; categoryName = "Pterosaurs"; }
-      if (currentDb === MARINE_REPTILES) { modeKey = "marine"; categoryName = "Marine Reptiles"; }
+      if (currentDb === MARINEREPTILES) { modeKey = "marine"; categoryName = "Marine Reptiles"; }
       
       const lastPlayedDate = localStorage.getItem(`lastDailyDate_${modeKey}`);
       const todayStr = new Date().toDateString();
@@ -226,31 +226,31 @@ function startGame(){
     
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
-    else if (db === MARINE_REPTILES) document.body.className = "theme-marine";
+    else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
     startGame();
   }
   modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", "images/dinoguessrbackground.jpg");
   modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg");
-  modeMarine.onclick = () => switchMode(MARINE_REPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg");
+  modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg");
   
   const subModeEndless = document.getElementById("subModeEndless");
   const subModeDaily = document.getElementById("subModeDaily");
 
-  subModeEndless.addEventListener("click", () => {
+  subModeEndless.onclick = () => {
     if(!isDailyMode) return;
     isDailyMode = false;
     subModeDaily.classList.remove("active");
     subModeEndless.classList.add("active");
     startGame();
-  });
+  };
 
-  subModeDaily.addEventListener("click", () => {
+  subModeDaily.onclick = () => {
     if(isDailyMode) return;
     isDailyMode = true;
     subModeEndless.classList.remove("active");
     subModeDaily.classList.add("active");
     startGame();
-  });
+  };
   /* ---------------- AUTOCOMPLETE ---------------- */
       guessInput.addEventListener("input", () => {
     const val = guessInput.value.trim().toLowerCase();
@@ -491,10 +491,9 @@ function startGame(){
   }
   function lockDailyChallenge() {
     if (isDailyMode) {
-      // Create a unique key name depending on which mode is selected
       let modeKey = "dino";
       if (currentDb === PTEROSAURS) modeKey = "ptero";
-      if (currentDb === MARINE_REPTILES) modeKey = "marine";
+      if (currentDb === MARINEREPTILES) modeKey = "marine";
       
       localStorage.setItem(`lastDailyDate_${modeKey}`, new Date().toDateString());
     }
