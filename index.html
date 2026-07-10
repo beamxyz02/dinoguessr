@@ -490,6 +490,9 @@
     } else {
       row.appendChild(makeLengthCell(guessed.length));
     }
+    
+    resultsBody.appendChild(row);
+  }
 
   function makeCell(text, isMatch){
     const td = document.createElement("td");
