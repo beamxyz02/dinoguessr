@@ -56,6 +56,7 @@ body.theme-marine {
 }
 
 *{box-sizing:border-box;}
+body { background-color: red !important; }
 
 html, body {
   height: 100%;
