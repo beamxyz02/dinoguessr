@@ -250,8 +250,8 @@
     suggestionsBox.style.display = "none";
   }
 
-  /* ---------------- MODE TABS ---------------- */
-  function switchMode(db, activeBtn, subtext,) {
+ /* ---------------- MODE TABS ---------------- */
+  function switchMode(db, activeBtn, subtext) {
     if(currentDb === db) return;
     currentDb = db;
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
@@ -270,6 +270,7 @@
     }
     startGame();
   }
+
   modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!");
   modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!");
   modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!");
@@ -822,7 +823,6 @@
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Format with leading zeros (e.g., 05h 09m 02s)
     const hStr = hours.toString().padStart(2, '0');
     const mStr = minutes.toString().padStart(2, '0');
     const sStr = seconds.toString().padStart(2, '0');
@@ -834,7 +834,6 @@
   const categoryImages = {
     dino: [
       "dinosaur/dinoguessrbackground.jpg",
-      "dinosaur/dino2.jpg",
       "dinosaur/dino3.jpg",
       "dinosaur/dino4.jpg",
       "dinosaur/dino5.jpg",
@@ -861,12 +860,10 @@
       "dinosaur/dino26.jpg"
     ],
     ptero: [
-      "images/pteroguessrbackground.jpg",
-      "images/ptero2.jpg"
+      "pterosasur/pteroguessrbackground.jpg"
     ],
     marine: [
-      "images/marineguessr.jpg",
-      "images/marine2.jpg"
+      "marine/marineguessr.jpg"
     ]
   };
 
