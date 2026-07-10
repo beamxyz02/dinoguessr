@@ -92,7 +92,7 @@
           </tr>
         </thead>
         <tbody id="resultsBody">
-          <tr><td colspan="8" class="empty-state">Make your first guess above to begin excavating clues.</td></tr>
+          <tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>
         </tbody>
       </table>
     </div>
@@ -169,24 +169,6 @@
   const modeDino = document.getElementById("modeDino");
   const modePtero = document.getElementById("modePtero");
   const modeMarine = document.getElementById("modeMarine");
-
-  modeDino.addEventListener("click", () => {
-  currentDb = DINOSAURS;
-  setActiveMode(modeDino);
-  startGame();
-});
-
-modePtero.addEventListener("click", () => {
-  currentDb = PTEROSAURS;
-  setActiveMode(modePtero);
-  startGame();
-});
-
-modeMarine.addEventListener("click", () => {
-  currentDb = MARINE_REPTILES;
-  setActiveMode(modeMarine);
-  startGame();
-});
   
 function startGame(){
     if (typeof isDailyMode !== 'undefined' && isDailyMode) {
@@ -243,14 +225,13 @@ function startGame(){
     document.documentElement.style.setProperty('--bg-image', `url("${bgFile}")`);
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
-    else if (db === MARINEREPTILES) document.body.className = "theme-marine";
+    else if (db === MARINE_REPTILES) document.body.className = "theme-marine";
     startGame();
   }
-
   modeDino.addEventListener("click", () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", "images/dinoguessrbackground.jpg"));
   modePtero.addEventListener("click", () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg"));
-  modeMarine.addEventListener("click", () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg"));
-
+  modeMarine.addEventListener("click", () => switchMode(MARINE_REPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg"));
+  
   const subModeEndless = document.getElementById("subModeEndless");
   const subModeDaily = document.getElementById("subModeDaily");
 
