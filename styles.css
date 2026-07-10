@@ -89,8 +89,8 @@ body{
 
 header{
   text-align:center;
-  margin-bottom: 12px;   /* was 22px */
-  padding-bottom: 10px;  /* was 16px */
+  margin-bottom: 10px;   /* was 22px */
+  padding-bottom: 8px;  /* was 16px */
   border-bottom: 2px solid var(--accent-dark);
 }
 
@@ -116,8 +116,8 @@ header p{
 .mode-selector {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 8px;   /* was 15px */
+  gap: 8px;
+  margin-bottom: 6px;   /* was 15px */
 }
 .mode-btn {
   background: var(--charcoal-light);
@@ -137,13 +137,13 @@ header p{
   border: 1px solid #55493a;
   border-radius: 10px;
   box-shadow: var(--shadow);
-  padding: 2px !important;         /* was 18px */
-  margin-bottom: 2px !important;   /* was 18px */
+  padding: 14px;         /* was 18px */
+  margin-bottom: 10px;   /* was 18px */
 }
 
 .guess-row{
   display:flex;
-  gap: 10px;
+  gap: 8px;
   position: relative;
   flex-wrap: wrap;
 }
@@ -221,8 +221,8 @@ button:active{ transform: translateY(1px); }
 
 .secondary-actions{
   display:flex;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 8px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 
@@ -256,7 +256,7 @@ button:active{ transform: translateY(1px); }
   text-align:center;
   color: var(--stone-light);
   font-size: 0.85rem;
-  margin-top: 10px;
+  margin-top: 6px;
   letter-spacing: 1px;
 }
 
