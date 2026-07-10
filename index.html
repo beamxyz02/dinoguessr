@@ -223,14 +223,15 @@ function startGame(){
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
     document.documentElement.style.setProperty('--bg-image', `url("${bgFile}")`);
+    
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
     else if (db === MARINE_REPTILES) document.body.className = "theme-marine";
     startGame();
   }
-  modeDino.addEventListener("click", () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", "images/dinoguessrbackground.jpg"));
-  modePtero.addEventListener("click", () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg"));
-  modeMarine.addEventListener("click", () => switchMode(MARINE_REPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg"));
+  modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", "images/dinoguessrbackground.jpg");
+  modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", "images/pteroguessrbackground.jpg");
+  modeMarine.onclick = () => switchMode(MARINE_REPTILES, modeMarine, "Identify the marine reptile!", "images/marineguessr.jpg");
   
   const subModeEndless = document.getElementById("subModeEndless");
   const subModeDaily = document.getElementById("subModeDaily");
@@ -540,7 +541,7 @@ function startGame(){
   }
 
   /* ---------------- END GAME / MODAL ---------------- */
-  function endGame(won){
+ function endGame(won){
     gameOver = true;
     guessInput.disabled = true;
     guessBtn.disabled = true;
@@ -549,8 +550,8 @@ function startGame(){
     playAgainMain.style.display = "block";
 
     updateStats(won, guessCount);
-    lockDailyChallenge();
     const modalElement = document.querySelector(".modal");
+   
     modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
 
     modalDinoName.textContent = target.name;
@@ -636,6 +637,8 @@ function startGame(){
     wikiLink.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(wikiSlug);
 
     modalOverlay.classList.add("show");
+
+   lockDailyChallenge();
   }
   modalCloseBtn.addEventListener("click", () => {
     modalOverlay.classList.remove("show");
