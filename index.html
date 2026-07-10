@@ -527,6 +527,12 @@
   /* ---------------- HINT ---------------- */
   hintBtn.addEventListener("click", () => {
     if(gameOver) return;
+
+    if (hiddenColumnIndex !== -1) {
+      alert("Come on, it's supposed to be a Challenge! Hints disabled.");
+      return;
+    }
+        
     if (typeof isDailyMode !== 'undefined' && isDailyMode) {
       alert("Hints are disabled for the Daily! You must figure this one out on your own...");
       return;
