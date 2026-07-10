@@ -49,8 +49,9 @@
   </div>
 
   <div class="mode-selector" style="margin-top: -10px; margin-bottom: 15px; gap: 8px;">
-    <button class="mode-btn active" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
     <button class="mode-btn" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
+    <button class="mode-btn active" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
+
   </div>
 
   <div class="panel">
@@ -102,7 +103,7 @@
     </div>
   </div>
 
-  <footer>DINOGuessr, made by beamxyz. All Rights Reserved by siscon.fun.</footer>
+  <footer>DinoGuessr, made by beamxyz.</footer>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
@@ -140,9 +141,7 @@
   let guessCount = 0;
   let hintIndex = 0;
   let gameOver = false;
-  let isDailymode = false
-
-  let isDailyMode = false; 
+  let isDailyMode = true
   let currentGridEmojis = "";
 
   if (!localStorage.getItem("dinoGuessDistribution")) {
@@ -171,16 +170,21 @@
   const modePtero = document.getElementById("modePtero");
   const modeMarine = document.getElementById("modeMarine");
 
-  function startGame(){
-if (typeof isDailyMode !== 'undefined' && isDailyMode) {
+function startGame(){
+    if (typeof isDailyMode !== 'undefined' && isDailyMode) {
       const dailyIndex = getDailySeedIndex(currentDb.length);
       target = currentDb[dailyIndex];
       
-  const lastPlayedDate = localStorage.getItem("dinoLastDailyDate");
+      const lastPlayedDate = localStorage.getItem("dinoLastDailyDate");
       const todayStr = new Date().toDateString();
       if (lastPlayedDate === todayStr) {
         alert("You already completed today's Daily Challenge! Reverting to Endless Mode.");
         isDailyMode = false;
+        
+        if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
+          subModeDaily.classList.remove("active");
+          subModeEndless.classList.add("active");
+        }
         target = currentDb[Math.floor(Math.random() * currentDb.length)];
       }
     } else {
@@ -198,7 +202,7 @@ if (typeof isDailyMode !== 'undefined' && isDailyMode) {
     hintBox.style.display = "none";
     hintBox.textContent = "";
     guessCountEl.textContent = "Guesses: 0";
-    resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess above to begin excavating clues.</td></tr>';
+    resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
     modalOverlay.classList.remove("show");
     suggestionsBox.style.display = "none";
   }
@@ -543,19 +547,19 @@ if (typeof isDailyMode !== 'undefined' && isDailyMode) {
     if (won && target.name.toLowerCase().includes("yutyrannus")) {
       modalElement.classList.add("special-yutyrannus");
       modalTitle.textContent = "YOOOO THATS SO NICHE";
-      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses! You braved the cold environments of Liaoning to uncover this rare find.`;
+      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses!`;
       
     } else if (won && target.name.toLowerCase().includes("oxalaia")) {
       modalElement.classList.add("special-oxalaia");
       modalTitle.textContent = "you're not niche bud.";
-      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses! The ghost of the coastal mangrove swamps has been identified.`;
+      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses...`;
       
     } else {
       modalTitle.textContent = won ? "SPECIMEN IDENTIFIED!" : "SPECIMEN REVEALED";
       modalTitle.style.color = won ? "var(--green)" : "var(--red)";
       modalMsg.textContent = won
-        ? `Excellent work! You identified it in ${guessCount} guess${guessCount === 1 ? "" : "es"}.`
-        : `The correct specimen was ${target.name}. Better luck on the next dig!`;
+        ? `Great work! You identified it in ${guessCount} guess${guessCount === 1 ? "" : "es"}.`
+        : `The correct specimen was ${target.name}. Try again!`;
     }
 
     const savedStats = localStorage.getItem("dinoguessr_stats");
@@ -646,7 +650,11 @@ if (typeof isDailyMode !== 'undefined' && isDailyMode) {
 
   /* ---------------- INIT ---------------- */
   hintBtn.textContent = "Hint";
-  renderStatsOnHomePage();
+    if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
+    subModeEndless.classList.remove("active");
+    subModeDaily.classList.add("active");
+  }
+  renderStatsOnHomePage(); 
   startGame();
 
   window.addEventListener('keydown', function (e) {
