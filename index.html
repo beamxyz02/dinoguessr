@@ -108,6 +108,17 @@
     <div class="dino-sub" id="modalDinoSub"></div>
     <p class="msg" id="modalMsg"></p>
     <a href="#" target="_blank" rel="noopener" class="wiki-link" id="wikiLink">View on Wikipedia →</a>
+    <div id="distributionContainer" style="margin: 15px 0; text-align: left; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
+      <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Guess Distribution</h3>
+      <div id="distRows"></div>
+    </div>
+
+    <div style="margin-top: 15px;">
+      <button id="shareBtn" class="action-btn" style="background: var(--green); color: #000; font-weight: bold; width: 100%; margin-bottom: 8px; display: none;">
+        Share Results 📋
+      </button>
+      <div id="shareStatus" style="font-size: 11px; color: var(--green); margin-bottom: 10px; display: none;">Results copied to clipboard!</div>
+    </div>
     <button id="playAgainBtn">Play Again</button>
   </div>
 </div>
@@ -125,6 +136,13 @@
   let hintIndex = 0;
   let gameOver = false;
 
+  let isDailyMode = false; 
+  let currentGridEmojis = "";
+
+  if (!localStorage.getItem("dinoGuessDistribution")) {
+    localStorage.setItem("dinoGuessDistribution", JSON.stringify({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, "6+": 0}));
+  }
+  
   const guessInput = document.getElementById("guessInput");
   const suggestionsBox = document.getElementById("suggestions");
   const guessBtn = document.getElementById("guessBtn");
@@ -148,7 +166,20 @@
   const modeMarine = document.getElementById("modeMarine");
 
   function startGame(){
-    target = currentDb[Math.floor(Math.random() * currentDb.length)];
+if (typeof isDailyMode !== 'undefined' && isDailyMode) {
+      const dailyIndex = getDailySeedIndex(currentDb.length);
+      target = currentDb[dailyIndex];
+      
+  const lastPlayedDate = localStorage.getItem("dinoLastDailyDate");
+      const todayStr = new Date().toDateString();
+      if (lastPlayedDate === todayStr) {
+        alert("You already completed today's Daily Challenge! Reverting to Endless Mode.");
+        isDailyMode = false;
+        target = currentDb[Math.floor(Math.random() * currentDb.length)];
+      }
+    } else {
+      target = currentDb[Math.floor(Math.random() * currentDb.length)];
+    }
     guessCount = 0;
     hintIndex = 0;
     gameOver = false;
@@ -219,11 +250,12 @@
     }
   });
 
+// --- PLACE THIS INSIDE THE AUTOCOMPLETE SECTION ---
   guessInput.addEventListener("keydown", (e) => {
-    if(e.key === "Enter"){
+    if (e.key === "Enter") {
       e.preventDefault();
       suggestionsBox.style.display = "none";
-      submitGuess();
+      guessBtn.click();
     }
   });
 
@@ -327,7 +359,7 @@
     const targetLetter = target.name[0].toUpperCase();
     row.appendChild(makeCell(guessLetter, guessLetter === targetLetter));
 
-    // PERIOD (Era match is now exact)
+    // PERIOD
     row.appendChild(makeCell(guessed.period, guessed.period === target.period));
 
     // DIET
@@ -346,13 +378,13 @@
     if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
       familyCell.classList.add("cell-correct"); // Green for exact match
     } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
-      familyCell.classList.add("cell-close");   // Yellow for nearby/contested cladistics!
+      familyCell.classList.add("cell-close");   // Yellow for nearby/contested cladistics
     } else {
-      familyCell.classList.add("cell-wrong");   // Red for completely unrelated clades (like Ceratopsian)
+      familyCell.classList.add("cell-wrong");   // Red for completely unrelated clades
     }
     row.appendChild(familyCell);
 
-    // LENGTH (with directional arrow)
+    // LENGTH
     row.appendChild(makeLengthCell(guessed.length));
 
     resultsBody.appendChild(row);
@@ -412,7 +444,17 @@
   const statsDisplay = document.getElementById("statsDisplay");
   const playAgainMain = document.getElementById("playAgainMain");
 
-  // Get existing stats or initialize default ones
+  function getDailySeedIndex(arrayLength) {
+    const today = new Date();
+    const dateNum = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    return dateNum % arrayLength;
+  }
+  function lockDailyChallenge() {
+    if (isDailyMode) {
+      localStorage.setItem("dinoLastDailyDate", new Date().toDateString());
+    }
+  }
+  
   function getStats() {
     const saved = localStorage.getItem("dinoguessr_stats");
     return saved ? JSON.parse(saved) : {
@@ -424,7 +466,6 @@
     };
   }
 
-  // Refreshes the numbers shown on the home page layout
   function renderStatsOnHomePage() {
     const stats = getStats();
     statsDisplay.textContent = `Win Streak: ${stats.currentStreak} | Max Streak: ${stats.maxStreak} | Matches Won: ${stats.gamesWon}/${stats.gamesPlayed}`;
@@ -446,7 +487,7 @@
         stats.guessDistribution["6+"]++;
       }
     } else {
-      stats.currentStreak = 0; // Reset streak on giving up or losing
+      stats.currentStreak = 0;
     }
 
     localStorage.setItem("dinoguessr_stats", JSON.stringify(stats));
@@ -464,15 +505,13 @@
     playAgainMain.style.display = "block";
 
     updateStats(won, guessCount);
-
-    // 1. Reset any old special styling from previous games
+    lockDailyChallenge();
     const modalElement = document.querySelector(".modal");
     modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
 
     modalDinoName.textContent = target.name;
     modalDinoSub.textContent = `${target.period} · ${target.diet} · ${target.group} (${target.subgroup})`;
 
-    // 2. Check for our special easter-egg specimens
     if (won && target.name.toLowerCase().includes("yutyrannus")) {
       modalElement.classList.add("special-yutyrannus");
       modalTitle.textContent = "YOOOO THATS SO NICHE";
@@ -484,13 +523,70 @@
       modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses! The ghost of the coastal mangrove swamps has been identified.`;
       
     } else {
-      // Standard layout for all other entries
       modalTitle.textContent = won ? "SPECIMEN IDENTIFIED!" : "SPECIMEN REVEALED";
       modalTitle.style.color = won ? "var(--green)" : "var(--red)";
       modalMsg.textContent = won
         ? `Excellent work! You identified it in ${guessCount} guess${guessCount === 1 ? "" : "es"}.`
         : `The correct specimen was ${target.name}. Better luck on the next dig!`;
     }
+
+    const savedStats = localStorage.getItem("dinoguessr_stats");
+    const stats = savedStats ? JSON.parse(savedStats) : { guessDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 } };
+    const dist = stats.guessDistribution;
+
+    const distRowsContainer = document.getElementById("distRows");
+    distRowsContainer.innerHTML = "";
+    const maxVal = Math.max(...Object.values(dist), 1);
+
+    Object.keys(dist).forEach(key => {
+      const count = dist[key];
+      const percentage = (count / maxVal) * 100;
+      
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.alignItems = "center";
+      row.style.marginBottom = "4px";
+      row.style.fontSize = "12px";
+      
+      const isCurrentScore = won && (guessCount.toString() === key || (key === "6+" && guessCount >= 6));
+      const barColor = isCurrentScore ? "var(--green)" : (count > 0 ? "rgba(46, 204, 113, 0.5)" : "#555");
+
+      row.innerHTML = `
+        <span style="width: 20px; font-weight: bold; opacity: 0.7; color: #fff;">${key}</span>
+        <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 3px; margin: 0 8px; height: 16px;">
+          <div style="background: ${barColor}; width: ${Math.max(percentage, 8)}%; height: 100%; border-radius: 3px; display: flex; align-items: center; justify-content: flex-end; padding-right: 5px; box-sizing: border-box; color: #000; font-weight: bold; font-size: 10px;">
+            ${count}
+          </div>
+        </div>
+      `;
+      distRowsContainer.appendChild(row);
+    });
+
+    let gridEmojis = "";
+    const rows = resultsBody.querySelectorAll("tr");
+    rows.forEach(r => {
+      let rowLine = "";
+      Array.from(r.cells).forEach(cell => {
+        if (cell.classList.contains("cell-correct")) rowLine += "🟩";
+        else if (cell.classList.contains("cell-close")) rowLine += "🟨";
+        else if (cell.classList.contains("cell-wrong")) rowLine += "🟥";
+      });
+      if(rowLine) gridEmojis += rowLine + "\n";
+    });
+
+    const shareBtn = document.getElementById("shareBtn");
+    const shareStatus = document.getElementById("shareStatus");
+    
+    shareBtn.style.display = "block";
+    shareBtn.onclick = () => {
+      const scoreLabel = won ? guessCount : "X";
+      const shareText = `DINOGUESSR\nSpecimen: ${target.name}\nGuesses: ${scoreLabel}/6\n\n${gridEmojis}`;
+      
+      navigator.clipboard.writeText(shareText).then(() => {
+        shareStatus.style.display = "block";
+        setTimeout(() => { shareStatus.style.display = "none"; }, 2500);
+      });
+    };
 
     const wikiSlug = target.wiki.replace(/ /g, "_");
     wikiLink.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(wikiSlug);
@@ -511,12 +607,10 @@
     }
   });
 
-  // Wire up both Play Again buttons (the one in the pop-up modal and the one on the home screen)
   playAgainBtn.addEventListener("click", resetToNewRound);
   playAgainMain.addEventListener("click", resetToNewRound);
 
   function resetToNewRound() {
-    // Restore button layouts for the active round
     giveUpBtn.style.display = "block";
     playAgainMain.style.display = "none";
     startGame();
@@ -524,10 +618,9 @@
 
   /* ---------------- INIT ---------------- */
   hintBtn.textContent = "Hint";
-  renderStatsOnHomePage(); // Display saved stats right away when the player first visits
+  renderStatsOnHomePage();
   startGame();
 
-  // Prevent desktop browser zooming via keyboard and mouse wheel
   window.addEventListener('keydown', function (e) {
       if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
           e.preventDefault();
