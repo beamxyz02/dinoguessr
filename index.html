@@ -84,10 +84,13 @@
   <button class="mode-btn" id="taDuration3" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">3 Min</button>
   </div>
   
-  <div class="panel">
+<div class="panel">
         <div id="timeAttackBar" style="display:none; text-align:center; background: rgba(74,144,226,0.15); border: 1px solid #4a90e2; border-radius: 6px; padding: 8px; margin-bottom: 12px; font-weight:bold;">
-      ⏱<span id="taTimeRemaining">1:00</span> &nbsp;|&nbsp; Score: <span id="taScore">0</span>
+      ⏱ <span id="taTimeRemaining">1:00</span> &nbsp;|&nbsp; Score: <span id="taScore">0</span>
         </div>
+        <div id="skipFlash" style="display:none; text-align:center; background: rgba(231,76,60,0.15); border: 1px solid #e74c3c; border-radius: 6px; padding: 6px; margin-bottom: 12px; font-size: 0.85rem; font-style: italic;">
+  Skipped: <span id="skipFlashName"></span>
+</div>
     <div class="guess-row">
       <div class="input-container">
         <input type="text" id="guessInput" placeholder="Type a name..." autocomplete="off">
@@ -152,6 +155,10 @@
       <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Guess Distribution</h3>
       <div id="distRows"></div>
     </div>
+    <div id="timeAttackBreakdownContainer" style="display:none; margin: 15px 0; text-align: left; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; max-height: 200px; overflow-y: auto;">
+  <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Round Breakdown</h3>
+  <div id="timeAttackBreakdown"></div>
+  </div>
 
     <div style="margin-top: 15px;">
       <button id="shareBtn" class="action-btn" style="background: var(--green); color: #000; font-weight: bold; width: 100%; margin-bottom: 8px; display: none;">
@@ -192,7 +199,7 @@ function initBackgroundSlideshow(images) {
   bgActiveLayer.classList.add("visible");
   bgInactiveLayer.classList.remove("visible");
 
-  bgInterval = setInterval(cycleBackground, 6000); // change image every 6s
+  bgInterval = setInterval(cycleBackground, 4500);
 }
 
 function cycleBackground() {
@@ -325,6 +332,7 @@ let timeAttackRemaining = 0;
 let timeAttackScore = 0;
 let timeAttackInterval = null;
 let currentTimeAttackPenalty = 5;
+let timeAttackLog = [];
 
 const TIME_ATTACK_SETTINGS = {
   1: { seconds: 60, penalty: 5 },
@@ -405,6 +413,7 @@ function startTimeAttack(durationKey) {
   timeAttackRemaining = settings.seconds;
   currentTimeAttackPenalty = settings.penalty;
   timeAttackScore = 0;
+  timeAttackLog = []; 
   skipBtn.textContent = `Skip (-${settings.penalty}s)`;
 
   timeAttackBar.style.display = "block";
@@ -454,6 +463,8 @@ function tickTimeAttack() {
 
 function endTimeAttack() {
   clearInterval(timeAttackInterval);
+  clearTimeout(skipFlashTimeout);
+  skipFlash.style.display = "none";
   isTimeAttackMode = false;
   gameOver = true;
   guessInput.disabled = true;
@@ -476,12 +487,56 @@ function endTimeAttack() {
   document.getElementById("dailyCountdownContainer").style.display = "none";
   wikiLink.style.display = "none";
 
+  // Build the breakdown list
+  const breakdownContainer = document.getElementById("timeAttackBreakdown");
+  breakdownContainer.innerHTML = "";
+
+  const fullLog = [...timeAttackLog];
+  if (target) {
+    fullLog.push({ name: target.name, result: "current" });
+  }
+
+  fullLog.forEach(entry => {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.justifyContent = "space-between";
+    row.style.padding = "4px 8px";
+    row.style.fontSize = "0.85rem";
+    row.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = entry.name;
+
+    const tagSpan = document.createElement("span");
+    tagSpan.style.fontWeight = "bold";
+    tagSpan.style.fontSize = "0.75rem";
+    tagSpan.style.textTransform = "uppercase";
+
+    if (entry.result === "correct") {
+      tagSpan.textContent = "✓ Correct";
+      tagSpan.style.color = "var(--green)";
+    } else if (entry.result === "skipped") {
+      tagSpan.textContent = "Skipped";
+      tagSpan.style.color = "var(--red)";
+    } else {
+      tagSpan.textContent = "In Progress";
+      tagSpan.style.color = "var(--stone-light)";
+    }
+
+    row.appendChild(nameSpan);
+    row.appendChild(tagSpan);
+    breakdownContainer.appendChild(row);
+  });
+
+  document.getElementById("timeAttackBreakdownContainer").style.display = "block";
   modalOverlay.classList.add("show");
 }
 
 function cancelTimeAttack() {
   if (!isTimeAttackMode) return;
   clearInterval(timeAttackInterval);
+  clearTimeout(skipFlashTimeout);
+  skipFlash.style.display = "none";
   isTimeAttackMode = false;
   timeAttackBar.style.display = "none";
   skipBtn.style.display = "none";
@@ -489,8 +544,23 @@ function cancelTimeAttack() {
   hintBtn.disabled = false;
 }
 
+let skipFlashTimeout = null;
+const skipFlash = document.getElementById("skipFlash");
+const skipFlashName = document.getElementById("skipFlashName");
+
+function showSkipFlash(name) {
+  skipFlashName.textContent = name;
+  skipFlash.style.display = "block";
+  clearTimeout(skipFlashTimeout);
+  skipFlashTimeout = setTimeout(() => {
+    skipFlash.style.display = "none";
+  }, 2000);
+}
+
 skipBtn.onclick = () => {
   if (!isTimeAttackMode || gameOver) return;
+  timeAttackLog.push({ name: target.name, result: "skipped" });
+  showSkipFlash(target.name);
   timeAttackRemaining = Math.max(0, timeAttackRemaining - currentTimeAttackPenalty);
   updateTimeAttackDisplay();
   guessInput.value = "";
@@ -568,6 +638,7 @@ skipBtn.onclick = () => {
       if(guessed.name.toLowerCase() === target.name.toLowerCase()){
       if (isTimeAttackMode) {
         timeAttackScore++;
+        timeAttackLog.push({ name: target.name, result: "correct" });
         updateTimeAttackDisplay();
         guessInput.value = "";
         guessCount = 0;
@@ -579,6 +650,7 @@ skipBtn.onclick = () => {
       }
     }
   }
+
   function flashInputError(){
     guessInput.style.borderColor = "var(--red)";
     guessInput.placeholder = "Specimen not found — check spelling";
@@ -856,6 +928,7 @@ skipBtn.onclick = () => {
     gameOver = true;
     document.getElementById("distributionContainer").style.display = "block";
     wikiLink.style.display = "inline-block";
+    document.getElementById("timeAttackBreakdownContainer").style.display = "none";
     guessInput.disabled = true;
     guessBtn.disabled = true;
     hintBtn.disabled = true;
