@@ -75,9 +75,19 @@
     <button class="mode-btn active" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
     <button class="mode-btn" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
     <button class="mode-btn" id="subModeHardcore" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #e74c3c;">Challenge</button>
+    <button class="mode-btn" id="subModeTimeAttack" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #4a90e2;">Time Attack</button>
+  </div>
+
+  <div id="timeAttackDurationPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
+  <button class="mode-btn" id="taDuration1" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">1 Min</button>
+  <button class="mode-btn" id="taDuration2" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">2 Min</button>
+  <button class="mode-btn" id="taDuration3" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">3 Min</button>
   </div>
   
   <div class="panel">
+        <div id="timeAttackBar" style="display:none; text-align:center; background: rgba(74,144,226,0.15); border: 1px solid #4a90e2; border-radius: 6px; padding: 8px; margin-bottom: 12px; font-weight:bold;">
+      ⏱<span id="taTimeRemaining">1:00</span> &nbsp;|&nbsp; Score: <span id="taScore">0</span>
+        </div>
     <div class="guess-row">
       <div class="input-container">
         <input type="text" id="guessInput" placeholder="Type a name..." autocomplete="off">
@@ -89,6 +99,7 @@
     <div class="secondary-actions">
       <button id="hintBtn">Hint</button>
       <button id="giveUpBtn">Give Up</button>
+      <button id="skipBtn" style="background: #4a90e2; color: var(--bone); flex: 1 1 140px; display:none;">Skip (-15s)</button>
       <button id="playAgainMain" style="background: var(--green); color: var(--bone); flex: 1 1 140px; display: none;">Play Again</button>
     </div>
 
@@ -292,6 +303,7 @@ function cycleBackground() {
 
   /* ---------------- MODE TABS ---------------- */
   function switchMode(db, activeBtn, subtext, bgImageSet) {
+    cancelTimeAttack();
     if(currentDb === db) return;
     currentDb = db;
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
@@ -308,12 +320,34 @@ function cycleBackground() {
     modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", MARINE_BG_IMAGES);
   
  let hiddenColumnIndex = -1;
+let isTimeAttackMode = false;
+let timeAttackRemaining = 0;
+let timeAttackScore = 0;
+let timeAttackInterval = null;
+let currentTimeAttackPenalty = 5;
 
+const TIME_ATTACK_SETTINGS = {
+  1: { seconds: 60, penalty: 5 },
+  2: { seconds: 120, penalty: 10 },
+  3: { seconds: 180, penalty: 15 }
+};
+
+const subModeTimeAttack = document.getElementById("subModeTimeAttack");
+const timeAttackDurationPanel = document.getElementById("timeAttackDurationPanel");
+const taDuration1 = document.getElementById("taDuration1");
+const taDuration2 = document.getElementById("taDuration2");
+const taDuration3 = document.getElementById("taDuration3");
+const timeAttackBar = document.getElementById("timeAttackBar");
+const taTimeRemaining = document.getElementById("taTimeRemaining");
+const taScore = document.getElementById("taScore");
+const skipBtn = document.getElementById("skipBtn");
+  
   const subModeEndless = document.getElementById("subModeEndless");
   const subModeDaily = document.getElementById("subModeDaily");
   const subModeHardcore = document.getElementById("subModeHardcore");
 
   subModeEndless.onclick = () => {
+  cancelTimeAttack();
   if (subModeEndless.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = false;
@@ -324,6 +358,7 @@ function cycleBackground() {
 };
 
 subModeDaily.onclick = () => {
+  cancelTimeAttack();
   if (subModeDaily.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = true;
@@ -334,6 +369,7 @@ subModeDaily.onclick = () => {
 };
 
 subModeHardcore.onclick = () => {
+  cancelTimeAttack();
   if (subModeHardcore.classList.contains("active")) return;
   isDailyMode = false;
   subModeDaily.classList.remove("active");
@@ -343,6 +379,130 @@ subModeHardcore.onclick = () => {
   startGame();
 };
 
+subModeTimeAttack.onclick = () => {
+timeAttackDurationPanel.style.display =
+timeAttackDurationPanel.style.display === "flex" ? "none" : "flex";
+};
+
+taDuration1.onclick = () => startTimeAttack(1);
+taDuration2.onclick = () => startTimeAttack(2);
+taDuration3.onclick = () => startTimeAttack(3);
+
+function startTimeAttack(durationKey) {
+  cancelTimeAttack();
+  timeAttackDurationPanel.style.display = "none";
+
+  subModeDaily.classList.remove("active");
+  subModeEndless.classList.remove("active");
+  subModeHardcore.classList.remove("active");
+  subModeTimeAttack.classList.add("active");
+
+  isDailyMode = false;
+  isTimeAttackMode = true;
+  hiddenColumnIndex = -1;
+
+  const settings = TIME_ATTACK_SETTINGS[durationKey];
+  timeAttackRemaining = settings.seconds;
+  currentTimeAttackPenalty = settings.penalty;
+  timeAttackScore = 0;
+  skipBtn.textContent = `Skip (-${settings.penalty}s)`;
+
+  timeAttackBar.style.display = "block";
+  giveUpBtn.style.display = "none";
+  skipBtn.style.display = "block";
+  hintBtn.disabled = true;
+
+  guessCount = 0;
+  gameOver = false;
+  guessInput.value = "";
+  guessInput.disabled = false;
+  guessBtn.disabled = false;
+  hintBox.style.display = "none";
+  guessCountEl.textContent = "Guesses: 0";
+  resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+  modalOverlay.classList.remove("show");
+  suggestionsBox.style.display = "none";
+
+  updateTimeAttackDisplay();
+  pickNewTimeAttackTarget();
+
+  clearInterval(timeAttackInterval);
+  timeAttackInterval = setInterval(tickTimeAttack, 1000);
+}
+
+function pickNewTimeAttackTarget() {
+  target = currentDb[Math.floor(Math.random() * currentDb.length)];
+}
+
+function updateTimeAttackDisplay() {
+  const mins = Math.floor(timeAttackRemaining / 60);
+  const secs = timeAttackRemaining % 60;
+  taTimeRemaining.textContent = `${mins}:${secs.toString().padStart(2, "0")}`;
+  taScore.textContent = timeAttackScore;
+}
+
+function tickTimeAttack() {
+  timeAttackRemaining--;
+  if (timeAttackRemaining <= 0) {
+    timeAttackRemaining = 0;
+    updateTimeAttackDisplay();
+    endTimeAttack();
+    return;
+  }
+  updateTimeAttackDisplay();
+}
+
+function endTimeAttack() {
+  clearInterval(timeAttackInterval);
+  isTimeAttackMode = false;
+  gameOver = true;
+  guessInput.disabled = true;
+  guessBtn.disabled = true;
+  skipBtn.style.display = "none";
+  giveUpBtn.style.display = "block";
+  hintBtn.disabled = false;
+  timeAttackBar.style.display = "none";
+
+  const modalElement = document.querySelector(".modal");
+  modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
+  modalTitle.textContent = "TIME'S UP!";
+  modalTitle.style.color = "var(--accent-primary)";
+  modalDinoName.textContent = `Score: ${timeAttackScore}`;
+  modalDinoSub.textContent = "";
+  modalMsg.textContent = `You identified ${timeAttackScore} specimen${timeAttackScore === 1 ? "" : "s"} before time ran out!`;
+
+  document.getElementById("distributionContainer").style.display = "none";
+  document.getElementById("shareBtn").style.display = "none";
+  document.getElementById("dailyCountdownContainer").style.display = "none";
+  wikiLink.style.display = "none";
+
+  modalOverlay.classList.add("show");
+}
+
+function cancelTimeAttack() {
+  if (!isTimeAttackMode) return;
+  clearInterval(timeAttackInterval);
+  isTimeAttackMode = false;
+  timeAttackBar.style.display = "none";
+  skipBtn.style.display = "none";
+  giveUpBtn.style.display = "block";
+  hintBtn.disabled = false;
+}
+
+skipBtn.onclick = () => {
+  if (!isTimeAttackMode || gameOver) return;
+  timeAttackRemaining = Math.max(0, timeAttackRemaining - currentTimeAttackPenalty);
+  updateTimeAttackDisplay();
+  guessInput.value = "";
+  guessCount = 0;
+  guessCountEl.textContent = "Guesses: 0";
+  resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+  pickNewTimeAttackTarget();
+  if (timeAttackRemaining <= 0) {
+    endTimeAttack();
+  }
+};
+  
   /* ---------------- AUTOCOMPLETE ---------------- */
       guessInput.addEventListener("input", () => {
     const val = guessInput.value.trim().toLowerCase();
@@ -405,10 +565,19 @@ subModeHardcore.onclick = () => {
     renderRow(guessed);
     guessInput.value = "";
 
-    if(guessed.name.toLowerCase() === target.name.toLowerCase()){
-      endGame(true);
+      if(guessed.name.toLowerCase() === target.name.toLowerCase()){
+      if (isTimeAttackMode) {
+        timeAttackScore++;
+        updateTimeAttackDisplay();
+        guessInput.value = "";
+        guessCount = 0;
+        guessCountEl.textContent = "Guesses: 0";
+        resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+        pickNewTimeAttackTarget();
+      } else {
+        endGame(true);
+      }
     }
-  }
 
   function flashInputError(){
     guessInput.style.borderColor = "var(--red)";
@@ -586,6 +755,11 @@ subModeHardcore.onclick = () => {
   hintBtn.addEventListener("click", () => {
     if(gameOver) return;
 
+    if (isTimeAttackMode) {
+      alert("Hints are disabled during Time Attack! Keep going!");
+      return;
+    }
+
     if (hiddenColumnIndex !== -1) {
       alert("Come on, it's supposed to be a Challenge! Hints disabled.");
       return;
@@ -680,6 +854,8 @@ subModeHardcore.onclick = () => {
   /* ---------------- END GAME / MODAL ---------------- */
  function endGame(won){
     gameOver = true;
+    document.getElementById("distributionContainer").style.display = "block";
+    wikiLink.style.display = "inline-block";
     guessInput.disabled = true;
     guessBtn.disabled = true;
     hintBtn.disabled = true;
