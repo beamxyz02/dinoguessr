@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DINOGUESSR — Guess the Dinosaur</title>
-  
-<link rel="stylesheet" href="styles.css?v=2">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DINOGUESSR — Guess the Dinosaur</title>
+  
+  <link rel="stylesheet" href="styles.css">
   <style>
-  /* Special theme overrides for the ending modal */
+    .bg-layer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 2.5s ease-in-out;
+}
+.bg-layer.visible {
+  opacity: 0.3;
+}
+  /* Special theme overrides for the ending modal */
 .modal.special-yutyrannus {
-  background: #e6f2ff !important;
-  border-color: #4a90e2 !important;
-  color: #1a2b4c !important;
-  box-shadow: 0 0 30px rgba(74, 144, 226, 0.6) !important;
+  background: #e6f2ff !important;
+  border-color: #4a90e2 !important;
+  color: #1a2b4c !important;
+  box-shadow: 0 0 30px rgba(74, 144, 226, 0.6) !important;
 }
 .modal.special-yutyrannus h2, .modal.special-yutyrannus .dino-name {
-  color: #2c4c7e !important;
-  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+  color: #2c4c7e !important;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
 .modal.special-oxalaia {
-  background: #1c2e24 !important;
-  border-color: #2ecc71 !important;
-  color: #e2f7eb !important;
-  box-shadow: 0 0 30px rgba(46, 204, 113, 0.6) !important;
+  background: #1c2e24 !important;
+  border-color: #2ecc71 !important;
+  color: #e2f7eb !important;
+  box-shadow: 0 0 30px rgba(46, 204, 113, 0.6) !important;
 }
 .modal.special-oxalaia h2, .modal.special-oxalaia .dino-name {
-  color: #2ecc71 !important;
+  color: #2ecc71 !important;
 }
 .modal.special-oxalaia .modal-close {
-  color: #e2f7eb !important;
+  color: #e2f7eb !important;
 }
 
 .blind-box {
-  background-color: #2c3e50 !important;
-  color: #e74c3c !important;
-  font-weight: bold;
-  border: 1px dashed #e74c3c !important;
-  text-align: center;
+  background-color: #2c3e50 !important;
+  color: #e74c3c !important;
+  font-weight: bold;
+  border: 1px dashed #e74c3c !important;
+  text-align: center;
 }
 </style>
 </head>
@@ -46,111 +60,111 @@
 <div class="bg-layer" id="bgLayerB"></div>
 <div class="wrap">
 
-  <header>
-    <h1>DINO<span>GUESSR</span></h1>
-    <p id="headerSubtext">Identify the dinosaur!</p>
-  </header>
+  <header>
+    <h1>DINO<span>GUESSR</span></h1>
+    <p id="headerSubtext">Identify the dinosaur!</p>
+  </header>
 
 <div class="mode-selector">
-    <button class="mode-btn active" id="modeDino">Dinosaurs</button>
-    <button class="mode-btn" id="modePtero">Pterosaurs</button>
-    <button class="mode-btn" id="modeMarine">Marine Reptiles</button>
-  </div>
+    <button class="mode-btn active" id="modeDino">Dinosaurs</button>
+    <button class="mode-btn" id="modePtero">Pterosaurs</button>
+    <button class="mode-btn" id="modeMarine">Marine Reptiles</button>
+  </div>
 
-  <div class="mode-selector" style="margin-top: -8px; margin-bottom: 6px; gap: 8px;">
-    <button class="mode-btn active" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
-    <button class="mode-btn" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
-    <button class="mode-btn" id="subModeHardcore" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #e74c3c;">Challenge</button>
-  </div>
-  
-  <div class="panel">
-    <div class="guess-row">
-      <div class="input-container">
-        <input type="text" id="guessInput" placeholder="Type a name..." autocomplete="off">
-        <div class="suggestions" id="suggestions"></div>
-      </div>
-      <button id="guessBtn">Guess</button>
-    </div>
+  <div class="mode-selector" style="margin-top: -2px; margin-bottom: 15px; gap: 8px;">
+    <button class="mode-btn active" id="subModeDaily" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Daily</button>
+    <button class="mode-btn" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
+    <button class="mode-btn" id="subModeHardcore" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #e74c3c;">Challenge</button>
+  </div>
+  
+  <div class="panel">
+    <div class="guess-row">
+      <div class="input-container">
+        <input type="text" id="guessInput" placeholder="Type a name..." autocomplete="off">
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+      <button id="guessBtn">Guess</button>
+    </div>
 
-    <div class="secondary-actions">
-      <button id="hintBtn">Hint</button>
-      <button id="giveUpBtn">Give Up</button>
-      <button id="playAgainMain" style="background: var(--green); color: var(--bone); flex: 1 1 140px; display: none;">Play Again</button>
-    </div>
+    <div class="secondary-actions">
+      <button id="hintBtn">Hint</button>
+      <button id="giveUpBtn">Give Up</button>
+      <button id="playAgainMain" style="background: var(--green); color: var(--bone); flex: 1 1 140px; display: none;">Play Again</button>
+    </div>
 
-    <div id="hintBox"></div>
-    <div class="guess-count" id="guessCount">Guesses: 0</div>
-    <div id="statsDisplay" style="text-align:center; color: var(--stone-light); font-size: 0.8rem; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); line-height: 1.4;">
-      Win Streak: 0 | Max Streak: 0 | Matches Won: 0/0
-    </div>
-  </div>
+    <div id="hintBox"></div>
+    <div class="guess-count" id="guessCount">Guesses: 0</div>
+    <div id="statsDisplay" style="text-align:center; color: var(--stone-light); font-size: 0.8rem; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); line-height: 1.4;">
+      Win Streak: 0 | Max Streak: 0 | Matches Won: 0/0
+    </div>
+  </div>
 
-  <div class="panel">
-    <div class="table-container">
-      <table id="resultsTable">
-        <thead>
-          <tr>
-            <th style="width: 18%;">Name</th>
-            <th style="width: 10%;">1st Letter</th>
-            <th style="width: 13%;">Period</th>
-            <th style="width: 12%;">Diet</th>
-            <th style="width: 15%;">Continent</th>
-            <th style="width: 12%;">Clade</th>
-            <th style="width: 12%;">Family</th>
-            <th style="width: 8%;">Length</th>
-          </tr>
-        </thead>
-        <tbody id="resultsBody">
-          <tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="legend">
-      <span><span class="swatch sw-green"></span> Exact match</span>
-      <span><span class="swatch sw-yellow"></span> Related Clade/Clade Uncertain</span>
-      <span><span class="swatch sw-red"></span> No match</span>
-    </div>
-  </div>
+  <div class="panel">
+    <div class="table-container">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Name</th>
+            <th style="width: 10%;">1st Letter</th>
+            <th style="width: 13%;">Period</th>
+            <th style="width: 12%;">Diet</th>
+            <th style="width: 15%;">Continent</th>
+            <th style="width: 12%;">Clade</th>
+            <th style="width: 12%;">Family</th>
+            <th style="width: 8%;">Length</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+          <tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><span class="swatch sw-green"></span> Exact match</span>
+      <span><span class="swatch sw-yellow"></span> Related Clade/Clade Uncertain</span>
+      <span><span class="swatch sw-red"></span> No match</span>
+    </div>
+  </div>
 
-  <footer>DinoGuessr, made by beamxyz.</footer>
+  <footer>DinoGuessr, made by beamxyz.</footer>
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="modal-close" id="modalCloseBtn">&times;</button>
-    <h2 id="modalTitle">SPECIMEN IDENTIFIED</h2>
-    <div class="dino-name" id="modalDinoName"></div>
-    <div class="dino-sub" id="modalDinoSub"></div>
-    <p class="msg" id="modalMsg"></p>
-    <a href="#" target="_blank" rel="noopener" class="wiki-link" id="wikiLink">View on Wikipedia →</a>
-    <div id="distributionContainer" style="margin: 15px 0; text-align: left; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
-      <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Guess Distribution</h3>
-      <div id="distRows"></div>
-    </div>
+  <div class="modal">
+    <button class="modal-close" id="modalCloseBtn">&times;</button>
+    <h2 id="modalTitle">SPECIMEN IDENTIFIED</h2>
+    <div class="dino-name" id="modalDinoName"></div>
+    <div class="dino-sub" id="modalDinoSub"></div>
+    <p class="msg" id="modalMsg"></p>
+    <a href="#" target="_blank" rel="noopener" class="wiki-link" id="wikiLink">View on Wikipedia →</a>
+    <div id="distributionContainer" style="margin: 15px 0; text-align: left; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
+      <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Guess Distribution</h3>
+      <div id="distRows"></div>
+    </div>
 
-    <div style="margin-top: 15px;">
-      <button id="shareBtn" class="action-btn" style="background: var(--green); color: #000; font-weight: bold; width: 100%; margin-bottom: 8px; display: none;">
-        Share Results
-      </button>
-      <div id="dailyCountdownContainer" style="margin-top: 15px; font-size: 0.9rem; color: #888; display: none;">
-      Next Daily Specimen in: <span id="dailyCountdownTimer" style="font-weight: bold; color: var(--accent-color, #2ecc71);">00h 00m 00s</span>
-      </div>
-      <div id="shareStatus" style="font-size: 11px; color: var(--green); margin-bottom: 10px; display: none;">Results copied to clipboard!</div>
-    </div>
-    <button id="playAgainBtn">Play Again</button>
-  </div>
+    <div style="margin-top: 15px;">
+      <button id="shareBtn" class="action-btn" style="background: var(--green); color: #000; font-weight: bold; width: 100%; margin-bottom: 8px; display: none;">
+        Share Results
+      </button>
+      <div id="dailyCountdownContainer" style="margin-top: 15px; font-size: 0.9rem; color: #888; display: none;">
+      Next Daily Specimen in: <span id="dailyCountdownTimer" style="font-weight: bold; color: var(--accent-color, #2ecc71);">00h 00m 00s</span>
+      </div>
+      <div id="shareStatus" style="font-size: 11px; color: var(--green); margin-bottom: 10px; display: none;">Results copied to clipboard!</div>
+    </div>
+    <button id="playAgainBtn">Play Again</button>
+  </div>
 </div>
 
 
-  <script src="dinosaurs.js"></script>
-  <script src="pterosaurs.js"></script>
-  <script src="marinereptiles.js"></script>
+  <script src="dinosaurs.js"></script>
+  <script src="pterosaurs.js"></script>
+  <script src="marinereptiles.js"></script>
 
 <script>
-  /* ---------------- BACKGROUND SLIDESHOW ---------------- */
-const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `dinosaur/${i + 1}.jpg`);
-const PTERO_BG_IMAGES = Array.from({length: 1}, (_, i) => `pterosaur/${i + 1}.jpg`);
-const MARINE_BG_IMAGES = Array.from({length: 1}, (_, i) => `marine/${i + 1}.jpg`);
+    /* ---------------- BACKGROUND SLIDESHOW ---------------- */
+const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/dinosaur/${i + 1}.jpg`);
+const PTERO_BG_IMAGES = Array.from({length: 1}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
+const MARINE_BG_IMAGES = Array.from({length: 1}, (_, i) => `images/marine/${i + 1}.jpg`);
 
 let bgImages = DINO_BG_IMAGES;
 let bgIndex = 0;
@@ -174,681 +188,674 @@ function cycleBackground() {
   bgIndex = (bgIndex + 1) % bgImages.length;
   bgInactiveLayer.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
 
+  // trigger the crossfade
   bgInactiveLayer.classList.add("visible");
   bgActiveLayer.classList.remove("visible");
+
+  // swap which layer is "active" for next cycle
   [bgActiveLayer, bgInactiveLayer] = [bgInactiveLayer, bgActiveLayer];
 }
-  function preloadImages(urls) {
-  urls.forEach(url => {
-    const img = new Image();
-    img.src = url;
-  });
-}
-  /* ---------------- GAME STATE ---------------- */
-  let currentDb = DINOSAURS;
-  let target = null;
-  let guessCount = 0;
-  let hintIndex = 0;
-  let gameOver = false;
-  let isDailyMode = true
-  let currentGridEmojis = "";
+</script>
+  
+<script>
+  /* ---------------- GAME STATE ---------------- */
+  let currentDb = DINOSAURS;
+  let target = null;
+  let guessCount = 0;
+  let hintIndex = 0;
+  let gameOver = false;
+  let isDailyMode = true
+  let currentGridEmojis = "";
 
-  if (!localStorage.getItem("dinoGuessDistribution")) {
-    localStorage.setItem("dinoGuessDistribution", JSON.stringify({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, "6+": 0}));
-  }
-  
-  const guessInput = document.getElementById("guessInput");
-  const suggestionsBox = document.getElementById("suggestions");
-  const guessBtn = document.getElementById("guessBtn");
-  const hintBtn = document.getElementById("hintBtn");
-  const giveUpBtn = document.getElementById("giveUpBtn");
-  const hintBox = document.getElementById("hintBox");
-  const resultsBody = document.getElementById("resultsBody");
-  const guessCountEl = document.getElementById("guessCount");
-  const modalOverlay = document.getElementById("modalOverlay");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalDinoName = document.getElementById("modalDinoName");
-  const modalDinoSub = document.getElementById("modalDinoSub");
-  const modalMsg = document.getElementById("modalMsg");
-  const wikiLink = document.getElementById("wikiLink");
-  const playAgainBtn = document.getElementById("playAgainBtn");
-  const modalCloseBtn = document.getElementById("modalCloseBtn");
-  const headerSubtext = document.getElementById("headerSubtext");
+  if (!localStorage.getItem("dinoGuessDistribution")) {
+    localStorage.setItem("dinoGuessDistribution", JSON.stringify({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, "6+": 0}));
+  }
+  
+  const guessInput = document.getElementById("guessInput");
+  const suggestionsBox = document.getElementById("suggestions");
+  const guessBtn = document.getElementById("guessBtn");
+  const hintBtn = document.getElementById("hintBtn");
+  const giveUpBtn = document.getElementById("giveUpBtn");
+  const hintBox = document.getElementById("hintBox");
+  const resultsBody = document.getElementById("resultsBody");
+  const guessCountEl = document.getElementById("guessCount");
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDinoName = document.getElementById("modalDinoName");
+  const modalDinoSub = document.getElementById("modalDinoSub");
+  const modalMsg = document.getElementById("modalMsg");
+  const wikiLink = document.getElementById("wikiLink");
+  const playAgainBtn = document.getElementById("playAgainBtn");
+  const modalCloseBtn = document.getElementById("modalCloseBtn");
+  const headerSubtext = document.getElementById("headerSubtext");
 
-  const modeDino = document.getElementById("modeDino");
-  const modePtero = document.getElementById("modePtero");
-  const modeMarine = document.getElementById("modeMarine");
-  /* ---------------- MODE SWITCHING & GAME LOOPS ---------------- */
-  function startGame(){
-    if (document.getElementById("subModeHardcore").classList.contains("active")) {
-      hiddenColumnIndex = Math.floor(Math.random() * 6) + 1; 
-    } else {
-      hiddenColumnIndex = -1;
-    }
-    
-    if (typeof isDailyMode !== 'undefined' && isDailyMode) {
-      const dailyIndex = getDailySeedIndex(currentDb.length);
-      target = currentDb[dailyIndex];
-      
-      let modeKey = "dino";
-      let categoryName = "Dinosaurs";
-      if (currentDb === PTEROSAURS) { modeKey = "ptero"; categoryName = "Pterosaurs"; }
-      if (currentDb === MARINEREPTILES) { modeKey = "marine"; categoryName = "Marine Reptiles"; }
-      
-      const lastPlayedDate = localStorage.getItem(`lastDailyDate_${modeKey}`);
-      const todayStr = new Date().toDateString();
-      
-      if (lastPlayedDate === todayStr) {
-        alert(`You already completed today's Daily ${categoryName} Challenge! Reverting to Endless Mode.`);
-        isDailyMode = false;
-        
-        if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
-          subModeDaily.classList.remove("active");
-          subModeEndless.classList.add("active");
-        }
-        
-        target = currentDb[Math.floor(Math.random() * currentDb.length)];
-      }
-    } else {
-      target = currentDb[Math.floor(Math.random() * currentDb.length)];
-    }
-
-    guessCount = 0;
-    hintIndex = 0;
-    gameOver = false;
-    guessInput.value = "";
-    guessInput.disabled = false;
-    guessBtn.disabled = false;
-    hintBtn.disabled = false;
-    giveUpBtn.disabled = false;
-    hintBtn.textContent = "Hint";
-    hintBox.style.display = "none";
-    hintBox.textContent = "";
-    guessCountEl.textContent = "Guesses: 0";
-    resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
-    modalOverlay.classList.remove("show");
-    suggestionsBox.style.display = "none";
-  }
-
-  /* ---------------- MODE TABS ---------------- */
-  function switchMode(db, activeBtn, subtext, bgFile) {
-    if(currentDb === db) return;
-    currentDb = db;
-    [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
-    activeBtn.classList.add("active");
-    headerSubtext.textContent = subtext;
-    initBackgroundSlideshow(bgFile);   
+  const modeDino = document.getElementById("modeDino");
+  const modePtero = document.getElementById("modePtero");
+  const modeMarine = document.getElementById("modeMarine");
+  /* ---------------- MODE SWITCHING & GAME LOOPS ---------------- */
+  function startGame(){
+    if (document.getElementById("subModeHardcore").classList.contains("active")) {
+      hiddenColumnIndex = Math.floor(Math.random() * 6) + 1; 
+    } else {
+      hiddenColumnIndex = -1;
+    }
     
-    if (db === DINOSAURS) document.body.className = "theme-dino";
-    else if (db === PTEROSAURS) document.body.className = "theme-ptero";
-    else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
-    startGame();
-  }
- modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", DINO_BG_IMAGES);
-modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", PTERO_BG_IMAGES);
-modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", MARINE_BG_IMAGES);
-  
- let hiddenColumnIndex = -1;
+    if (typeof isDailyMode !== 'undefined' && isDailyMode) {
+      const dailyIndex = getDailySeedIndex(currentDb.length);
+      target = currentDb[dailyIndex];
+      
+      let modeKey = "dino";
+      let categoryName = "Dinosaurs";
+      if (currentDb === PTEROSAURS) { modeKey = "ptero"; categoryName = "Pterosaurs"; }
+      if (currentDb === MARINEREPTILES) { modeKey = "marine"; categoryName = "Marine Reptiles"; }
+      
+      const lastPlayedDate = localStorage.getItem(`lastDailyDate_${modeKey}`);
+      const todayStr = new Date().toDateString();
+      
+      if (lastPlayedDate === todayStr) {
+        alert(`You already completed today's Daily ${categoryName} Challenge! Reverting to Endless Mode.`);
+        isDailyMode = false;
+        
+        if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
+          subModeDaily.classList.remove("active");
+          subModeEndless.classList.add("active");
+        }
+        
+        target = currentDb[Math.floor(Math.random() * currentDb.length)];
+      }
+    } else {
+      target = currentDb[Math.floor(Math.random() * currentDb.length)];
+    }
 
-  const subModeEndless = document.getElementById("subModeEndless");
-  const subModeDaily = document.getElementById("subModeDaily");
-  const subModeHardcore = document.getElementById("subModeHardcore");
+    guessCount = 0;
+    hintIndex = 0;
+    gameOver = false;
+    guessInput.value = "";
+    guessInput.disabled = false;
+    guessBtn.disabled = false;
+    hintBtn.disabled = false;
+    giveUpBtn.disabled = false;
+    hintBtn.textContent = "Hint";
+    hintBox.style.display = "none";
+    hintBox.textContent = "";
+    guessCountEl.textContent = "Guesses: 0";
+    resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+    modalOverlay.classList.remove("show");
+    suggestionsBox.style.display = "none";
+  }
 
- subModeEndless.onclick = () => {
-  if (subModeEndless.classList.contains("active")) return;
-  hiddenColumnIndex = -1;
-  isDailyMode = false;
-  subModeDaily.classList.remove("active");
-  subModeHardcore.classList.remove("active");
-  subModeEndless.classList.add("active");
-  startGame();
-};
+  /* ---------------- MODE TABS ---------------- */
+  function switchMode(db, activeBtn, subtext, bgImageSet) {
+    if(currentDb === db) return;
+    currentDb = db;
+    [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
+    activeBtn.classList.add("active");
+    headerSubtext.textContent = subtext;
+    initBackgroundSlideshow(bgImageSet); // <-- replaces the old --bg-image line    
+    if (db === DINOSAURS) document.body.className = "theme-dino";
+    else if (db === PTEROSAURS) document.body.className = "theme-ptero";
+    else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
+    startGame();
+  }
+    modeDino.onclick = () => switchMode(DINOSAURS, modeDino, "Identify the dinosaur!", DINO_BG_IMAGES);
+    modePtero.onclick = () => switchMode(PTEROSAURS, modePtero, "Identify the pterosaur!", PTERO_BG_IMAGES);
+    modeMarine.onclick = () => switchMode(MARINEREPTILES, modeMarine, "Identify the marine reptile!", MARINE_BG_IMAGES);
+  
+ let hiddenColumnIndex = -1;
 
-subModeDaily.onclick = () => {
-  if (subModeDaily.classList.contains("active")) return;
-  hiddenColumnIndex = -1;
-  isDailyMode = true;
-  subModeEndless.classList.remove("active");
-  subModeHardcore.classList.remove("active");
-  subModeDaily.classList.add("active");
-  startGame();
-};
+  const subModeEndless = document.getElementById("subModeEndless");
+  const subModeDaily = document.getElementById("subModeDaily");
+  const subModeHardcore = document.getElementById("subModeHardcore");
 
-subModeHardcore.onclick = () => {
-  if (subModeHardcore.classList.contains("active")) return;
-  isDailyMode = false;
-  subModeDaily.classList.remove("active");
-  subModeEndless.classList.remove("active");
-  subModeHardcore.classList.add("active");
-  hiddenColumnIndex = Math.floor(Math.random() * 6) + 1;
-  startGame();
-};
+  subModeEndless.onclick = () => {
+    hiddenColumnIndex = -1;
+    if(!isDailyMode) return;
+    isDailyMode = false;
+    subModeDaily.classList.remove("active");
+    subModeHardcore.classList.remove("active");
+    subModeEndless.classList.add("active");
+    startGame();
+  };
 
-  /* ---------------- AUTOCOMPLETE ---------------- */
-      guessInput.addEventListener("input", () => {
-    const val = guessInput.value.trim().toLowerCase();
-    suggestionsBox.innerHTML = "";
-    if(!val || gameOver){
-      suggestionsBox.style.display = "none";
-      return;
-    }
-    
-    // FIX: Lowercase both the database name and the typed value, then use .startsWith()
-    const matches = currentDb.filter(d => d.name.toLowerCase().startsWith(val)).slice(0, 8);
-    
-    if(matches.length === 0){
-      suggestionsBox.style.display = "none";
-      return;
-    }
-    matches.forEach(d => {
-      const div = document.createElement("div");
-      div.textContent = d.name;
-      div.addEventListener("click", () => {
-        guessInput.value = d.name;
-        suggestionsBox.style.display = "none";
-        guessInput.focus();
-      });
-      suggestionsBox.appendChild(div);
-    });
-    suggestionsBox.style.display = "block";
-  });
+  subModeDaily.onclick = () => {
+    hiddenColumnIndex = -1;
+    if(isDailyMode) return;
+    isDailyMode = true;
+    subModeEndless.classList.remove("active");
+    subModeHardcore.classList.remove("active");
+    subModeDaily.classList.add("active");
+    startGame();
+  };
 
-  document.addEventListener("click", (e) => {
-    if(!e.target.closest(".input-container")){
-      suggestionsBox.style.display = "none";
-    }
-  });
+  subModeHardcore.onclick = () => {
+    isDailyMode = false;
+    subModeDaily.classList.remove("active");
+    subModeEndless.classList.remove("active");
+    subModeHardcore.classList.add("active");
+    hiddenColumnIndex = Math.floor(Math.random() * 6) + 1; 
+    startGame();
+  };
 
-  guessInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      suggestionsBox.style.display = "none";
-      guessBtn.click();
-    }
-  });
+  /* ---------------- AUTOCOMPLETE ---------------- */
+      guessInput.addEventListener("input", () => {
+    const val = guessInput.value.trim().toLowerCase();
+    suggestionsBox.innerHTML = "";
+    if(!val || gameOver){
+      suggestionsBox.style.display = "none";
+      return;
+    }
+    
+    // FIX: Lowercase both the database name and the typed value, then use .startsWith()
+    const matches = currentDb.filter(d => d.name.toLowerCase().startsWith(val)).slice(0, 8);
+    
+    if(matches.length === 0){
+      suggestionsBox.style.display = "none";
+      return;
+    }
+    matches.forEach(d => {
+      const div = document.createElement("div");
+      div.textContent = d.name;
+      div.addEventListener("click", () => {
+        guessInput.value = d.name;
+        suggestionsBox.style.display = "none";
+        guessInput.focus();
+      });
+      suggestionsBox.appendChild(div);
+    });
+    suggestionsBox.style.display = "block";
+  });
 
-  guessBtn.addEventListener("click", submitGuess);
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest(".input-container")){
+      suggestionsBox.style.display = "none";
+    }
+  });
 
-  /* ---------------- GUESS SUBMISSION ---------------- */
-  function submitGuess(){
-    if(gameOver) return;
-    const raw = guessInput.value.trim();
-    if(!raw) return;
+  guessInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      suggestionsBox.style.display = "none";
+      guessBtn.click();
+    }
+  });
 
-    const guessed = currentDb.find(d => d.name.toLowerCase() === raw.toLowerCase());
-    if(!guessed){
-      flashInputError();
-      return;
-    }
+  guessBtn.addEventListener("click", submitGuess);
 
-    guessCount++;
-    guessCountEl.textContent = "Guesses: " + guessCount;
-    renderRow(guessed);
-    guessInput.value = "";
+  /* ---------------- GUESS SUBMISSION ---------------- */
+  function submitGuess(){
+    if(gameOver) return;
+    const raw = guessInput.value.trim();
+    if(!raw) return;
 
-    if(guessed.name.toLowerCase() === target.name.toLowerCase()){
-      endGame(true);
-    }
-  }
+    const guessed = currentDb.find(d => d.name.toLowerCase() === raw.toLowerCase());
+    if(!guessed){
+      flashInputError();
+      return;
+    }
 
-  function flashInputError(){
-    guessInput.style.borderColor = "var(--red)";
-    guessInput.placeholder = "Specimen not found — check spelling";
-    setTimeout(() => {
-      guessInput.style.borderColor = "var(--stone)";
-      guessInput.placeholder = "Type a name...";
-    }, 1200);
-  }
+    guessCount++;
+    guessCountEl.textContent = "Guesses: " + guessCount;
+    renderRow(guessed);
+    guessInput.value = "";
 
-  /* ---------------- ROW RENDERING & COMPARISON ---------------- */
-  function renderRow(guessed){
-    if(resultsBody.querySelector(".empty-state")){
-      resultsBody.innerHTML = "";
-    }
+    if(guessed.name.toLowerCase() === target.name.toLowerCase()){
+      endGame(true);
+    }
+  }
 
-    const relatedFamilies = [
-      ["Muttaburrasaurinae", "Iguanodontian", "Rhabdodontomorph"],
-      ["Hadrosaurid", "Iguanodontian"],
-      ["Hadrosaurid", "Hadrosauromorph"],
-      ["Dilophosaurid", "Neotheropoda"],
-      ["Neotheropoda", "Tetanuran"],
-      ["Hypsilophodontid", "Ornithopoda"],
-      ["Megalosaurid", "Abelisaurid", "Tetanuran"],
-      ["Ceratopsid", "Marginocephalian"],
-      ["Pachycephalosaurid", "Pachycephalosaurian"],
-      ["Tyrannosaurid", "Tyrannosauroid", "Coelurosauria"],
-      ["Scansoriopterygid", "Maniraptoran"],
-      ["Brachiosaurid", "Eusauropoda"],
-      ["Diplodocoid", "Eusauropoda"],
-      ["Titanosaur", "Eusauropoda"],
-      ["Diplodocoid", "Dicraeosaurid"],
-      ["Sauropod", "Sauropodomorph"],
-      ["Titanosaur", "Titanosauriform"],
-      ["Massopoda", "Plateosaurid"],
-      ["Unaysaurid", "Plateosaurid"],
-      ["Paravian", "Avialan"],
-      ["Paravian", "Dromaeosaurid"],
-      ["Neovenatorid", "Allosaurid", "Metriacanthosaurid", "Carcharodontosaurid"],      
-      ["Oviraptosaur", "Oviraptorid"],
-      ["Sauropod", "Sauropodomorph"],
-      ["Psittacosaurid", "Ceratopsid"],
-      ["Neoceratopsian", "Ceratopsid"],
-      ["Iguanodontid", "Hadrosaurid", "Styracosterna"],
-      ["Stegosaurid", "Huayangosaurid"],
-      ["Sauropoda", "Neosauropoda", "Macronaria"],
-      ["Therizinosaurid", "Maniraptoran", "Coelurosauria"],
-      ["Oviraptorid", "Oviraptorosauria", "Maniraptoran"],
-      ["Troodontid", "Maniraptoran", "Coelurosauria"],
-      ["Ornithomimid", "Ornithomimosauria", "Deinocheirid"],
-      ["Abelisaurid", "Ceratosaurid", "Theropoda"],
-      ["Dreadnoughtus", "Titanosaur", "Sauropoda"],
-      ["Brachiosaurid", "Sauropoda", "Macronaria"]
-  ];
+  function flashInputError(){
+    guessInput.style.borderColor = "var(--red)";
+    guessInput.placeholder = "Specimen not found — check spelling";
+    setTimeout(() => {
+      guessInput.style.borderColor = "var(--stone)";
+      guessInput.placeholder = "Type a name...";
+    }, 1200);
+  }
 
-  const isCloseSubgroupMatch = (sub1, sub2) => {
-      if (!sub1 || !sub2) return false;
-      return relatedFamilies.some(cluster => 
-        cluster.some(item => item.toLowerCase() === sub1.toLowerCase()) && 
-        cluster.some(item => item.toLowerCase() === sub2.toLowerCase())
-      );
-    };
+  /* ---------------- ROW RENDERING & COMPARISON ---------------- */
+  function renderRow(guessed){
+    if(resultsBody.querySelector(".empty-state")){
+      resultsBody.innerHTML = "";
+    }
+
+    const relatedFamilies = [
+      ["Muttaburrasaurinae", "Iguanodontian", "Rhabdodontomorph"],
+      ["Hadrosaurid", "Iguanodontian"],
+      ["Hadrosaurid", "Hadrosauromorph"],
+      ["Dilophosaurid", "Neotheropoda"],
+      ["Neotheropoda", "Tetanuran"],
+      ["Hypsilophodontid", "Ornithopoda"],
+      ["Megalosaurid", "Abelisaurid", "Tetanuran"],
+      ["Ceratopsid", "Marginocephalian"],
+      ["Pachycephalosaurid", "Pachycephalosaurian"],
+      ["Tyrannosaurid", "Tyrannosauroid", "Coelurosauria"],
+      ["Scansoriopterygid", "Maniraptoran"],
+      ["Brachiosaurid", "Eusauropoda"],
+      ["Diplodocoid", "Eusauropoda"],
+      ["Titanosaur", "Eusauropoda"],
+      ["Diplodocoid", "Dicraeosaurid"],
+      ["Sauropod", "Sauropodomorph"],
+      ["Titanosaur", "Titanosauriform"],
+      ["Massopoda", "Plateosaurid"],
+      ["Unaysaurid", "Plateosaurid"],
+      ["Paravian", "Avialan"],
+      ["Paravian", "Dromaeosaurid"],
+      ["Neovenatorid", "Allosaurid", "Metriacanthosaurid", "Carcharodontosaurid"],      
+      ["Oviraptosaur", "Oviraptorid"],
+      ["Sauropod", "Sauropodomorph"],
+      ["Psittacosaurid", "Ceratopsid"],
+      ["Neoceratopsian", "Ceratopsid"],
+      ["Iguanodontid", "Hadrosaurid", "Styracosterna"],
+      ["Stegosaurid", "Huayangosaurid"],
+      ["Sauropoda", "Neosauropoda", "Macronaria"],
+      ["Therizinosaurid", "Maniraptoran", "Coelurosauria"],
+      ["Oviraptorid", "Oviraptorosauria", "Maniraptoran"],
+      ["Troodontid", "Maniraptoran", "Coelurosauria"],
+      ["Ornithomimid", "Ornithomimosauria", "Deinocheirid"],
+      ["Abelisaurid", "Ceratosaurid", "Theropoda"],
+      ["Dreadnoughtus", "Titanosaur", "Sauropoda"],
+      ["Brachiosaurid", "Sauropoda", "Macronaria"]
+  ];
+
+  const isCloseSubgroupMatch = (sub1, sub2) => {
+      if (!sub1 || !sub2) return false;
+      return relatedFamilies.some(cluster => 
+        cluster.some(item => item.toLowerCase() === sub1.toLowerCase()) && 
+        cluster.some(item => item.toLowerCase() === sub2.toLowerCase())
+      );
+    };
 
 
 
-    const row = document.createElement("tr");
+    const row = document.createElement("tr");
 
-    // NAME
-    const nameCell = makeCell(guessed.name, guessed.name.toLowerCase() === target.name.toLowerCase());
-    nameCell.classList.add("name-cell");
-    row.appendChild(nameCell);
+    // NAME
+    const nameCell = makeCell(guessed.name, guessed.name.toLowerCase() === target.name.toLowerCase());
+    nameCell.classList.add("name-cell");
+    row.appendChild(nameCell);
 
-    // FIRST LETTER
-    const guessLetter = guessed.name[0].toUpperCase();
-    const targetLetter = target.name[0].toUpperCase();
-    row.appendChild(makeCell(guessLetter, guessLetter === targetLetter));
+    // FIRST LETTER
+    const guessLetter = guessed.name[0].toUpperCase();
+    const targetLetter = target.name[0].toUpperCase();
+    row.appendChild(makeCell(guessLetter, guessLetter === targetLetter));
 
 // PERIOD (Column 1)
-    if (hiddenColumnIndex === 1) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      row.appendChild(makeCell(guessed.period, guessed.period === target.period));
-    }
+    if (hiddenColumnIndex === 1) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.period, guessed.period === target.period));
+    }
 
-    // DIET (Column 2)
-    if (hiddenColumnIndex === 2) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      row.appendChild(makeCell(guessed.diet, guessed.diet === target.diet));
-    }
+    // DIET (Column 2)
+    if (hiddenColumnIndex === 2) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.diet, guessed.diet === target.diet));
+    }
 
-    // CONTINENT (Column 3)
-    if (hiddenColumnIndex === 3) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      row.appendChild(makeCell(guessed.continent, guessed.continent === target.continent));
-    }
+    // CONTINENT (Column 3)
+    if (hiddenColumnIndex === 3) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.continent, guessed.continent === target.continent));
+    }
 
-    // CLADE (Column 4)
-    if (hiddenColumnIndex === 4) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      row.appendChild(makeCell(guessed.group, guessed.group === target.group));
-    }
+    // CLADE (Column 4)
+    if (hiddenColumnIndex === 4) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeCell(guessed.group, guessed.group === target.group));
+    }
 
-    // FAMILY (Column 5)
-    if (hiddenColumnIndex === 5) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      const familyCell = document.createElement("td");
-      familyCell.textContent = guessed.subgroup;
-      if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
-        familyCell.classList.add("cell-correct");
-      } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
-        familyCell.classList.add("cell-close");
-      } else {
-        familyCell.classList.add("cell-wrong");
-      }
-      row.appendChild(familyCell);
-    }
+    // FAMILY (Column 5)
+    if (hiddenColumnIndex === 5) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      const familyCell = document.createElement("td");
+      familyCell.textContent = guessed.subgroup;
+      if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
+        familyCell.classList.add("cell-correct");
+      } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
+        familyCell.classList.add("cell-close");
+      } else {
+        familyCell.classList.add("cell-wrong");
+      }
+      row.appendChild(familyCell);
+    }
 
-    // LENGTH (Column 6)
-    if (hiddenColumnIndex === 6) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      row.appendChild(makeLengthCell(guessed.length));
-    }
-    
-    resultsBody.appendChild(row);
-  }
+    // LENGTH (Column 6)
+    if (hiddenColumnIndex === 6) {
+      const blindCell = document.createElement("td");
+      blindCell.textContent = "Unknown";
+      blindCell.classList.add("blind-box");
+      row.appendChild(blindCell);
+    } else {
+      row.appendChild(makeLengthCell(guessed.length));
+    }
+    
+    resultsBody.appendChild(row);
+  }
 
-  function makeCell(text, isMatch){
-    const td = document.createElement("td");
-    td.textContent = text;
-    td.classList.add(isMatch ? "cell-correct" : "cell-wrong");
-    return td;
-  }
+  function makeCell(text, isMatch){
+    const td = document.createElement("td");
+    td.textContent = text;
+    td.classList.add(isMatch ? "cell-correct" : "cell-wrong");
+    return td;
+  }
 
-  function makeLengthCell(guessLength){
-    const td = document.createElement("td");
-    const diff = target.length - guessLength;
-    if(Math.abs(diff) < 0.5){
-      td.textContent = guessLength + "m";
-      td.classList.add("cell-correct");
-    } else {
-      td.textContent = guessLength + "m";
-      td.classList.add("cell-wrong");
-      const arrow = document.createElement("span");
-      arrow.classList.add("arrow");
-      arrow.textContent = diff > 0 ? "↑" : "↓";
-      td.appendChild(arrow);
-    }
-    return td;
-  }
+  function makeLengthCell(guessLength){
+    const td = document.createElement("td");
+    const diff = target.length - guessLength;
+    if(Math.abs(diff) < 0.5){
+      td.textContent = guessLength + "m";
+      td.classList.add("cell-correct");
+    } else {
+      td.textContent = guessLength + "m";
+      td.classList.add("cell-wrong");
+      const arrow = document.createElement("span");
+      arrow.classList.add("arrow");
+      arrow.textContent = diff > 0 ? "↑" : "↓";
+      td.appendChild(arrow);
+    }
+    return td;
+  }
 
-  /* ---------------- HINT ---------------- */
-  hintBtn.addEventListener("click", () => {
-    if(gameOver) return;
+  /* ---------------- HINT ---------------- */
+  hintBtn.addEventListener("click", () => {
+    if(gameOver) return;
 
-    if (hiddenColumnIndex !== -1) {
-      alert("Come on, it's supposed to be a Challenge! Hints disabled.");
-      return;
-    }
-        
-    if (typeof isDailyMode !== 'undefined' && isDailyMode) {
-      alert("Hints are disabled for the Daily! You must figure this one out on your own...");
-      return;
-    }
-    if(hintIndex >= target.hints.length){
-      hintBtn.disabled = true;
-      return;
-    }
-    hintBox.style.display = "block";
-    hintBox.textContent = "Clue " + (hintIndex + 1) + ": " + target.hints[hintIndex];
-    hintIndex++;
-    if(hintIndex >= target.hints.length){
-      hintBtn.disabled = true;
-      hintBtn.textContent = "No More Hints";
-    }
-  });
+    if (hiddenColumnIndex !== -1) {
+      alert("Come on, it's supposed to be a Challenge! Hints disabled.");
+      return;
+    }
+        
+    if (typeof isDailyMode !== 'undefined' && isDailyMode) {
+      alert("Hints are disabled for the Daily! You must figure this one out on your own...");
+      return;
+    }
+    if(hintIndex >= target.hints.length){
+      hintBtn.disabled = true;
+      return;
+    }
+    hintBox.style.display = "block";
+    hintBox.textContent = "Clue " + (hintIndex + 1) + ": " + target.hints[hintIndex];
+    hintIndex++;
+    if(hintIndex >= target.hints.length){
+      hintBtn.disabled = true;
+      hintBtn.textContent = "No More Hints";
+    }
+  });
 
 /* ---------------- GIVE UP ---------------- */
-  giveUpBtn.addEventListener("click", () => {
-    if (gameOver) return;
-    
-    const confirmGiveUp = confirm("Are you sure you want to give up? This will break your current win streak!");
-    if (confirmGiveUp) {
-      endGame(false);
-    }
-  });
+  giveUpBtn.addEventListener("click", () => {
+    if (gameOver) return;
+    
+    const confirmGiveUp = confirm("Are you sure you want to give up? This will break your current win streak!");
+    if (confirmGiveUp) {
+      endGame(false);
+    }
+  });
 
-  /* ---------------- STAT TRACKING SETTINGS ---------------- */
-  const statsDisplay = document.getElementById("statsDisplay");
-  const playAgainMain = document.getElementById("playAgainMain");
+  /* ---------------- STAT TRACKING SETTINGS ---------------- */
+  const statsDisplay = document.getElementById("statsDisplay");
+  const playAgainMain = document.getElementById("playAgainMain");
 
-  function getDailySeedIndex(arrayLength) {
-    const today = new Date();
-    const dateNum = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-    return dateNum % arrayLength;
-  }
-  function lockDailyChallenge() {
-    if (isDailyMode) {
-      let modeKey = "dino";
-      if (currentDb === PTEROSAURS) modeKey = "ptero";
-      if (currentDb === MARINEREPTILES) modeKey = "marine";
-      
-      localStorage.setItem(`lastDailyDate_${modeKey}`, new Date().toDateString());
-    }
-  }
-  
-  function getStats() {
-    const saved = localStorage.getItem("dinoguessr_stats");
-    return saved ? JSON.parse(saved) : {
-      gamesPlayed: 0,
-      gamesWon: 0,
-      currentStreak: 0,
-      maxStreak: 0,
-      guessDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 }
-    };
-  }
-
-  function renderStatsOnHomePage() {
-    const stats = getStats();
-    statsDisplay.textContent = `Win Streak: ${stats.currentStreak} | Max Streak: ${stats.maxStreak} | Matches Won: ${stats.gamesWon}/${stats.gamesPlayed}`;
-  }
-
-  function updateStats(won, finalGuesses) {
-    let stats = getStats();
-    stats.gamesPlayed++;
-
-    if (won) {
-      stats.gamesWon++;
-      stats.currentStreak++;
-      if (stats.currentStreak > stats.maxStreak) {
-        stats.maxStreak = stats.currentStreak;
-      }
-      if (finalGuesses >= 1 && finalGuesses <= 5) {
-        stats.guessDistribution[finalGuesses]++;
-      } else {
-        stats.guessDistribution["6+"]++;
-      }
-    } else {
-      stats.currentStreak = 0;
-    }
-
-    localStorage.setItem("dinoguessr_stats", JSON.stringify(stats));
-    renderStatsOnHomePage();
-    return stats;
-  }
-
-  /* ---------------- END GAME / MODAL ---------------- */
- function endGame(won){
-    gameOver = true;
-    guessInput.disabled = true;
-    guessBtn.disabled = true;
-    hintBtn.disabled = true;
-    giveUpBtn.style.display = "none";
-    playAgainMain.style.display = "block";
-
-    updateStats(won, guessCount);
-    const modalElement = document.querySelector(".modal");
-   
-    modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
-
-    modalDinoName.textContent = target.name;
-    modalDinoSub.textContent = `${target.period} · ${target.diet} · ${target.group} (${target.subgroup})`;
-
-    if (won && target.name.toLowerCase().includes("yutyrannus")) {
-      modalElement.classList.add("special-yutyrannus");
-      modalTitle.textContent = "YOOOO THATS SO NICHE";
-      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses!`;
-      
-    } else if (won && target.name.toLowerCase().includes("oxalaia")) {
-      modalElement.classList.add("special-oxalaia");
-      modalTitle.textContent = "you're not niche bud.";
-      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses...`;
-      
-    } else {
-      modalTitle.textContent = won ? "SPECIMEN IDENTIFIED!" : "SPECIMEN REVEALED";
-      modalTitle.style.color = won ? "var(--green)" : "var(--red)";
-      modalMsg.textContent = won
-        ? `Great work! You identified it in ${guessCount} guess${guessCount === 1 ? "" : "es"}.`
-        : `The correct specimen was ${target.name}. Try again!`;
-    }
-
-    const savedStats = localStorage.getItem("dinoguessr_stats");
-    const stats = savedStats ? JSON.parse(savedStats) : { guessDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 } };
-    const dist = stats.guessDistribution;
-
-    const distRowsContainer = document.getElementById("distRows");
-    distRowsContainer.innerHTML = "";
-    const maxVal = Math.max(...Object.values(dist), 1);
-
-    Object.keys(dist).forEach(key => {
-      const count = dist[key];
-      const percentage = (count / maxVal) * 100;
-      
-      const row = document.createElement("div");
-      row.style.display = "flex";
-      row.style.alignItems = "center";
-      row.style.marginBottom = "4px";
-      row.style.fontSize = "12px";
-      
-      const isCurrentScore = won && (guessCount.toString() === key || (key === "6+" && guessCount >= 6));
-      const barColor = isCurrentScore ? "var(--green)" : (count > 0 ? "rgba(46, 204, 113, 0.5)" : "#555");
-
-      row.innerHTML = `
-        <span style="width: 20px; font-weight: bold; opacity: 0.7; color: #fff;">${key}</span>
-        <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 3px; margin: 0 8px; height: 16px;">
-          <div style="background: ${barColor}; width: ${Math.max(percentage, 8)}%; height: 100%; border-radius: 3px; display: flex; align-items: center; justify-content: flex-end; padding-right: 5px; box-sizing: border-box; color: #000; font-weight: bold; font-size: 10px;">
-            ${count}
-          </div>
-        </div>
-      `;
-      distRowsContainer.appendChild(row);
-    });
-
-    let gridEmojis = "";
-    const rows = resultsBody.querySelectorAll("tr");
-    rows.forEach(r => {
-      let rowLine = "";
-      Array.from(r.cells).forEach(cell => {
-        if (cell.classList.contains("cell-correct")) rowLine += "🟩";
-        else if (cell.classList.contains("cell-close")) rowLine += "🟨";
-        else if (cell.classList.contains("cell-wrong")) rowLine += "🟥";
-      });
-      if(rowLine) gridEmojis += rowLine + "\n";
-    });
-
-    const shareBtn = document.getElementById("shareBtn");
-    const shareStatus = document.getElementById("shareStatus");
-    
-    shareBtn.style.display = "block";
-    shareBtn.onclick = () => {
-      const scoreLabel = won ? guessCount : "X";
-      const modeLabel = isDailyMode ? "Daily" : "Endless";
-      const shareText = `DINOGUESSR — ${modeLabel}\nSpecimen: ${target.name}\nGuesses: ${scoreLabel}/6\n\n${gridEmojis}`;      
-      navigator.clipboard.writeText(shareText).then(() => {
-        shareStatus.style.display = "block";
-        setTimeout(() => { shareStatus.style.display = "none"; }, 2500);
-      });
-    };
-
-    const wikiSlug = target.wiki.replace(/ /g, "_");
-    wikiLink.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(wikiSlug);
-
-    modalOverlay.classList.add("show");
-    
-  const countdownContainer = document.getElementById("dailyCountdownContainer");
-    if (countdownContainer) {
-      if (isDailyMode) {
-        countdownContainer.style.display = "block";
-        updateCountdown(); // Run instantly
-        clearInterval(countdownInterval);
-        countdownInterval = setInterval(updateCountdown, 1000); // Tick every second
-      } else {
-        countdownContainer.style.display = "none";
-        clearInterval(countdownInterval);
-      }
-    }
-   lockDailyChallenge();
-  }
-  modalCloseBtn.addEventListener("click", () => {
-    modalOverlay.classList.remove("show");
-    clearInterval(countdownInterval);
-    const rows = resultsBody.querySelectorAll("tr");
-    let discovered = false;
-    rows.forEach(r => {
-      if (r.cells[0] && r.cells[0].textContent.toLowerCase() === target.name.toLowerCase()) {
-        discovered = true;
-      }
-    });
-    if(!discovered) {
-      renderRow(target);
-    }
-  });
-
-  playAgainBtn.addEventListener("click", resetToNewRound);
-  playAgainMain.addEventListener("click", resetToNewRound);
-
-  function resetToNewRound() {
-    giveUpBtn.style.display = "block";
-    playAgainMain.style.display = "none";
-    startGame();
-  }
-
-  /* ---------------- INIT ---------------- */
-  hintBtn.textContent = "Hint";
-    if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
-    subModeEndless.classList.remove("active");
-    subModeDaily.classList.add("active");
-  }
-  renderStatsOnHomePage(); 
-
-  preloadImages(DINO_BG_IMAGES); 
-  preloadImages(PTERO_BG_IMAGES);
-  preloadImages(MARINE_BG_IMAGES);
+  function getDailySeedIndex(arrayLength) {
+    const today = new Date();
+    const dateNum = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    return dateNum % arrayLength;
+  }
+  function lockDailyChallenge() {
+    if (isDailyMode) {
+      let modeKey = "dino";
+      if (currentDb === PTEROSAURS) modeKey = "ptero";
+      if (currentDb === MARINEREPTILES) modeKey = "marine";
+      
+      localStorage.setItem(`lastDailyDate_${modeKey}`, new Date().toDateString());
+    }
+  }
   
+  function getStats() {
+    const saved = localStorage.getItem("dinoguessr_stats");
+    return saved ? JSON.parse(saved) : {
+      gamesPlayed: 0,
+      gamesWon: 0,
+      currentStreak: 0,
+      maxStreak: 0,
+      guessDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 }
+    };
+  }
+
+  function renderStatsOnHomePage() {
+    const stats = getStats();
+    statsDisplay.textContent = `Win Streak: ${stats.currentStreak} | Max Streak: ${stats.maxStreak} | Matches Won: ${stats.gamesWon}/${stats.gamesPlayed}`;
+  }
+
+  function updateStats(won, finalGuesses) {
+    let stats = getStats();
+    stats.gamesPlayed++;
+
+    if (won) {
+      stats.gamesWon++;
+      stats.currentStreak++;
+      if (stats.currentStreak > stats.maxStreak) {
+        stats.maxStreak = stats.currentStreak;
+      }
+      if (finalGuesses >= 1 && finalGuesses <= 5) {
+        stats.guessDistribution[finalGuesses]++;
+      } else {
+        stats.guessDistribution["6+"]++;
+      }
+    } else {
+      stats.currentStreak = 0;
+    }
+
+    localStorage.setItem("dinoguessr_stats", JSON.stringify(stats));
+    renderStatsOnHomePage();
+    return stats;
+  }
+
+  /* ---------------- END GAME / MODAL ---------------- */
+ function endGame(won){
+    gameOver = true;
+    guessInput.disabled = true;
+    guessBtn.disabled = true;
+    hintBtn.disabled = true;
+    giveUpBtn.style.display = "none";
+    playAgainMain.style.display = "block";
+
+    updateStats(won, guessCount);
+    const modalElement = document.querySelector(".modal");
+   
+    modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
+
+    modalDinoName.textContent = target.name;
+    modalDinoSub.textContent = `${target.period} · ${target.diet} · ${target.group} (${target.subgroup})`;
+
+    if (won && target.name.toLowerCase().includes("yutyrannus")) {
+      modalElement.classList.add("special-yutyrannus");
+      modalTitle.textContent = "YOOOO THATS SO NICHE";
+      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses!`;
+      
+    } else if (won && target.name.toLowerCase().includes("oxalaia")) {
+      modalElement.classList.add("special-oxalaia");
+      modalTitle.textContent = "you're not niche bud.";
+      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses...`;
+      
+    } else {
+      modalTitle.textContent = won ? "SPECIMEN IDENTIFIED!" : "SPECIMEN REVEALED";
+      modalTitle.style.color = won ? "var(--green)" : "var(--red)";
+      modalMsg.textContent = won
+        ? `Great work! You identified it in ${guessCount} guess${guessCount === 1 ? "" : "es"}.`
+        : `The correct specimen was ${target.name}. Try again!`;
+    }
+
+    const savedStats = localStorage.getItem("dinoguessr_stats");
+    const stats = savedStats ? JSON.parse(savedStats) : { guessDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, "6+": 0 } };
+    const dist = stats.guessDistribution;
+
+    const distRowsContainer = document.getElementById("distRows");
+    distRowsContainer.innerHTML = "";
+    const maxVal = Math.max(...Object.values(dist), 1);
+
+    Object.keys(dist).forEach(key => {
+      const count = dist[key];
+      const percentage = (count / maxVal) * 100;
+      
+      const row = document.createElement("div");
+      row.style.display = "flex";
+      row.style.alignItems = "center";
+      row.style.marginBottom = "4px";
+      row.style.fontSize = "12px";
+      
+      const isCurrentScore = won && (guessCount.toString() === key || (key === "6+" && guessCount >= 6));
+      const barColor = isCurrentScore ? "var(--green)" : (count > 0 ? "rgba(46, 204, 113, 0.5)" : "#555");
+
+      row.innerHTML = `
+        <span style="width: 20px; font-weight: bold; opacity: 0.7; color: #fff;">${key}</span>
+        <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 3px; margin: 0 8px; height: 16px;">
+          <div style="background: ${barColor}; width: ${Math.max(percentage, 8)}%; height: 100%; border-radius: 3px; display: flex; align-items: center; justify-content: flex-end; padding-right: 5px; box-sizing: border-box; color: #000; font-weight: bold; font-size: 10px;">
+            ${count}
+          </div>
+        </div>
+      `;
+      distRowsContainer.appendChild(row);
+    });
+
+    let gridEmojis = "";
+    const rows = resultsBody.querySelectorAll("tr");
+    rows.forEach(r => {
+      let rowLine = "";
+      Array.from(r.cells).forEach(cell => {
+        if (cell.classList.contains("cell-correct")) rowLine += "🟩";
+        else if (cell.classList.contains("cell-close")) rowLine += "🟨";
+        else if (cell.classList.contains("cell-wrong")) rowLine += "🟥";
+      });
+      if(rowLine) gridEmojis += rowLine + "\n";
+    });
+
+    const shareBtn = document.getElementById("shareBtn");
+    const shareStatus = document.getElementById("shareStatus");
+    
+    shareBtn.style.display = "block";
+    shareBtn.onclick = () => {
+      const scoreLabel = won ? guessCount : "X";
+      const modeLabel = isDailyMode ? "Daily" : "Endless";
+      const shareText = `DINOGUESSR — ${modeLabel}\nSpecimen: ${target.name}\nGuesses: ${scoreLabel}/6\n\n${gridEmojis}`;      
+      navigator.clipboard.writeText(shareText).then(() => {
+        shareStatus.style.display = "block";
+        setTimeout(() => { shareStatus.style.display = "none"; }, 2500);
+      });
+    };
+
+    const wikiSlug = target.wiki.replace(/ /g, "_");
+    wikiLink.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(wikiSlug);
+
+    modalOverlay.classList.add("show");
+    
+  const countdownContainer = document.getElementById("dailyCountdownContainer");
+    if (countdownContainer) {
+      if (isDailyMode) {
+        countdownContainer.style.display = "block";
+        updateCountdown(); // Run instantly
+        clearInterval(countdownInterval);
+        countdownInterval = setInterval(updateCountdown, 1000); // Tick every second
+      } else {
+        countdownContainer.style.display = "none";
+        clearInterval(countdownInterval);
+      }
+    }
+   lockDailyChallenge();
+  }
+  modalCloseBtn.addEventListener("click", () => {
+    modalOverlay.classList.remove("show");
+    clearInterval(countdownInterval);
+    const rows = resultsBody.querySelectorAll("tr");
+    let discovered = false;
+    rows.forEach(r => {
+      if (r.cells[0] && r.cells[0].textContent.toLowerCase() === target.name.toLowerCase()) {
+        discovered = true;
+      }
+    });
+    if(!discovered) {
+      renderRow(target);
+    }
+  });
+
+  playAgainBtn.addEventListener("click", resetToNewRound);
+  playAgainMain.addEventListener("click", resetToNewRound);
+
+  function resetToNewRound() {
+    giveUpBtn.style.display = "block";
+    playAgainMain.style.display = "none";
+    startGame();
+  }
+
+  /* ---------------- INIT ---------------- */
+  hintBtn.textContent = "Hint";
+    if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
+    subModeEndless.classList.remove("active");
+    subModeDaily.classList.add("active");
+  }
+  renderStatsOnHomePage(); 
   initBackgroundSlideshow(DINO_BG_IMAGES);
-  startGame();
+  startGame();
 
-  window.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
-          e.preventDefault();
-      }
-  }, { passive: false });
+  window.addEventListener('keydown', function (e) {
+      if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
+          e.preventDefault();
+      }
+  }, { passive: false });
 
-  window.addEventListener('wheel', function (e) {
-      if (e.ctrlKey) {
-          e.preventDefault();
-      }
-  }, { passive: false });
+  window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) {
+          e.preventDefault();
+      }
+  }, { passive: false });
 
-  /* ---------------- DAILY COUNTDOWN TIMER ---------------- */
-  let countdownInterval = null;
+  /* ---------------- DAILY COUNTDOWN TIMER ---------------- */
+  let countdownInterval = null;
 
-  function updateCountdown() {
-    const timerSpan = document.getElementById("dailyCountdownTimer");
-    if (!timerSpan) return;
+  function updateCountdown() {
+    const timerSpan = document.getElementById("dailyCountdownTimer");
+    if (!timerSpan) return;
 
-    const now = new Date();
-    // Calculate the exact upcoming midnight timestamp
-    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-    const diff = midnight - now;
+    const now = new Date();
+    // Calculate the exact upcoming midnight timestamp
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const diff = midnight - now;
 
-    if (diff <= 0) {
-      timerSpan.textContent = "00h 00m 00s";
-      return;
-    }
+    if (diff <= 0) {
+      timerSpan.textContent = "00h 00m 00s";
+      return;
+    }
 
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Format with leading zeros (e.g., 05h 09m 02s)
-    const hStr = hours.toString().padStart(2, '0');
-    const mStr = minutes.toString().padStart(2, '0');
-    const sStr = seconds.toString().padStart(2, '0');
+    // Format with leading zeros (e.g., 05h 09m 02s)
+    const hStr = hours.toString().padStart(2, '0');
+    const mStr = minutes.toString().padStart(2, '0');
+    const sStr = seconds.toString().padStart(2, '0');
 
-    timerSpan.textContent = `${hStr}h ${mStr}m ${sStr}s`;
-  }
+    timerSpan.textContent = `${hStr}h ${mStr}m ${sStr}s`;
+  }
 </script>
 </body>
 </html>
