@@ -195,6 +195,12 @@ function cycleBackground() {
   // swap which layer is "active" for next cycle
   [bgActiveLayer, bgInactiveLayer] = [bgInactiveLayer, bgActiveLayer];
 }
+  function preloadImages(urls) {
+  urls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+}
 </script>
   
 <script>
