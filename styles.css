@@ -20,22 +20,6 @@ body.theme-marine {
   --table-header-border: #132836;
 }
 
-.bg-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 2.5s ease-in-out;
-}
-.bg-layer.visible {
-  opacity: 0.3;
-}
-
 :root {
   --bone:#f1e8d8;
   --bone-dark:#e3d7bf;
@@ -57,15 +41,6 @@ body.theme-marine {
 
 *{box-sizing:border-box;}
 
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-
-html, body {
-  height: 100%;
-  overflow-x: hidden;
-}
-
 body{
   margin:0;
   background-color: #1a1613;
@@ -78,7 +53,7 @@ body{
   min-height:100vh;
   display:flex;
   justify-content:center;
-  padding:  12px 12px 30px;   /* was 20px 12px 60px */
+  padding: 20px 12px 60px;
 }
 .wrap{
   width:100%;
@@ -89,15 +64,15 @@ body{
 
 header{
   text-align:center;
-  margin-bottom: 10px;   /* was 22px */
-  padding-bottom: 8px;  /* was 16px */
+  margin-bottom: 22px;
+  padding-bottom: 16px;
   border-bottom: 2px solid var(--accent-dark);
 }
 
 header h1{
   font-family: 'Palatino Linotype', Georgia, serif;
   letter-spacing: 6px;
-  font-size: 2.75rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   margin: 0;
   color: var(--bone);
   text-shadow: 0 2px 0 rgba(0,0,0,0.4);
@@ -116,8 +91,8 @@ header p{
 .mode-selector {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 6px;   /* was 15px */
+  gap: 10px;
+  margin-bottom: 15px;
 }
 .mode-btn {
   background: var(--charcoal-light);
@@ -137,13 +112,13 @@ header p{
   border: 1px solid #55493a;
   border-radius: 10px;
   box-shadow: var(--shadow);
-  padding: 14px;         /* was 18px */
-  margin-bottom: 10px;   /* was 18px */
+  padding: 18px;
+  margin-bottom: 18px;
 }
 
 .guess-row{
   display:flex;
-  gap: 8px;
+  gap: 10px;
   position: relative;
   flex-wrap: wrap;
 }
@@ -221,8 +196,8 @@ button:active{ transform: translateY(1px); }
 
 .secondary-actions{
   display:flex;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 10px;
+  margin-top: 12px;
   flex-wrap: wrap;
 }
 
@@ -256,7 +231,7 @@ button:active{ transform: translateY(1px); }
   text-align:center;
   color: var(--stone-light);
   font-size: 0.85rem;
-  margin-top: 6px;
+  margin-top: 10px;
   letter-spacing: 1px;
 }
 
@@ -456,7 +431,7 @@ footer{
   text-align:center;
   color: var(--stone);
   font-size: 0.75rem;
-  margin-top: 10px;   /* was 20px */
+  margin-top: 20px;
   letter-spacing: 0.5px;
 }
 
