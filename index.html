@@ -314,33 +314,34 @@ function cycleBackground() {
   const subModeHardcore = document.getElementById("subModeHardcore");
 
   subModeEndless.onclick = () => {
-    hiddenColumnIndex = -1;
-    if(!isDailyMode) return;
-    isDailyMode = false;
-    subModeDaily.classList.remove("active");
-    subModeHardcore.classList.remove("active");
-    subModeEndless.classList.add("active");
-    startGame();
-  };
+  if (subModeEndless.classList.contains("active")) return;
+  hiddenColumnIndex = -1;
+  isDailyMode = false;
+  subModeDaily.classList.remove("active");
+  subModeHardcore.classList.remove("active");
+  subModeEndless.classList.add("active");
+  startGame();
+};
 
-  subModeDaily.onclick = () => {
-    hiddenColumnIndex = -1;
-    if(isDailyMode) return;
-    isDailyMode = true;
-    subModeEndless.classList.remove("active");
-    subModeHardcore.classList.remove("active");
-    subModeDaily.classList.add("active");
-    startGame();
-  };
+subModeDaily.onclick = () => {
+  if (subModeDaily.classList.contains("active")) return;
+  hiddenColumnIndex = -1;
+  isDailyMode = true;
+  subModeEndless.classList.remove("active");
+  subModeHardcore.classList.remove("active");
+  subModeDaily.classList.add("active");
+  startGame();
+};
 
-  subModeHardcore.onclick = () => {
-    isDailyMode = false;
-    subModeDaily.classList.remove("active");
-    subModeEndless.classList.remove("active");
-    subModeHardcore.classList.add("active");
-    hiddenColumnIndex = Math.floor(Math.random() * 6) + 1; 
-    startGame();
-  };
+subModeHardcore.onclick = () => {
+  if (subModeHardcore.classList.contains("active")) return;
+  isDailyMode = false;
+  subModeDaily.classList.remove("active");
+  subModeEndless.classList.remove("active");
+  subModeHardcore.classList.add("active");
+  hiddenColumnIndex = Math.floor(Math.random() * 6) + 1;
+  startGame();
+};
 
   /* ---------------- AUTOCOMPLETE ---------------- */
       guessInput.addEventListener("input", () => {
