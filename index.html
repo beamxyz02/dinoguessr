@@ -76,6 +76,7 @@
     <button class="mode-btn" id="subModeEndless" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px;">Endless</button>
     <button class="mode-btn" id="subModeHardcore" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #e74c3c;">Challenge</button>
     <button class="mode-btn" id="subModeTimeAttack" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #4a90e2;">Time Attack</button>
+    <button class="mode-btn" id="subModeHeadToHead" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #9b59b6;">Head to Head</button>
   </div>
 
   <div id="timeAttackDurationPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
@@ -83,6 +84,13 @@
   <button class="mode-btn" id="taDuration2" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">2 Min</button>
   <button class="mode-btn" id="taDuration3" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">3 Min</button>
   </div>
+
+  <div id="h2hRoundPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
+  <button class="mode-btn" id="h2hRounds5" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">5 Rounds</button>
+  <button class="mode-btn" id="h2hRounds10" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">10 Rounds</button>
+  </div>
+
+  <div id="h2hRoundIndicator" style="display:none; text-align:center; font-weight:bold; color: #9b59b6; margin-bottom:12px;"></div>
   
 <div class="panel">
         <div id="timeAttackBar" style="display:none; text-align:center; background: rgba(74,144,226,0.15); border: 1px solid #4a90e2; border-radius: 6px; padding: 8px; margin-bottom: 12px; font-weight:bold;">
@@ -159,6 +167,11 @@
   <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Round Breakdown</h3>
   <div id="timeAttackBreakdown"></div>
   </div>
+    <div id="h2hResultsContainer" style="display:none; margin: 15px 0; text-align: left; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; max-height: 260px; overflow-y: auto;">
+      <h3 style="font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; text-align:center;">Head to Head Results</h3>
+      <div id="h2hRoundBreakdown"></div>
+      <p id="h2hFinalVerdict" style="text-align:center; font-weight:bold; margin-top:10px; font-size:0.95rem;"></p>
+    </div>
 
     <div style="margin-top: 15px;">
       <button id="shareBtn" class="action-btn" style="background: var(--green); color: #000; font-weight: bold; width: 100%; margin-bottom: 8px; display: none;">
@@ -181,8 +194,8 @@
 <script>
     /* ---------------- BACKGROUND SLIDESHOW ---------------- */
 const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/dinosaur/${i + 1}.jpg`);
-const PTERO_BG_IMAGES = Array.from({length: 16}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
-const MARINE_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/marine/${i + 1}.jpg`);
+const PTERO_BG_IMAGES = Array.from({length: 1}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
+const MARINE_BG_IMAGES = Array.from({length: 1}, (_, i) => `images/marine/${i + 1}.jpg`);
 
 let bgImages = DINO_BG_IMAGES;
 let bgIndex = 0;
@@ -311,6 +324,7 @@ function cycleBackground() {
   /* ---------------- MODE TABS ---------------- */
   function switchMode(db, activeBtn, subtext, bgImageSet) {
     cancelTimeAttack();
+    cancelH2H();
     if(currentDb === db) return;
     currentDb = db;
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
@@ -349,6 +363,92 @@ const timeAttackBar = document.getElementById("timeAttackBar");
 const taTimeRemaining = document.getElementById("taTimeRemaining");
 const taScore = document.getElementById("taScore");
 const skipBtn = document.getElementById("skipBtn");
+
+/* ---------------- HEAD TO HEAD (ASYNC, URL-BASED) ---------------- */
+let h2hMode = false;
+let h2hSeed = null;
+let h2hTotalRounds = 5;
+let h2hRoundIndex = 0;
+let h2hRounds = [];
+let h2hMyResults = [];
+let h2hRoundStartTime = null;
+let h2hOpponentData = null;
+
+const subModeHeadToHead = document.getElementById("subModeHeadToHead");
+const h2hRoundPanel = document.getElementById("h2hRoundPanel");
+const h2hRounds5 = document.getElementById("h2hRounds5");
+const h2hRounds10 = document.getElementById("h2hRounds10");
+const h2hRoundIndicator = document.getElementById("h2hRoundIndicator");
+
+function seededRandom(seed) {
+  return function() {
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function generateRoundsFromSeed(seed, count) {
+  const rand = seededRandom(seed);
+  const rounds = [];
+  const usedIndices = new Set();
+  while (rounds.length < count && usedIndices.size < currentDb.length) {
+    const idx = Math.floor(rand() * currentDb.length);
+    if (!usedIndices.has(idx)) {
+      usedIndices.add(idx);
+      rounds.push(currentDb[idx]);
+    }
+  }
+  return rounds;
+}
+
+function encodeH2HData(seed, category, totalRounds, results) {
+  const payload = { seed, category, totalRounds, results };
+  const json = JSON.stringify(payload);
+  return btoa(encodeURIComponent(json));
+}
+
+function decodeH2HData(encoded) {
+  try {
+    const json = decodeURIComponent(atob(encoded));
+    return JSON.parse(json);
+  } catch (err) {
+    console.error("Bad head-to-head link:", err);
+    return null;
+  }
+}
+
+function buildShareLink(seed, category, totalRounds, results) {
+  const encoded = encodeH2HData(seed, category, totalRounds, results);
+  return `${window.location.origin}${window.location.pathname}?h2h=${encoded}`;
+}
+
+function checkForH2HLink() {
+  const params = new URLSearchParams(window.location.search);
+  const h2hParam = params.get("h2h");
+  if (h2hParam) {
+    h2hOpponentData = decodeH2HData(h2hParam);
+    if (h2hOpponentData) {
+      startH2HAsGuest();
+    }
+  }
+}
+
+function startH2HAsGuest() {
+  cancelTimeAttack();
+  h2hMode = true;
+  h2hSeed = h2hOpponentData.seed;
+  h2hTotalRounds = h2hOpponentData.totalRounds;
+  h2hRoundIndex = 0;
+  h2hMyResults = [];
+
+  [subModeDaily, subModeEndless, subModeHardcore, subModeTimeAttack].forEach(btn => btn.classList.remove("active"));
+  subModeHeadToHead.classList.add("active");
+
+  h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
+  startH2HRound();
+}
   
   const subModeEndless = document.getElementById("subModeEndless");
   const subModeDaily = document.getElementById("subModeDaily");
@@ -356,6 +456,7 @@ const skipBtn = document.getElementById("skipBtn");
 
   subModeEndless.onclick = () => {
   cancelTimeAttack();
+  cancelH2H();
   if (subModeEndless.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = false;
@@ -367,6 +468,7 @@ const skipBtn = document.getElementById("skipBtn");
 
 subModeDaily.onclick = () => {
   cancelTimeAttack();
+  cancelH2H();
   if (subModeDaily.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = true;
@@ -378,6 +480,7 @@ subModeDaily.onclick = () => {
 
 subModeHardcore.onclick = () => {
   cancelTimeAttack();
+  cancelH2H();
   if (subModeHardcore.classList.contains("active")) return;
   isDailyMode = false;
   subModeDaily.classList.remove("active");
@@ -388,6 +491,7 @@ subModeHardcore.onclick = () => {
 };
 
 subModeTimeAttack.onclick = () => {
+cancelH2H();
 timeAttackDurationPanel.style.display =
 timeAttackDurationPanel.style.display === "flex" ? "none" : "flex";
 };
@@ -398,6 +502,7 @@ taDuration3.onclick = () => startTimeAttack(3);
 
 function startTimeAttack(durationKey) {
   cancelTimeAttack();
+  cancelH2H();
   timeAttackDurationPanel.style.display = "none";
 
   subModeDaily.classList.remove("active");
@@ -544,6 +649,12 @@ function cancelTimeAttack() {
   hintBtn.disabled = false;
 }
 
+function cancelH2H() {
+  h2hMode = false;
+  h2hRoundIndicator.style.display = "none";
+  h2hRoundPanel.style.display = "none";
+}
+
 let skipFlashTimeout = null;
 const skipFlash = document.getElementById("skipFlash");
 const skipFlashName = document.getElementById("skipFlashName");
@@ -572,6 +683,139 @@ skipBtn.onclick = () => {
     endTimeAttack();
   }
 };
+
+/* ---------------- HEAD TO HEAD HANDLERS ---------------- */
+subModeHeadToHead.onclick = () => {
+  cancelTimeAttack();
+  h2hRoundPanel.style.display = h2hRoundPanel.style.display === "flex" ? "none" : "flex";
+};
+
+h2hRounds5.onclick = () => startH2HAsHost(5);
+h2hRounds10.onclick = () => startH2HAsHost(10);
+
+function startH2HAsHost(totalRounds) {
+  h2hRoundPanel.style.display = "none";
+  cancelTimeAttack();
+  h2hMode = true;
+  h2hSeed = Math.floor(Math.random() * 1000000);
+  h2hTotalRounds = totalRounds;
+  h2hRoundIndex = 0;
+  h2hMyResults = [];
+  h2hOpponentData = null; // we're the host, no opponent data yet
+
+  [subModeDaily, subModeEndless, subModeHardcore, subModeTimeAttack].forEach(btn => btn.classList.remove("active"));
+  subModeHeadToHead.classList.add("active");
+
+  h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
+  startH2HRound();
+}
+
+function startH2HRound() {
+  if (h2hRoundIndex >= h2hRounds.length) {
+    finishH2HMatch();
+    return;
+  }
+
+  target = h2hRounds[h2hRoundIndex];
+  h2hRoundStartTime = Date.now();
+
+  guessCount = 0;
+  gameOver = false;
+  guessInput.value = "";
+  guessInput.disabled = false;
+  guessBtn.disabled = false;
+  hintBtn.disabled = true;
+  giveUpBtn.style.display = "none";
+  skipBtn.style.display = "none";
+  hintBox.style.display = "none";
+  guessCountEl.textContent = "Guesses: 0";
+  resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+  modalOverlay.classList.remove("show");
+
+  h2hRoundIndicator.style.display = "block";
+  h2hRoundIndicator.textContent = `Head to Head — Round ${h2hRoundIndex + 1} of ${h2hRounds.length}`;
+}
+
+function finishH2HMatch() {
+  h2hRoundIndicator.style.display = "none";
+  guessInput.disabled = true;
+  guessBtn.disabled = true;
+
+  const modalElement = document.querySelector(".modal");
+  modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
+
+  document.getElementById("distributionContainer").style.display = "none";
+  document.getElementById("shareBtn").style.display = "none";
+  document.getElementById("dailyCountdownContainer").style.display = "none";
+  wikiLink.style.display = "none";
+
+  const myTotalTime = h2hMyResults.reduce((sum, r) => sum + r.time, 0);
+  const myTotalGuesses = h2hMyResults.reduce((sum, r) => sum + r.guesses, 0);
+
+  const breakdown = document.getElementById("h2hRoundBreakdown");
+  const verdict = document.getElementById("h2hFinalVerdict");
+  breakdown.innerHTML = "";
+
+  if (h2hOpponentData) {
+    // We're the guest — compare against the host's baked-in results
+    const oppResults = h2hOpponentData.results;
+    let myPoints = 0, oppPoints = 0;
+
+    modalTitle.textContent = "MATCH COMPLETE!";
+    modalTitle.style.color = "var(--accent-primary)";
+    modalDinoName.textContent = "";
+    modalDinoSub.textContent = "";
+    modalMsg.textContent = "";
+
+    h2hMyResults.forEach((mine, i) => {
+      const theirs = oppResults[i];
+      let roundWinner = "Tie";
+      if (mine.time < theirs.time) { roundWinner = "You"; myPoints++; }
+      else if (theirs.time < mine.time) { roundWinner = "Opponent"; oppPoints++; }
+
+      const row = document.createElement("div");
+      row.style.cssText = "display:flex; justify-content:space-between; padding:4px 6px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);";
+      row.innerHTML = `
+        <span>${mine.name}</span>
+        <span>You: ${mine.time}s/${mine.guesses}g</span>
+        <span>Opp: ${theirs.time}s/${theirs.guesses}g</span>
+        <span style="font-weight:bold; color:${roundWinner === "You" ? "var(--green)" : roundWinner === "Opponent" ? "var(--red)" : "var(--stone-light)"};">${roundWinner === "Tie" ? "Tie" : roundWinner + " +1"}</span>
+      `;
+      breakdown.appendChild(row);
+    });
+
+    const overallWinner = myPoints > oppPoints ? "You win!" : oppPoints > myPoints ? "Opponent wins!" : "It's a tie!";
+    verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
+
+  } else {
+    // We're the host — no opponent data yet, generate the share link instead
+    modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
+    modalTitle.style.color = "var(--accent-primary)";
+    modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
+    modalDinoSub.textContent = "";
+    modalMsg.textContent = "Share this link with your friend to see who wins!";
+
+    const category = currentDb === DINOSAURS ? "dino" : currentDb === PTEROSAURS ? "ptero" : "marine";
+    const link = buildShareLink(h2hSeed, category, h2hTotalRounds, h2hMyResults);
+
+    breakdown.innerHTML = `
+      <input type="text" readonly value="${link}" id="h2hFinalLink" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--stone); background:var(--bone); color:var(--charcoal); font-size:0.75rem; box-sizing:border-box; margin-bottom:8px;">
+      <button id="h2hFinalCopyBtn" class="mode-btn active" style="width:100%; font-size:0.8rem;">Copy Link</button>
+    `;
+    verdict.textContent = "";
+
+    document.getElementById("h2hFinalCopyBtn").onclick = () => {
+      const linkInput = document.getElementById("h2hFinalLink");
+      linkInput.select();
+      navigator.clipboard.writeText(linkInput.value).then(() => {
+        document.getElementById("h2hFinalCopyBtn").textContent = "Copied!";
+      });
+    };
+  }
+
+  document.getElementById("h2hResultsContainer").style.display = "block";
+  modalOverlay.classList.add("show");
+}
   
   /* ---------------- AUTOCOMPLETE ---------------- */
       guessInput.addEventListener("input", () => {
@@ -645,6 +889,11 @@ skipBtn.onclick = () => {
         guessCountEl.textContent = "Guesses: 0";
         resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
         pickNewTimeAttackTarget();
+      } else if (h2hMode) {
+        const timeTaken = Math.round((Date.now() - h2hRoundStartTime) / 1000);
+        h2hMyResults.push({ name: target.name, time: timeTaken, guesses: guessCount });
+        h2hRoundIndex++;
+        startH2HRound();
       } else {
         endGame(true);
       }
@@ -832,6 +1081,11 @@ skipBtn.onclick = () => {
       return;
     }
 
+    if (h2hMode) {
+      alert("Hints are disabled during Head to Head! Keep going!");
+      return;
+    }
+
     if (hiddenColumnIndex !== -1) {
       alert("Come on, it's supposed to be a Challenge! Hints disabled.");
       return;
@@ -929,6 +1183,7 @@ skipBtn.onclick = () => {
     document.getElementById("distributionContainer").style.display = "block";
     wikiLink.style.display = "inline-block";
     document.getElementById("timeAttackBreakdownContainer").style.display = "none";
+    document.getElementById("h2hResultsContainer").style.display = "none";
     guessInput.disabled = true;
     guessBtn.disabled = true;
     hintBtn.disabled = true;
@@ -1073,6 +1328,7 @@ preloadImages(DINO_BG_IMAGES);
 preloadImages(PTERO_BG_IMAGES);
 preloadImages(MARINE_BG_IMAGES);
   initBackgroundSlideshow(DINO_BG_IMAGES);
+  checkForH2HLink();
   startGame();
 
   window.addEventListener('keydown', function (e) {
