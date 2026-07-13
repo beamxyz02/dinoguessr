@@ -178,7 +178,7 @@
     {
       name: "Therizinosaurus cheloniformis",
       period: "Cretaceous",
-      difficulty: "Medium",
+      difficulty: "Easy",
       diet: "Herbivore",
       continent: "Asia",
       group: "Theropod",
@@ -202,7 +202,7 @@
       length: 9,
       wiki: "Baryonyx",
       hints: [
-        "Its name means 'heavy claw', referring to the massive 30-centimeter hook on its first finger.",
+        "One of Englands most famous dinosaurs, on display at the Natural History Museum in London.",
         "Its skull shape mimics a modern gharial crocodile, perfectly suited for snapping up fish.",
         "Fossilized stomach contents revealed scaled fish bones and the remains of a young Iguanodon."
       ]
@@ -346,7 +346,7 @@
       length: 22,
       wiki: "Apatosaurus",
       hints: [
-        "Its name means 'deceptive lizard', and it was famously confused with Brontosaurus for generations.",
+        "It is famously confused with Brontosaurus for generations.",
         "It had a thicker, stockier build and a much lower neck posture compared to Brachiosaurus.",
         "Like other diplodocids, it had pencil-like teeth limited only to the front of its mouth."
       ]
@@ -461,22 +461,6 @@
         "Its name unfairly translates to 'egg thief' because its first fossil was found near a nest.",
         "Later discoveries proved the nests actually belonged to Oviraptor itself, which died brooding its own eggs.",
         "It possessed a short, deep toothless beak that operated like a modern parrot jaw."
-      ]
-    },
-    {
-      name: "Psittacosaurus mongoliensis",
-      period: "Cretaceous",
-      difficulty: "Hard",
-      diet: "Herbivore",
-      continent: "Asia",
-      group: "Marginocephalian",
-      subgroup: "Psittacosaurid",
-      length: 2,
-      wiki: "Psittacosaurus",
-      hints: [
-        "Its name means 'parrot lizard' due to its highly distinctive hooked beak profile.",
-        "Incredible fossils show a brush-like row of long, bristly structures running down its tail.",
-        "It is one of the most specimen-rich dinosaur genera, with over 400 complete skeletons found."
       ]
     },
     {
@@ -730,7 +714,7 @@
     length: 11,
     wiki: "Suchomimus",
     hints: [
-      "Discovered in the Elrhaz Formation of Niger by a team led by Paul Sereno.",
+      "Famous piscivorous dinosaur discovered in Niger by a team led by Paul Sereno.",
       "Features a long, low, crocodile-like skull snout and a low dorsal ridge instead of a tall sail.",
       "Equipped with a massive, sickle-like thumb claw (ungual) used to hook giant prehistoric fish from river systems."
     ]
@@ -842,7 +826,7 @@
     length: 3,
     wiki: "Deinonychus",
     hints: [
-      "An Early Cretaceous predator excavated from the Cloverly Formation of Montana and Wyoming.",
+      "The dromaeosaurid that inspired the modern conception of raptors in popular culture, including Jurassic Park.",
       "Its description by John Ostrom in 1969 ignited the 'Dinosaur Renaissance,' shifting the public perception of dinosaurs into active, warm-blooded animals.",
       "Fossil associations with Tenontosaurus skeletons heavily support the hypothesis that this raptor may have engaged in cooperative pack hunting."
     ]
@@ -970,7 +954,7 @@
     length: 5,
     wiki: "Nodosaurus",
     hints: [
-      "An Early Cretaceous herbivore from the Frontier Formation of Wyoming, serving as the type genus for its family.",
+      "Resembles Ankylosaurus, yet lacks a tail club.",
       "Its body was covered in rectangular, pebble-like dermal plates arranged in neat, fabric-like rows.",
       "Lacked heavy shoulder spikes or a tail club, relying purely on low-profile, carpet-like armor matrices."
     ]
@@ -1066,7 +1050,7 @@
     length: 9,
     wiki: "Triceratops",
     hints: [
-      "A massive, iconic chasmosaurine ceratopsid from the Late Cretaceous Hell Creek Formation.",
+      "A massive, iconic ceratopsid from the Late Cretaceous Hell Creek Formation.",
       "Possessed three large facial horns and a solid, bone-filled neck frill entirely lacking open windows (fenestrae).",
       "The final and largest of its lineage, locked in a well-documented predatory dynamic with Tyrannosaurus rex."
     ]
@@ -1226,7 +1210,7 @@
     length: 6,
     wiki: "Sinoceratops",
     hints: [
-      "The first true, large-bodied ceratopsid discovered outside of western North America, found in Shandong, China.",
+      "First large ceratopsid discovered in Asia.",
       "A member of the centrosaurine family, featuring a series of forward-curving, hook-like hornlets crowning its frill.",
       "Significantly larger than its North American centrosaurine relatives, filling the dominant herbivore niche in its ecosystem."
     ]
@@ -1658,8 +1642,8 @@
     length: 6,
     wiki: "Megalosaurus",
     hints: [
-      "Historically reconstructed as a giant quadrupedal lizard before modern science understood bipedal theropod stance.",
       "Discovered in the Middle Jurassic Taynton Limestone Formation of England, this is the first non-avian dinosaur genus ever scientifically named.",
+    "Historically reconstructed as a giant quadrupedal lizard before modern science understood bipedal theropod stance.",
       "A robust, basal tetanuran equipped with powerful arms armed with large claws and blade-like, serrated teeth."
     ]
   },{
@@ -2521,7 +2505,7 @@
     length: 22,
     wiki: "Brontosaurus",
     hints: [
-      "A heavily-built Morrison Formation diplodocid whose generic validity was famously restored by an exhaustive cladistic study in 2015.",
+      "Famous sauropod, its generic validity was famously debated for decades.",
       "Features an incredibly dense, robust neck architecture compared to its longer-slung relative Diplodocus.",
       "Its name translates to 'thunder lizard,' capturing the massive weight distributions of its column-like skeleton configuration."
     ]
@@ -2713,7 +2697,7 @@
     length: 0.5,
     wiki: "Archaeopteryx",
     hints: [
-      "A classic transitional fossil from the Late Jurassic Solnhofen Limestone of Germany, bridging the gap between non-avian dinosaurs and modern birds.",
+      "Known for being the transitional fossil between dinosaurs and modern birds.",
       "Preserves a mosaic of primitive reptilian traits like a long bony tail and teeth, alongside advanced avian traits like asymmetrical flight feathers.",
       "Its discovery in 1861 provided major contemporary support for Charles Darwin's newly published theory of evolution."
     ]
