@@ -219,11 +219,10 @@ function cycleBackground() {
   bgIndex = (bgIndex + 1) % bgImages.length;
   bgInactiveLayer.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
 
-  // trigger the crossfade
+  // crossfade
   bgInactiveLayer.classList.add("visible");
   bgActiveLayer.classList.remove("visible");
 
-  // swap which layer is "active" for next cycle
   [bgActiveLayer, bgInactiveLayer] = [bgInactiveLayer, bgActiveLayer];
 }
   function preloadImages(urls) {
@@ -330,7 +329,7 @@ function cycleBackground() {
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
-    initBackgroundSlideshow(bgImageSet); // <-- replaces the old --bg-image line    
+    initBackgroundSlideshow(bgImageSet);   
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
     else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
@@ -404,15 +403,24 @@ function generateRoundsFromSeed(seed, count) {
 }
 
 function encodeH2HData(seed, category, totalRounds, results) {
-  const payload = { seed, category, totalRounds, results };
-  const json = JSON.stringify(payload);
-  return btoa(encodeURIComponent(json));
+  const categoryCode = category === "ptero" ? "p" : category === "marine" ? "m" : "d";
+  const times = results.map(r => r.time).join(",");
+  const guesses = results.map(r => r.guesses).join(",");
+  return `${seed}.${categoryCode}.${totalRounds}.${times}.${guesses}`;
 }
 
 function decodeH2HData(encoded) {
   try {
-    const json = decodeURIComponent(atob(encoded));
-    return JSON.parse(json);
+    const parts = decodeURIComponent(encoded).split(".");
+    const seed = parseInt(parts[0], 10);
+    const categoryCode = parts[1];
+    const totalRounds = parseInt(parts[2], 10);
+    const times = parts[3].split(",").map(Number);
+    const guessesArr = parts[4].split(",").map(Number);
+    const category = categoryCode === "p" ? "ptero" : categoryCode === "m" ? "marine" : "dino";
+    if (isNaN(seed) || isNaN(totalRounds)) return null;
+    const results = times.map((t, i) => ({ time: t, guesses: guessesArr[i] }));
+    return { seed, category, totalRounds, results };
   } catch (err) {
     console.error("Bad head-to-head link:", err);
     return null;
@@ -420,8 +428,25 @@ function decodeH2HData(encoded) {
 }
 
 function buildShareLink(seed, category, totalRounds, results) {
-  const encoded = encodeH2HData(seed, category, totalRounds, results);
+  const encoded = encodeURIComponent(encodeH2HData(seed, category, totalRounds, results));
   return `${window.location.origin}${window.location.pathname}?h2h=${encoded}`;
+}
+
+function setCategoryForH2H(category) {
+  let db, subtext, bgSet, themeClass, activeBtn;
+  if (category === "ptero") {
+    db = PTEROSAURS; subtext = "Identify the pterosaur!"; bgSet = PTERO_BG_IMAGES; themeClass = "theme-ptero"; activeBtn = modePtero;
+  } else if (category === "marine") {
+    db = MARINEREPTILES; subtext = "Identify the marine reptile!"; bgSet = MARINE_BG_IMAGES; themeClass = "theme-marine"; activeBtn = modeMarine;
+  } else {
+    db = DINOSAURS; subtext = "Identify the dinosaur!"; bgSet = DINO_BG_IMAGES; themeClass = "theme-dino"; activeBtn = modeDino;
+  }
+  currentDb = db;
+  [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
+  activeBtn.classList.add("active");
+  headerSubtext.textContent = subtext;
+  initBackgroundSlideshow(bgSet);
+  document.body.className = themeClass;
 }
 
 function checkForH2HLink() {
@@ -442,8 +467,11 @@ function startH2HAsGuest() {
   h2hTotalRounds = h2hOpponentData.totalRounds;
   h2hRoundIndex = 0;
   h2hMyResults = [];
+  hiddenColumnIndex = -1;
 
-  [subModeDaily, subModeEndless, subModeHardcore, subModeTimeAttack].forEach(btn => btn.classList.remove("active"));
+  setCategoryForH2H(h2hOpponentData.category);
+
+  clearAllSubModeButtons();
   subModeHeadToHead.classList.add("active");
 
   h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
@@ -454,14 +482,21 @@ function startH2HAsGuest() {
   const subModeDaily = document.getElementById("subModeDaily");
   const subModeHardcore = document.getElementById("subModeHardcore");
 
+  function clearAllSubModeButtons() {
+    subModeDaily.classList.remove("active");
+    subModeEndless.classList.remove("active");
+    subModeHardcore.classList.remove("active");
+    subModeTimeAttack.classList.remove("active");
+    subModeHeadToHead.classList.remove("active");
+  }
+
   subModeEndless.onclick = () => {
   cancelTimeAttack();
   cancelH2H();
   if (subModeEndless.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = false;
-  subModeDaily.classList.remove("active");
-  subModeHardcore.classList.remove("active");
+  clearAllSubModeButtons();
   subModeEndless.classList.add("active");
   startGame();
 };
@@ -472,8 +507,7 @@ subModeDaily.onclick = () => {
   if (subModeDaily.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = true;
-  subModeEndless.classList.remove("active");
-  subModeHardcore.classList.remove("active");
+  clearAllSubModeButtons();
   subModeDaily.classList.add("active");
   startGame();
 };
@@ -483,8 +517,7 @@ subModeHardcore.onclick = () => {
   cancelH2H();
   if (subModeHardcore.classList.contains("active")) return;
   isDailyMode = false;
-  subModeDaily.classList.remove("active");
-  subModeEndless.classList.remove("active");
+  clearAllSubModeButtons();
   subModeHardcore.classList.add("active");
   hiddenColumnIndex = Math.floor(Math.random() * 6) + 1;
   startGame();
@@ -508,6 +541,7 @@ function startTimeAttack(durationKey) {
   subModeDaily.classList.remove("active");
   subModeEndless.classList.remove("active");
   subModeHardcore.classList.remove("active");
+  subModeHeadToHead.classList.remove("active");
   subModeTimeAttack.classList.add("active");
 
   isDailyMode = false;
@@ -592,7 +626,6 @@ function endTimeAttack() {
   document.getElementById("dailyCountdownContainer").style.display = "none";
   wikiLink.style.display = "none";
 
-  // Build the breakdown list
   const breakdownContainer = document.getElementById("timeAttackBreakdown");
   breakdownContainer.innerHTML = "";
 
@@ -647,12 +680,14 @@ function cancelTimeAttack() {
   skipBtn.style.display = "none";
   giveUpBtn.style.display = "block";
   hintBtn.disabled = false;
+  subModeTimeAttack.classList.remove("active");
 }
 
 function cancelH2H() {
   h2hMode = false;
   h2hRoundIndicator.style.display = "none";
   h2hRoundPanel.style.display = "none";
+  subModeHeadToHead.classList.remove("active");
 }
 
 let skipFlashTimeout = null;
@@ -701,9 +736,13 @@ function startH2HAsHost(totalRounds) {
   h2hTotalRounds = totalRounds;
   h2hRoundIndex = 0;
   h2hMyResults = [];
-  h2hOpponentData = null; // we're the host, no opponent data yet
+  h2hOpponentData = null;
+  hiddenColumnIndex = -1;
 
-  [subModeDaily, subModeEndless, subModeHardcore, subModeTimeAttack].forEach(btn => btn.classList.remove("active"));
+  subModeDaily.classList.remove("active");
+  subModeEndless.classList.remove("active");
+  subModeHardcore.classList.remove("active");
+  subModeTimeAttack.classList.remove("active");
   subModeHeadToHead.classList.add("active");
 
   h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
@@ -757,7 +796,6 @@ function finishH2HMatch() {
   breakdown.innerHTML = "";
 
   if (h2hOpponentData) {
-    // We're the guest — compare against the host's baked-in results
     const oppResults = h2hOpponentData.results;
     let myPoints = 0, oppPoints = 0;
 
@@ -788,7 +826,6 @@ function finishH2HMatch() {
     verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
 
   } else {
-    // We're the host — no opponent data yet, generate the share link instead
     modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
     modalTitle.style.color = "var(--accent-primary)";
     modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
@@ -818,27 +855,34 @@ function finishH2HMatch() {
 }
   
   /* ---------------- AUTOCOMPLETE ---------------- */
-      guessInput.addEventListener("input", () => {
+  let selectedSuggestionIndex = -1;
+  let currentSuggestions = [];
+guessInput.addEventListener("input", () => {
     const val = guessInput.value.trim().toLowerCase();
     suggestionsBox.innerHTML = "";
+    selectedSuggestionIndex = -1;
+    currentSuggestions = [];
+
     if(!val || gameOver){
       suggestionsBox.style.display = "none";
       return;
     }
     
-    // FIX: Lowercase both the database name and the typed value, then use .startsWith()
     const matches = currentDb.filter(d => d.name.toLowerCase().startsWith(val)).slice(0, 8);
+    currentSuggestions = matches;
     
     if(matches.length === 0){
       suggestionsBox.style.display = "none";
       return;
     }
-    matches.forEach(d => {
+    matches.forEach((d, i) => {
       const div = document.createElement("div");
       div.textContent = d.name;
+      div.dataset.index = i;
       div.addEventListener("click", () => {
         guessInput.value = d.name;
         suggestionsBox.style.display = "none";
+        selectedSuggestionIndex = -1;
         guessInput.focus();
       });
       suggestionsBox.appendChild(div);
@@ -853,14 +897,71 @@ function finishH2HMatch() {
   });
 
   guessInput.addEventListener("keydown", (e) => {
+    const suggestionsVisible = suggestionsBox.style.display === "block";
+
+    if (e.key === "ArrowDown" && suggestionsVisible) {
+      e.preventDefault();
+      selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, currentSuggestions.length - 1);
+      highlightSuggestion();
+      return;
+    }
+
+    if (e.key === "ArrowUp" && suggestionsVisible) {
+      e.preventDefault();
+      selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, 0);
+      highlightSuggestion();
+      return;
+    }
+
     if (e.key === "Enter") {
       e.preventDefault();
+
+      if (suggestionsVisible && currentSuggestions.length > 0) {
+        const chosenIndex = selectedSuggestionIndex >= 0 ? selectedSuggestionIndex : 0;
+        guessInput.value = currentSuggestions[chosenIndex].name;
+      }
+
       suggestionsBox.style.display = "none";
+      selectedSuggestionIndex = -1;
       guessBtn.click();
     }
   });
 
+  function highlightSuggestion() {
+    const items = suggestionsBox.querySelectorAll("div");
+    items.forEach((item, i) => {
+      if (i === selectedSuggestionIndex) {
+        item.classList.add("active");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  }
+
   guessBtn.addEventListener("click", submitGuess);
+
+  /* ---------------- KEYBOARD SHORTCUTS ---------------- */
+  document.addEventListener("keydown", (e) => {
+    if (document.activeElement === guessInput) return;
+
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+    const key = e.key.toLowerCase();
+
+    if (key === "h") {
+      e.preventDefault();
+      hintBtn.click();
+    } else if (key === "g") {
+      e.preventDefault();
+      guessInput.focus();
+    } else if (key === "s") {
+      e.preventDefault();
+      if (skipBtn.style.display !== "none") {
+        skipBtn.click();
+      }
+    }
+  });
 
   /* ---------------- GUESS SUBMISSION ---------------- */
   function submitGuess(){
@@ -1283,9 +1384,9 @@ function finishH2HMatch() {
     if (countdownContainer) {
       if (isDailyMode) {
         countdownContainer.style.display = "block";
-        updateCountdown(); // Run instantly
+        updateCountdown();
         clearInterval(countdownInterval);
-        countdownInterval = setInterval(updateCountdown, 1000); // Tick every second
+        countdownInterval = setInterval(updateCountdown, 1000);
       } else {
         countdownContainer.style.display = "none";
         clearInterval(countdownInterval);
@@ -1351,7 +1452,6 @@ preloadImages(MARINE_BG_IMAGES);
     if (!timerSpan) return;
 
     const now = new Date();
-    // Calculate the exact upcoming midnight timestamp
     const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
     const diff = midnight - now;
 
@@ -1364,7 +1464,6 @@ preloadImages(MARINE_BG_IMAGES);
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Format with leading zeros (e.g., 05h 09m 02s)
     const hStr = hours.toString().padStart(2, '0');
     const mStr = minutes.toString().padStart(2, '0');
     const sStr = seconds.toString().padStart(2, '0');
