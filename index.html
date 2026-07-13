@@ -458,7 +458,7 @@ function cycleBackground() {
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
-    initBackgroundSlideshow(bgImageSet); // <-- replaces the old --bg-image line    
+    initBackgroundSlideshow(bgImageSet);    
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
     else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
@@ -826,7 +826,6 @@ function endTimeAttack() {
   document.getElementById("dailyCountdownContainer").style.display = "none";
   wikiLink.style.display = "none";
 
-  // Build the breakdown list
   const breakdownContainer = document.getElementById("timeAttackBreakdown");
   breakdownContainer.innerHTML = "";
 
@@ -938,7 +937,7 @@ function startH2HAsHost(totalRounds) {
   h2hTotalRounds = totalRounds;
   h2hRoundIndex = 0;
   h2hMyResults = [];
-  h2hOpponentData = null; // we're the host, no opponent data yet
+  h2hOpponentData = null; 
   hiddenColumnIndex = -1;
 
   subModeDaily.classList.remove("active");
@@ -998,7 +997,6 @@ function finishH2HMatch() {
   breakdown.innerHTML = "";
 
   if (h2hOpponentData) {
-    // We're the guest — compare against the host's baked-in results
     const oppResults = h2hOpponentData.results;
     let myPoints = 0, oppPoints = 0;
 
@@ -1029,7 +1027,6 @@ function finishH2HMatch() {
     verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
 
   } else {
-    // We're the host — no opponent data yet, generate the share link instead
     modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
     modalTitle.style.color = "var(--accent-primary)";
     modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
@@ -1121,7 +1118,6 @@ guessInput.addEventListener("input", () => {
       e.preventDefault();
 
       if (suggestionsVisible && currentSuggestions.length > 0) {
-        // If the player arrowed to a specific one, use that. Otherwise default to the first.
         const chosenIndex = selectedSuggestionIndex >= 0 ? selectedSuggestionIndex : 0;
         guessInput.value = currentSuggestions[chosenIndex].name;
       }
@@ -1626,9 +1622,9 @@ guessInput.addEventListener("input", () => {
     if (countdownContainer) {
       if (isDailyMode) {
         countdownContainer.style.display = "block";
-        updateCountdown(); // Run instantly
+        updateCountdown();
         clearInterval(countdownInterval);
-        countdownInterval = setInterval(updateCountdown, 1000); // Tick every second
+        countdownInterval = setInterval(updateCountdown, 1000);
       } else {
         countdownContainer.style.display = "none";
         clearInterval(countdownInterval);
@@ -1721,7 +1717,6 @@ preloadImages(MARINE_BG_IMAGES);
     if (!timerSpan) return;
 
     const now = new Date();
-    // Calculate the exact upcoming midnight timestamp
     const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
     const diff = midnight - now;
 
@@ -1734,7 +1729,6 @@ preloadImages(MARINE_BG_IMAGES);
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Format with leading zeros (e.g., 05h 09m 02s)
     const hStr = hours.toString().padStart(2, '0');
     const mStr = minutes.toString().padStart(2, '0');
     const sStr = seconds.toString().padStart(2, '0');
