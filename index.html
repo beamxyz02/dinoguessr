@@ -21,6 +21,76 @@
 .bg-layer.visible {
   opacity: 0.3;
 }
+
+#rulesBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--charcoal-light);
+  color: var(--bone);
+  border: 1px solid #55493a;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#rulesBtn:hover {
+  filter: brightness(1.2);
+}
+
+.rules-modal {
+  text-align: left;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.rules-modal h3 {
+  font-size: 13px;
+  margin: 18px 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-deep);
+}
+.rules-modal h3:first-of-type {
+  margin-top: 0;
+}
+.rules-modal p, .rules-modal li {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 4px 0;
+}
+.rules-modal ul {
+  padding-left: 18px;
+  margin: 4px 0;
+}
+.rules-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+.rules-legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.rules-key {
+  display: inline-block;
+  background: var(--stone-light);
+  border: 1px solid #55493a;
+  border-radius: 4px;
+  padding: 1px 7px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
   /* Special theme overrides for the ending modal */
 .modal.special-yutyrannus {
   background: #e6f2ff !important;
@@ -58,6 +128,36 @@
 <body class="theme-dino">
 <div class="bg-layer" id="bgLayerA"></div>
 <div class="bg-layer" id="bgLayerB"></div>
+<button id="rulesBtn" title="How to Play">?</button>
+
+<div class="modal-overlay" id="rulesOverlay">
+  <div class="modal rules-modal">
+    <button class="modal-close" id="rulesCloseBtn">&times;</button>
+    <h2 style="text-align:center; margin-bottom:12px;">HOW TO PLAY</h2>
+
+    <h3>Modes</h3>
+    <p><strong>Daily</strong> — One shared specimen per category, same for everyone, once per day. Hints are disabled.</p>
+    <p><strong>Endless</strong> — Unlimited random rounds. Hints available.</p>
+    <p><strong>Challenge</strong> — Like Endless, but one random column is hidden ("Unknown") each round, and hints are disabled.</p>
+    <p><strong>Time Attack</strong> — Pick 1, 2, or 3 minutes. Guess as many as you can before time runs out. No hints. Skip a specimen for a time penalty. See your full round breakdown when time's up.</p>
+    <p><strong>Head to Head</strong> — Create a challenge, play a set of 5 or 10 rounds, then share the generated link with a friend. They play the identical sequence, and you both see who won each round by time and guesses.</p>
+
+    <h3>Color Legend</h3>
+    <div class="rules-legend-row"><span class="rules-legend-swatch sw-green"></span> Exact match</div>
+    <div class="rules-legend-row"><span class="rules-legend-swatch sw-yellow"></span> Related clade / Close match</div>
+    <div class="rules-legend-row"><strong>D</strong> — Disputed placement (the family classification is debated)</div>
+    <div class="rules-legend-row"><strong>↑/↓</strong> — Whether your guess' clade is broader or more derived</div>
+    <div class="rules-legend-row"><span class="rules-legend-swatch sw-red"></span> No match</div>
+    <div class="rules-legend-row"><span class="rules-legend-swatch" style="background:#2c3e50; border:1px dashed #e74c3c;"></span> Hidden column (Challenge mode only)</div>
+
+    <h3>Keyboard Shortcuts</h3>
+    <p><span class="rules-key">↑</span> <span class="rules-key">↓</span> — Navigate autocomplete suggestions</p>
+    <p><span class="rules-key">Enter</span> — Select highlighted suggestion (or the first match) and submit</p>
+    <p><span class="rules-key">H</span> — Hint (when available)</p>
+    <p><span class="rules-key">G</span> — Focus the guess box</p>
+    <p><span class="rules-key">S</span> — Skip (Time Attack only)</p>
+  </div>
+</div>
 <div class="wrap">
 
   <header>
@@ -1444,12 +1544,12 @@ guessInput.addEventListener("input", () => {
     if (won && target.name.toLowerCase().includes("yutyrannus")) {
       modalElement.classList.add("special-yutyrannus");
       modalTitle.textContent = "YOOOO THATS SO NICHE";
-      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses!`;
+      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses! This is an inside joke in my friend group.`;
       
     } else if (won && target.name.toLowerCase().includes("oxalaia")) {
       modalElement.classList.add("special-oxalaia");
       modalTitle.textContent = "you're not niche bud.";
-      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses...`;
+      modalMsg.textContent = `Bummer! You tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses... This is an inside joke in my friend group.`;
       
     } else {
       modalTitle.textContent = won ? "SPECIMEN IDENTIFIED!" : "SPECIMEN REVEALED";
@@ -1551,6 +1651,28 @@ guessInput.addEventListener("input", () => {
     }
   });
 
+  /* ---------------- HOW TO PLAY ---------------- */
+  const rulesBtn = document.getElementById("rulesBtn");
+  const rulesOverlay = document.getElementById("rulesOverlay");
+  const rulesCloseBtn = document.getElementById("rulesCloseBtn");
+
+  function openRules() {
+    rulesOverlay.classList.add("show");
+  }
+
+  function closeRules() {
+    rulesOverlay.classList.remove("show");
+    rulesBtn.style.display = "flex";
+    localStorage.setItem("dinoguessr_seen_rules", "true");
+  }
+
+  rulesBtn.addEventListener("click", openRules);
+  rulesCloseBtn.addEventListener("click", closeRules);
+
+  rulesOverlay.addEventListener("click", (e) => {
+    if (e.target === rulesOverlay) closeRules();
+  });
+
   playAgainBtn.addEventListener("click", resetToNewRound);
   playAgainMain.addEventListener("click", resetToNewRound);
 
@@ -1572,6 +1694,11 @@ preloadImages(PTERO_BG_IMAGES);
 preloadImages(MARINE_BG_IMAGES);
   initBackgroundSlideshow(DINO_BG_IMAGES);
   checkForH2HLink();
+  if (!localStorage.getItem("dinoguessr_seen_rules")) {
+    openRules();
+  } else {
+    rulesBtn.style.display = "flex";
+  }
   startGame();
 
   window.addEventListener('keydown', function (e) {
