@@ -77,34 +77,21 @@
     <button class="mode-btn" id="subModeHardcore" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #e74c3c;">Challenge</button>
     <button class="mode-btn" id="subModeTimeAttack" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #4a90e2;">Time Attack</button>
     <button class="mode-btn" id="subModeHeadToHead" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #9b59b6;">Head to Head</button>
-    <button id="subModeMultiplayerLobby" class="mode-btn" style="font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; border: 1px dashed #2ecc71; color: #2ecc71;">Live Multiplayer</button>
   </div>
 
   <div id="timeAttackDurationPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
-    <button class="mode-btn" id="taDuration1" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">1 Min</button>
-    <button class="mode-btn" id="taDuration2" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">2 Min</button>
-    <button class="mode-btn" id="taDuration3" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">3 Min</button>
+  <button class="mode-btn" id="taDuration1" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">1 Min</button>
+  <button class="mode-btn" id="taDuration2" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">2 Min</button>
+  <button class="mode-btn" id="taDuration3" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">3 Min</button>
   </div>
 
   <div id="h2hRoundPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
-    <button class="mode-btn" id="h2hRounds5" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">5 Rounds</button>
-    <button class="mode-btn" id="h2hRounds10" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">10 Rounds</button>
-  </div>
-
-  <div id="multiplayerLivePanel" style="display:none; justify-content:center; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px; background: rgba(46,204,113,0.08); border: 1px dashed #2ecc71; padding: 12px; border-radius: 12px; max-width: 480px; margin-left: auto; margin-right: auto;">
-    <button onclick="window.createLiveRoom()" class="mode-btn" style="font-size:0.8rem; padding:8px 16px; border-radius:20px; background:#2ecc71; color:#000; font-weight:bold; min-width:auto;">
-      Create Lobby
-    </button>
-    <div style="display: flex; gap: 6px; align-items: center;">
-      <input type="text" id="joinRoomInput" placeholder="6-Digit Code" maxlength="6" style="width: 110px; padding: 7px; border-radius: 20px; border: 1px solid var(--stone); background: var(--bone); color: var(--charcoal); font-size: 0.8rem; text-align: center; box-sizing: border-box;">
-      <button onclick="window.joinLiveRoom(document.getElementById('joinRoomInput').value)" class="mode-btn" style="font-size:0.8rem; padding:8px 16px; border-radius:20px; min-width: auto; background:transparent; border:1px solid #2ecc71; color:#2ecc71;">
-        Join Match
-      </button>
-    </div>
+  <button class="mode-btn" id="h2hRounds5" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">5 Rounds</button>
+  <button class="mode-btn" id="h2hRounds10" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">10 Rounds</button>
   </div>
 
   <div id="h2hRoundIndicator" style="display:none; text-align:center; font-weight:bold; color: #9b59b6; margin-bottom:12px;"></div>
-
+  
 <div class="panel">
         <div id="timeAttackBar" style="display:none; text-align:center; background: rgba(74,144,226,0.15); border: 1px solid #4a90e2; border-radius: 6px; padding: 8px; margin-bottom: 12px; font-weight:bold;">
       ⏱ <span id="taTimeRemaining">1:00</span> &nbsp;|&nbsp; Score: <span id="taScore">0</span>
@@ -204,99 +191,59 @@
   <script src="pterosaurs.js"></script>
   <script src="marinereptiles.js"></script>
 
-<script type="module">
-  // 1. Core Firebase Imports
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-  // 2. Firebase Configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAQ0Q1Rpegm1aWtOyl1WgscqM7bxf5vrTs",
-    authDomain: "dinoguessr.firebaseapp.com",
-    databaseURL: "https://dinoguessr-default-rtdb.europe-west1.firebasedatabase.app/",
-    projectId: "dinoguessr",
-    storageBucket: "dinoguessr.firebasestorage.app",
-    messagingSenderId: "1044917633791",
-    appId: "1:1044917633791:web:bf0b9318d5c0786d7b42ca",
-    measurementId: "G-7Z5J1GF8C6"
-  };
-
-  // 3. Initialize Firebase Instance
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // Global window scopes so standard script modules can access database references
-  window.fbDb = db;
-  window.fbRef = ref;
-  window.fbSet = set;
-  window.fbOnValue = onValue;
-  window.fbUpdate = update;
-  window.fbGet = get;
-
-  /* ---------------- BACKGROUND SLIDESHOW ---------------- */
-  const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/dinosaur/${i + 1}.jpg`);
-  const PTERO_BG_IMAGES = Array.from({length: 16}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
-  const MARINE_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/marine/${i + 1}.jpg`);
-
-  let bgImages = DINO_BG_IMAGES;
-  let bgIndex = 0;
-  let bgActiveLayer = document.getElementById("bgLayerA");
-  let bgInactiveLayer = document.getElementById("bgLayerB");
-  let bgInterval = null;
-
-  window.DINO_BG_IMAGES = DINO_BG_IMAGES;
-  window.PTERO_BG_IMAGES = PTERO_BG_IMAGES;
-  window.MARINE_BG_IMAGES = MARINE_BG_IMAGES;
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
-  window.initBackgroundSlideshow = function(images) {
-    clearInterval(bgInterval);
-    bgImages = shuffleArray([...images]); 
-    bgIndex = 0;
-
-    bgActiveLayer.style.backgroundImage = `url("${bgImages[0]}")`;
-    bgActiveLayer.classList.add("visible");
-    bgInactiveLayer.classList.remove("visible");
-
-    if (bgImages.length > 1) {
-      bgInterval = setInterval(cycleBackground, 4500);
-    }
-  }
-
-  function cycleBackground() {
-    bgIndex = (bgIndex + 1) % bgImages.length;
-    bgInactiveLayer.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
-
-    bgInactiveLayer.classList.add("visible");
-    bgActiveLayer.classList.remove("visible");
-
-    [bgActiveLayer, bgInactiveLayer] = [bgInactiveLayer, bgActiveLayer];
-  }
-
-  window.preloadImages = function(urls) {
-    urls.forEach(url => {
-      const img = new Image();
-      img.src = url;
-    });
-  }
-
-  // Auto initialize the slideshow on load
-  window.initBackgroundSlideshow(DINO_BG_IMAGES);
-</script>
-
 <script>
-  /* ---------------- LIVE MULTIPLAYER ENGINE ---------------- */
-  let currentRoomCode = null;
-  let isMultiplayerHost = false;
-  let isMultiplayerGame = false;
+    /* ---------------- BACKGROUND SLIDESHOW ---------------- */
+const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/dinosaur/${i + 1}.jpg`);
+const PTERO_BG_IMAGES = Array.from({length: 16}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
+const MARINE_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/marine/${i + 1}.jpg`);
 
+let bgImages = DINO_BG_IMAGES;
+let bgIndex = 0;
+let bgActiveLayer = document.getElementById("bgLayerA");
+let bgInactiveLayer = document.getElementById("bgLayerB");
+let bgInterval = null;
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function initBackgroundSlideshow(images) {
+  clearInterval(bgInterval);
+  
+  bgImages = shuffleArray([...images]); 
+  bgIndex = 0;
+
+  bgActiveLayer.style.backgroundImage = `url("${bgImages[0]}")`;
+  bgActiveLayer.classList.add("visible");
+  bgInactiveLayer.classList.remove("visible");
+
+  if (bgImages.length > 1) {
+    bgInterval = setInterval(cycleBackground, 4500);
+  }
+}
+
+function cycleBackground() {
+  bgIndex = (bgIndex + 1) % bgImages.length;
+  bgInactiveLayer.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
+
+  bgInactiveLayer.classList.add("visible");
+  bgActiveLayer.classList.remove("visible");
+
+  [bgActiveLayer, bgInactiveLayer] = [bgInactiveLayer, bgActiveLayer];
+}
+  function preloadImages(urls) {
+  urls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+}
+</script>
+  
+<script>
   /* ---------------- GAME STATE ---------------- */
   let currentDb = DINOSAURS;
   let target = null;
@@ -425,14 +372,6 @@ const timeAttackBar = document.getElementById("timeAttackBar");
 const taTimeRemaining = document.getElementById("taTimeRemaining");
 const taScore = document.getElementById("taScore");
 const skipBtn = document.getElementById("skipBtn");
-const subModeMultiplayerLobby = document.getElementById("subModeMultiplayerLobby");
-const multiplayerLivePanel = document.getElementById("multiplayerLivePanel");
-
-subModeMultiplayerLobby.onclick = () => {
-  cancelTimeAttack();
-  cancelH2H();
-  multiplayerLivePanel.style.display = multiplayerLivePanel.style.display === "flex" ? "none" : "flex";
-};
 
 /* ---------------- HEAD TO HEAD (ASYNC, URL-BASED) ---------------- */
 let h2hMode = false;
@@ -561,7 +500,6 @@ function startH2HAsGuest() {
     subModeHardcore.classList.remove("active");
     subModeTimeAttack.classList.remove("active");
     subModeHeadToHead.classList.remove("active");
-    document.getElementById("subModeMultiplayerLobby").classList.remove("active");
   }
 
   subModeEndless.onclick = () => {
@@ -759,7 +697,6 @@ function cancelTimeAttack() {
 }
 
 function cancelH2H() {
-  document.getElementById("multiplayerLivePanel").style.display = "none";
   h2hMode = false;
   h2hRoundIndicator.style.display = "none";
   h2hRoundPanel.style.display = "none";
@@ -825,32 +762,6 @@ function startH2HAsHost(totalRounds) {
   startH2HRound();
 }
 
-function startH2HRound() {
-  if (h2hRoundIndex >= h2hRounds.length) {
-    finishH2HMatch();
-    return;
-  }
-
-  target = h2hRounds[h2hRoundIndex];
-  h2hRoundStartTime = Date.now();
-
-  guessCount = 0;
-  gameOver = false;
-  guessInput.value = "";
-  guessInput.disabled = false;
-  guessBtn.disabled = false;
-  hintBtn.disabled = true;
-  giveUpBtn.style.display = "none";
-  skipBtn.style.display = "none";
-  hintBox.style.display = "none";
-  guessCountEl.textContent = "Guesses: 0";
-  resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
-  modalOverlay.classList.remove("show");
-
-  h2hRoundIndicator.style.display = "block";
-  h2hRoundIndicator.textContent = `Head to Head — Round ${h2hRoundIndex + 1} of ${h2hRounds.length}`;
-}
-
 function finishH2HMatch() {
   h2hRoundIndicator.style.display = "none";
   guessInput.disabled = true;
@@ -864,38 +775,82 @@ function finishH2HMatch() {
   document.getElementById("dailyCountdownContainer").style.display = "none";
   wikiLink.style.display = "none";
 
+  const myTotalTime = h2hMyResults.reduce((sum, r) => sum + r.time, 0);
+  const myTotalGuesses = h2hMyResults.reduce((sum, r) => sum + r.guesses, 0);
+
   const breakdown = document.getElementById("h2hRoundBreakdown");
   const verdict = document.getElementById("h2hFinalVerdict");
   breakdown.innerHTML = "";
 
-  if (isMultiplayerGame && currentRoomCode) {
-    const playerPath = isMultiplayerHost ? 'player1' : 'player2';
-    const updates = {};
-    
-    // Crucial Fix: Package results and the true status together in one single push
-    updates[`rooms/${currentRoomCode}/${playerPath}`] = {
-      finished: true,
-      results: h2hMyResults
-    };
+  if (h2hOpponentData) {
+    // We're the guest — compare against the host's baked-in results
+    const oppResults = h2hOpponentData.results;
+    let myPoints = 0, oppPoints = 0;
 
-    window.fbUpdate(window.fbRef(window.fbDb), updates);
-
-    modalTitle.textContent = "WAITING FOR OPPONENT...";
-    modalTitle.style.color = "#f39c12"; 
-    modalDinoName.textContent = "Rounds completed!";
+    modalTitle.textContent = "MATCH COMPLETE!";
+    modalTitle.style.color = "var(--accent-primary)";
+    modalDinoName.textContent = "";
     modalDinoSub.textContent = "";
-    modalMsg.textContent = "Waiting for your opponent to submit their final guesses...";
-    
+    modalMsg.textContent = "";
+
+    h2hMyResults.forEach((mine, i) => {
+      const theirs = oppResults[i];
+      
+      let myRoundPoints = 0;
+      let oppRoundPoints = 0;
+
+      // 1. Compare Time (1 point)
+      if (mine.time < theirs.time) {
+        myRoundPoints++;
+      } else if (theirs.time < mine.time) {
+        oppRoundPoints++;
+      }
+
+      // 2. Compare Guesses (1 point)
+      if (mine.guesses < theirs.guesses) {
+        myRoundPoints++;
+      } else if (theirs.guesses < mine.guesses) {
+        oppRoundPoints++;
+      }
+
+      // Add to overall match totals
+      myPoints += myRoundPoints;
+      oppPoints += oppRoundPoints;
+
+      // Determine the visual text representation for this round
+      let roundScoreText = "";
+      let scoreColor = "var(--stone-light)";
+      if (myRoundPoints > oppRoundPoints) {
+        roundScoreText = `You +${myRoundPoints - oppRoundPoints}`;
+        scoreColor = "var(--green)";
+      } else if (oppRoundPoints > myRoundPoints) {
+        roundScoreText = `Opp +${oppRoundPoints - myRoundPoints}`;
+        scoreColor = "var(--red)";
+      } else {
+        roundScoreText = "Tie";
+      }
+
+      const row = document.createElement("div");
+      row.style.cssText = "display:flex; justify-content:space-between; padding:4px 6px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);";
+      row.innerHTML = `
+        <span style="flex: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${mine.name}</span>
+        <span style="flex: 1; text-align: center;">You: ${mine.time}s / ${mine.guesses}g</span>
+        <span style="flex: 1; text-align: center;">Opp: ${theirs.time}s / ${theirs.guesses}g</span>
+        <span style="flex: 0.8; text-align: right; font-weight:bold; color:${scoreColor};">${roundScoreText}</span>
+      `;
+      breakdown.appendChild(row);
+    });
+
+    const overallWinner = myPoints > oppPoints ? "You win!" : oppPoints > myPoints ? "Opponent wins!" : "It's a tie!";
+    verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
+
   } else {
-    // Standard Asynchronous H2H Fallback Code
+    // We're the host — no opponent data yet, generate the share link instead
     modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
     modalTitle.style.color = "var(--accent-primary)";
-    
-    const myTotalTime = h2hMyResults.reduce((sum, r) => sum + r.time, 0);
-    const myTotalGuesses = h2hMyResults.reduce((sum, r) => sum + r.guesses, 0);
     modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
     modalDinoSub.textContent = "";
-    modalMsg.textContent = "Lobby limits reached. Share this classic link with your friend to see who wins instead!";
+    modalMsg.textContent = "Share this link with your friend to see who wins!";
 
     const category = currentDb === DINOSAURS ? "dino" : currentDb === PTEROSAURS ? "ptero" : "marine";
     const link = buildShareLink(h2hSeed, category, h2hTotalRounds, h2hMyResults);
@@ -917,162 +872,6 @@ function finishH2HMatch() {
 
   document.getElementById("h2hResultsContainer").style.display = "block";
   modalOverlay.classList.add("show");
-}
-/* ---------------- PERSISTENT MULTIPLAYER ENGINE ---------------- */
-
-window.createLiveRoom = function() {
-  const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-  const generatedSeed = Math.floor(Math.random() * 999999);
-  const category = currentDb === DINOSAURS ? "dino" : currentDb === PTEROSAURS ? "ptero" : "marine";
-
-  const roomData = {
-    roomCode: generatedCode,
-    seed: generatedSeed,
-    category: category,
-    totalRounds: h2hTotalRounds,
-    status: "waiting",
-    player1: { finished: false, results: [] },
-    player2: { finished: false, results: [] }
-  };
-
-  // Try saving to Firebase live database
-  window.fbSet(window.fbRef(window.fbDb, 'rooms/' + generatedCode), roomData)
-    .then(() => {
-      // Success! Set live flags
-      isMultiplayerHost = true;
-      isMultiplayerGame = true;
-      currentRoomCode = generatedCode;
-      h2hSeed = generatedSeed;
-      
-      alert(`LOBBY CREATED!\nShare this code with your friend: ${currentRoomCode}`);
-      listenToRoom(currentRoomCode);
-    })
-    .catch((error) => {
-      console.warn("Firebase limit reached or error encountered. Falling back to local H2H:", error);
-      
-      // Fallback Strategy: Drop connection flags and run local H2H match cleanly
-      isMultiplayerHost = false;
-      isMultiplayerGame = false;
-      currentRoomCode = null;
-      
-      h2hMode = true;
-      h2hSeed = generatedSeed;
-      h2hRoundIndex = 0;
-      h2hMyResults = [];
-      hiddenColumnIndex = -1;
-      
-      h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
-      
-      alert("Live servers are busy right now! Switching to Local Head-to-Head Mode. You will receive a shareable results link at the end of your rounds instead.");
-      startH2HRound();
-    });
-};
-
-window.joinLiveRoom = function(code) {
-    if (!code) return;
-    isMultiplayerHost = false;
-    isMultiplayerGame = true;
-    currentRoomCode = code.trim();
-
-    window.fbGet(window.fbRef(window.fbDb, 'rooms/' + currentRoomCode)).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        h2hSeed = data.seed;
-        h2hTotalRounds = data.totalRounds || 5;
-        
-        const updates = {};
-        updates[`rooms/${currentRoomCode}/status`] = "playing";
-        window.fbUpdate(window.fbRef(window.fbDb), updates);
-
-        listenToRoom(currentRoomCode);
-      } else {
-        alert("Lobby not found! Check your code selection.");
-      }
-    }).catch((err) => {
-      console.error("Error joining room:", err);
-      alert("Could not join lobby. Switching to manual Head-to-Head fallback.");
-    });
-  };
-
-  function listenToRoom(roomCode) {
-    window.fbOnValue(window.fbRef(window.fbDb, 'rooms/' + roomCode), (snapshot) => {
-      const data = snapshot.val();
-      if (!data) return;
-
-      if (data.status === "playing" && !h2hMode) {
-        h2hMode = true;
-        h2hRoundIndex = 0;
-        h2hMyResults = [];
-        hiddenColumnIndex = -1;
-        setCategoryForH2H(data.category);
-        h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
-        startH2HRound();
-      }
-
-      if (data.player1 && data.player2 && data.player1.finished && data.player2.finished) {
-        renderLiveComparison(data.player1.results, data.player2.results);
-      }
-    });
-  }
-
-    if (data.player1.finished && data.player2.finished) {
-      renderLiveComparison(data.player1.results, data.player2.results);
-    }
-
-function renderLiveComparison(p1Results, p2Results) {
-  const breakdown = document.getElementById("h2hRoundBreakdown");
-  const verdict = document.getElementById("h2hFinalVerdict");
-  breakdown.innerHTML = "";
-
-  let myPoints = 0;
-  let oppPoints = 0;
-
-  const myRes = isMultiplayerHost ? p1Results : p2Results;
-  const oppRes = isMultiplayerHost ? p2Results : p1Results;
-
-  modalTitle.textContent = "MATCH COMPLETE!";
-  modalTitle.style.color = "var(--accent-primary)";
-  modalDinoName.textContent = "";
-  modalDinoSub.textContent = "";
-  modalMsg.textContent = "";
-
-  myRes.forEach((mine, i) => {
-    const theirs = oppRes[i];
-    let myRoundPoints = 0;
-    let oppRoundPoints = 0;
-
-    if (mine.time < theirs.time) myRoundPoints++;
-    else if (theirs.time < mine.time) oppRoundPoints++;
-
-    if (mine.guesses < theirs.guesses) myRoundPoints++;
-    else if (theirs.guesses < mine.guesses) oppRoundPoints++;
-
-    myPoints += myRoundPoints;
-    oppPoints += oppRoundPoints;
-
-    let roundScoreText = "Tie";
-    let scoreColor = "var(--stone-light)";
-    if (myRoundPoints > oppRoundPoints) {
-      roundScoreText = `You +${myRoundPoints - oppRoundPoints}`;
-      scoreColor = "var(--green)";
-    } else if (oppRoundPoints > myRoundPoints) {
-      roundScoreText = `Opp +${oppRoundPoints - myRoundPoints}`;
-      scoreColor = "var(--red)";
-    }
-
-    const row = document.createElement("div");
-    row.style.cssText = "display:flex; justify-content:space-between; padding:6px 8px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);";
-    row.innerHTML = `
-      <span style="font-weight:bold;">Round ${i+1}</span>
-      <span>You: ${mine.time}s / ${mine.guesses}g</span>
-      <span>Opp: ${theirs.time}s / ${theirs.guesses}g</span>
-      <span style="font-weight:bold; color:${scoreColor};">${roundScoreText}</span>
-    `;
-    breakdown.appendChild(row);
-  });
-
-  const overallWinner = myPoints > oppPoints ? "You win!" : oppPoints > myPoints ? "Opponent wins!" : "It's a tie!";
-  verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
 }
   
   /* ---------------- AUTOCOMPLETE ---------------- */
@@ -1726,7 +1525,6 @@ preloadImages(MARINE_BG_IMAGES);
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Format with leading zeros (e.g., 05h 09m 02s)
     const hStr = hours.toString().padStart(2, '0');
     const mStr = minutes.toString().padStart(2, '0');
     const sStr = seconds.toString().padStart(2, '0');
