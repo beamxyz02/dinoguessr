@@ -485,7 +485,7 @@
       diet: "Carnivore",
       continent: "Asia",
       group: "Theropod",
-      subgroup: "Tyrannosauroid",
+      subgroup: "Proceratosaurid",
       length: 9,
       wiki: "Yutyrannus",
       hints: [
@@ -867,21 +867,6 @@
       "A non-avian paravian apex predator discovered in the Late Cretaceous Snow Hill Island Formation of the Antarctic Peninsula.",
       "Its genus name translates to 'imperial warrior,' reflecting its role as a top carnivore in its high-latitude ecosystem.",
       "Unlike standard dromaeosaurids, its foot morphology indicates it lacked a highly specialized, hyperextensible 'sickle-claw' on the second digit."
-    ]
-  },
-  {
-    name: "Coelophysis bauri",
-    period: "Triassic",
-    diet: "Carnivore",
-    continent: "North America",
-    group: "Theropod",
-    subgroup: "Coelophysid",
-    length: 3,
-    wiki: "Coelophysis",
-    hints: [
-      "A highly successful, early neotheropod from the Late Triassic Chinle Formation of New Mexico.",
-      "Famous for the massive Ghost Ranch bonebed, where thousands of individuals were found preserved together following a flash flood.",
-      "Historically accused of being a cannibal, though modern CT scans show the 'juvenile bones' inside adult rib cages are actually early crocodylomorphs."
     ]
   },
   {
@@ -1449,7 +1434,7 @@
     length: 7,
     wiki: "Ouranosaurus",
     hints: [
-      "An unusual Early Cretaceous iguanodontian recovered from the Elrhaz Formation of Niger.",
+      "An unusual Early Cretaceous Hadrosaur recovered from the Elrhaz Formation of Niger.",
       "Possessed highly elongated neural spines along its backbone, forming a distinctive, tall ridge or sail across its body.",
       "Features a long, flat snout and a unique bony bump between its eyes, coexisting with the giant spinosaur Suchomimus."
     ]
@@ -2564,21 +2549,6 @@
     ]
   },
   {
-    name: "Troodon formosus",
-    period: "Cretaceous",
-    diet: "Omnivore",
-    continent: "North America",
-    group: "Theropod",
-    subgroup: "Troodontid",
-    length: 2.5,
-    wiki: "Troodon",
-    hints: [
-      "A famous Late Cretaceous troodontid genus originally named entirely from a single serrated fossil tooth found in Montana.",
-      "Widely recognized as a highly intelligent dinosaur due to its large brain-to-body mass ratio (EQ).",
-      "Currently treated as a highly controversial 'wastebasket taxon' or nomen dubium, with most skeletal material moved to Stenonychus or Latenivenatrix."
-    ]
-  },
-  {
     name: "Archaeopteryx lithographica",
     period: "Jurassic",
     diet: "Carnivore",
@@ -2689,28 +2659,13 @@
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
-    subgroup: "Tyrannosauroid",
+    subgroup: "Proceratosaurid",
     length: 3,
     wiki: "Guanlong",
     hints: [
       "A primitive, early tyrannosauroid discovered in the Late Jurassic Shishugou Formation of Xinjiang, China.",
       "Its name translates to 'crowned dragon,' referencing a highly prominent, fragile, air-filled bony crest riding along its midline snout.",
       "Provides vital evolutionary context proving that the terrifying ancestors of Tyrannosaurus rex started out as small, crested, three-fingered hunters."
-    ]
-  },
-  {
-    name: "Dryosaurus altus",
-    period: "Jurassic",
-    diet: "Herbivore",
-    continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Dryosaurid",
-    length: 3,
-    wiki: "Dryosaurus",
-    hints: [
-      "A small, lightweight, fast-running ornithopod discovered throughout the Late Jurassic Morrison Formation.",
-      "Possessed large eye sockets, a horn-covered beak, and completely lacked teeth in the very front of its mouth.",
-      "Depended entirely on long, slender hind legs and an agile build to outrun faster Morrison predators like Ceratosaurus."
     ]
   },
   {
