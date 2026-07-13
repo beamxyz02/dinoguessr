@@ -80,20 +80,20 @@
   </div>
 
   <div id="endlessFilterPanel" style="display:none; flex-direction:column; align-items:center; gap:10px; margin-bottom:15px; background: rgba(0,0,0,0.2); border-radius:8px; padding:12px 16px; max-width:340px; margin-left:auto; margin-right:auto;">
-    <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; opacity:0.7;">Period</div>
-    <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:0.85rem;">
-      <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterCretaceous" checked> Cretaceous</label>
-      <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterJurassic" checked> Jurassic</label>
-      <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterTriassic" checked> Triassic</label>
-    </div>
-    <div style="width:100%; height:1px; background: rgba(255,255,255,0.12);"></div>
-    <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; opacity:0.7;">Difficulty</div>
-    <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:0.85rem;">
-      <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterEasy" checked> Easy</label>
-      <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterMedium" checked> Medium</label>
-      <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterHard" checked> Hard</label>
-    </div>
+  <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; opacity:0.7;">Period</div>
+  <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:0.85rem;">
+    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterCretaceous" checked> Cretaceous</label>
+    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterJurassic" checked> Jurassic</label>
+    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterTriassic" checked> Triassic</label>
   </div>
+  <div style="width:100%; height:1px; background: rgba(255,255,255,0.12);"></div>
+  <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; opacity:0.7;">Difficulty</div>
+  <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:0.85rem;">
+    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterEasy" checked> Easy</label>
+    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterMedium" checked> Medium</label>
+    <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" id="filterHard" checked> Hard</label>
+  </div>
+</div>
 
   <div id="timeAttackDurationPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
   <button class="mode-btn" id="taDuration1" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">1 Min</button>
@@ -108,19 +108,6 @@
 
   <div id="h2hRoundIndicator" style="display:none; text-align:center; font-weight:bold; color: #9b59b6; margin-bottom:12px;"></div>
   
-  <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px; max-width: 300px; margin-left: auto; margin-right: auto;">
-  <button onclick="window.createLiveRoom()" class="mode-btn active" style="background: var(--accent-primary); color: white;">
-    Create Multiplayer Lobby
-  </button>
-  
-  <div style="display: flex; gap: 4px;">
-    <input type="text" id="joinRoomInput" placeholder="Enter 6-digit code" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--stone); background: var(--bone); color: var(--charcoal); font-size: 0.85rem; text-align: center; box-sizing: border-box;">
-    <button onclick="window.joinLiveRoom(document.getElementById('joinRoomInput').value)" class="mode-btn" style="padding: 0 16px; min-width: auto; height: 36px; line-height: 36px;">
-      Join
-    </button>
-  </div>
-</div>
-
 <div class="panel">
         <div id="timeAttackBar" style="display:none; text-align:center; background: rgba(74,144,226,0.15); border: 1px solid #4a90e2; border-radius: 6px; padding: 8px; margin-bottom: 12px; font-weight:bold;">
       ⏱ <span id="taTimeRemaining">1:00</span> &nbsp;|&nbsp; Score: <span id="taScore">0</span>
@@ -221,30 +208,6 @@
   <script src="marinereptiles.js"></script>
 
 <script>
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAQ0Q1Rpegm1aWtOyl1WgscqM7bxf5vrTs",
-  authDomain: "dinoguessr.firebaseapp.com",
-  databaseURL: "https://dinoguessr-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "dinoguessr",
-  storageBucket: "dinoguessr.firebasestorage.app",
-  messagingSenderId: "1044917633791",
-  appId: "1:1044917633791:web:bf0b9318d5c0786d7b42ca",
-  measurementId: "G-7Z5J1GF8C6"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-window.fbDb = db;
-window.fbRef = ref;
-window.fbSet = set;
-window.fbOnValue = onValue;
-window.fbUpdate = update;
-window.fbGet = get;
-
     /* ---------------- BACKGROUND SLIDESHOW ---------------- */
 const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/dinosaur/${i + 1}.jpg`);
 const PTERO_BG_IMAGES = Array.from({length: 16}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
@@ -297,9 +260,6 @@ function cycleBackground() {
 </script>
   
 <script>
-  let currentRoomCode = null;
-  let isMultiplayerHost = false;
-  let isMultiplayerGame = false;
   /* ---------------- GAME STATE ---------------- */
   let currentDb = DINOSAURS;
   let target = null;
@@ -366,11 +326,11 @@ function cycleBackground() {
         target = currentDb[Math.floor(Math.random() * currentDb.length)];
       }
     } else {
-      const pool = (typeof subModeEndless !== 'undefined' && subModeEndless.classList.contains("active"))
-        ? getEndlessPool(currentDb)
-        : currentDb;
-      target = pool[Math.floor(Math.random() * pool.length)];
-    }
+  const pool = (typeof subModeEndless !== 'undefined' && subModeEndless.classList.contains("active"))
+  ? getEndlessPool(currentDb)
+  : currentDb;
+  target = pool[Math.floor(Math.random() * pool.length)];   
+ }
 
     guessCount = 0;
     hintIndex = 0;
@@ -562,79 +522,75 @@ function startH2HAsGuest() {
   }
 
   /* ---------------- ENDLESS FILTERS ---------------- */
-  const endlessFilterPanel = document.getElementById("endlessFilterPanel");
+const endlessFilterPanel = document.getElementById("endlessFilterPanel");
 
-  let endlessFilters = {
-    periods: { Cretaceous: true, Jurassic: true, Triassic: true },
-    difficulties: { Easy: true, Medium: true, Hard: true }
-  };
+let endlessFilters = {
+  periods: { Cretaceous: true, Jurassic: true, Triassic: true },
+  difficulties: { Easy: true, Medium: true, Hard: true }
+};
 
-  const endlessFilterCheckboxes = {
-    Cretaceous: document.getElementById("filterCretaceous"),
-    Jurassic: document.getElementById("filterJurassic"),
-    Triassic: document.getElementById("filterTriassic"),
-    Easy: document.getElementById("filterEasy"),
-    Medium: document.getElementById("filterMedium"),
-    Hard: document.getElementById("filterHard")
-  };
+const endlessFilterCheckboxes = {
+  Cretaceous: document.getElementById("filterCretaceous"),
+  Jurassic: document.getElementById("filterJurassic"),
+  Triassic: document.getElementById("filterTriassic"),
+  Easy: document.getElementById("filterEasy"),
+  Medium: document.getElementById("filterMedium"),
+  Hard: document.getElementById("filterHard")
+};
 
-  function hideEndlessFilterPanel() {
-    endlessFilterPanel.style.display = "none";
+function hideEndlessFilterPanel() {
+  endlessFilterPanel.style.display = "none";
+}
+
+function readEndlessFiltersFromCheckboxes() {
+  endlessFilters.periods.Cretaceous = endlessFilterCheckboxes.Cretaceous.checked;
+  endlessFilters.periods.Jurassic = endlessFilterCheckboxes.Jurassic.checked;
+  endlessFilters.periods.Triassic = endlessFilterCheckboxes.Triassic.checked;
+  endlessFilters.difficulties.Easy = endlessFilterCheckboxes.Easy.checked;
+  endlessFilters.difficulties.Medium = endlessFilterCheckboxes.Medium.checked;
+  endlessFilters.difficulties.Hard = endlessFilterCheckboxes.Hard.checked;
+}
+
+function passesEndlessFilters(d) {
+  if (d.period && endlessFilters.periods.hasOwnProperty(d.period)) {
+    if (!endlessFilters.periods[d.period]) return false;
   }
-
-  function readEndlessFiltersFromCheckboxes() {
-    endlessFilters.periods.Cretaceous = endlessFilterCheckboxes.Cretaceous.checked;
-    endlessFilters.periods.Jurassic = endlessFilterCheckboxes.Jurassic.checked;
-    endlessFilters.periods.Triassic = endlessFilterCheckboxes.Triassic.checked;
-    endlessFilters.difficulties.Easy = endlessFilterCheckboxes.Easy.checked;
-    endlessFilters.difficulties.Medium = endlessFilterCheckboxes.Medium.checked;
-    endlessFilters.difficulties.Hard = endlessFilterCheckboxes.Hard.checked;
+  if (d.difficulty && endlessFilters.difficulties.hasOwnProperty(d.difficulty)) {
+    if (!endlessFilters.difficulties[d.difficulty]) return false;
   }
+  return true;
+}
 
-  // A dinosaur passes the period filter if its period is unchecked-out.
-  // A dinosaur passes the difficulty filter automatically until it actually
-  // has a `difficulty` field set (so the game isn't broken before difficulties exist).
-  function passesEndlessFilters(d) {
-    if (d.period && endlessFilters.periods.hasOwnProperty(d.period)) {
-      if (!endlessFilters.periods[d.period]) return false;
+function getEndlessPool(db) {
+  const pool = db.filter(passesEndlessFilters);
+  return pool.length > 0 ? pool : db;
+}
+
+const periodCheckboxGroup = [endlessFilterCheckboxes.Cretaceous, endlessFilterCheckboxes.Jurassic, endlessFilterCheckboxes.Triassic];
+const difficultyCheckboxGroup = [endlessFilterCheckboxes.Easy, endlessFilterCheckboxes.Medium, endlessFilterCheckboxes.Hard];
+
+[...periodCheckboxGroup, ...difficultyCheckboxGroup].forEach(cb => {
+  cb.addEventListener("change", () => {
+    const group = periodCheckboxGroup.includes(cb) ? periodCheckboxGroup : difficultyCheckboxGroup;
+    if (group.every(box => !box.checked)) {
+      cb.checked = true;
+      return;
     }
-    if (d.difficulty && endlessFilters.difficulties.hasOwnProperty(d.difficulty)) {
-      if (!endlessFilters.difficulties[d.difficulty]) return false;
+    readEndlessFiltersFromCheckboxes();
+    if (subModeEndless.classList.contains("active")) {
+      startGame();
     }
-    return true;
-  }
-
-  function getEndlessPool(db) {
-    const pool = db.filter(passesEndlessFilters);
-    return pool.length > 0 ? pool : db; // safety net: never leave the pool empty
-  }
-
-  const periodCheckboxGroup = [endlessFilterCheckboxes.Cretaceous, endlessFilterCheckboxes.Jurassic, endlessFilterCheckboxes.Triassic];
-  const difficultyCheckboxGroup = [endlessFilterCheckboxes.Easy, endlessFilterCheckboxes.Medium, endlessFilterCheckboxes.Hard];
-
-  [...periodCheckboxGroup, ...difficultyCheckboxGroup].forEach(cb => {
-    cb.addEventListener("change", () => {
-      const group = periodCheckboxGroup.includes(cb) ? periodCheckboxGroup : difficultyCheckboxGroup;
-      if (group.every(box => !box.checked)) {
-        // don't allow every box in a group to be unticked at once
-        cb.checked = true;
-        return;
-      }
-      readEndlessFiltersFromCheckboxes();
-      if (subModeEndless.classList.contains("active")) {
-        startGame();
-      }
-    });
   });
+});
 
   subModeEndless.onclick = () => {
   cancelTimeAttack();
   cancelH2H();
-  if (subModeEndless.classList.contains("active")) {
-    endlessFilterPanel.style.display = endlessFilterPanel.style.display === "flex" ? "none" : "flex";
-    return;
-  }
-  hiddenColumnIndex = -1;
+if (subModeEndless.classList.contains("active")) {
+  endlessFilterPanel.style.display = endlessFilterPanel.style.display === "flex" ? "none" : "flex";
+  return;
+} 
+hiddenColumnIndex = -1;
   isDailyMode = false;
   clearAllSubModeButtons();
   subModeEndless.classList.add("active");
@@ -643,9 +599,9 @@ function startH2HAsGuest() {
 };
 
 subModeDaily.onclick = () => {
+  hideEndlessFilterPanel();
   cancelTimeAttack();
   cancelH2H();
-  hideEndlessFilterPanel();
   if (subModeDaily.classList.contains("active")) return;
   hiddenColumnIndex = -1;
   isDailyMode = true;
@@ -655,9 +611,9 @@ subModeDaily.onclick = () => {
 };
 
 subModeHardcore.onclick = () => {
+  hideEndlessFilterPanel();
   cancelTimeAttack();
   cancelH2H();
-  hideEndlessFilterPanel();
   if (subModeHardcore.classList.contains("active")) return;
   isDailyMode = false;
   clearAllSubModeButtons();
@@ -667,8 +623,8 @@ subModeHardcore.onclick = () => {
 };
 
 subModeTimeAttack.onclick = () => {
-cancelH2H();
 hideEndlessFilterPanel();
+cancelH2H();
 timeAttackDurationPanel.style.display =
 timeAttackDurationPanel.style.display === "flex" ? "none" : "flex";
 };
@@ -866,8 +822,8 @@ skipBtn.onclick = () => {
 
 /* ---------------- HEAD TO HEAD HANDLERS ---------------- */
 subModeHeadToHead.onclick = () => {
-  cancelTimeAttack();
   hideEndlessFilterPanel();
+  cancelTimeAttack();
   h2hRoundPanel.style.display = h2hRoundPanel.style.display === "flex" ? "none" : "flex";
 };
 
@@ -934,163 +890,72 @@ function finishH2HMatch() {
   document.getElementById("dailyCountdownContainer").style.display = "none";
   wikiLink.style.display = "none";
 
+  const myTotalTime = h2hMyResults.reduce((sum, r) => sum + r.time, 0);
+  const myTotalGuesses = h2hMyResults.reduce((sum, r) => sum + r.guesses, 0);
+
   const breakdown = document.getElementById("h2hRoundBreakdown");
   const verdict = document.getElementById("h2hFinalVerdict");
   breakdown.innerHTML = "";
 
-  if (isMultiplayerGame && currentRoomCode) {
-    const playerPath = isMultiplayerHost ? 'player1' : 'player2';
-    const updates = {};
-    
-    // Upload our scores to the cloud room
-    updates[`rooms/${currentRoomCode}/${playerPath}/results`] = h2hMyResults;
-    updates[`rooms/${currentRoomCode}/${playerPath}/finished`] = true;
+  if (h2hOpponentData) {
+    // We're the guest — compare against the host's baked-in results
+    const oppResults = h2hOpponentData.results;
+    let myPoints = 0, oppPoints = 0;
 
-    window.fbUpdate(window.fbRef(window.fbDb), updates);
-
-    modalTitle.textContent = "WAITING FOR OPPONENT...";
-    modalTitle.style.color = "#f39c12"; 
-    modalDinoName.textContent = "Rounds completed!";
+    modalTitle.textContent = "MATCH COMPLETE!";
+    modalTitle.style.color = "var(--accent-primary)";
+    modalDinoName.textContent = "";
     modalDinoSub.textContent = "";
-    modalMsg.textContent = "Waiting for your opponent to submit their final guesses...";
-    
+    modalMsg.textContent = "";
+
+    h2hMyResults.forEach((mine, i) => {
+      const theirs = oppResults[i];
+      let roundWinner = "Tie";
+      if (mine.time < theirs.time) { roundWinner = "You"; myPoints++; }
+      else if (theirs.time < mine.time) { roundWinner = "Opponent"; oppPoints++; }
+
+      const row = document.createElement("div");
+      row.style.cssText = "display:flex; justify-content:space-between; padding:4px 6px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);";
+      row.innerHTML = `
+        <span>${mine.name}</span>
+        <span>You: ${mine.time}s/${mine.guesses}g</span>
+        <span>Opp: ${theirs.time}s/${theirs.guesses}g</span>
+        <span style="font-weight:bold; color:${roundWinner === "You" ? "var(--green)" : roundWinner === "Opponent" ? "var(--red)" : "var(--stone-light)"};">${roundWinner === "Tie" ? "Tie" : roundWinner + " +1"}</span>
+      `;
+      breakdown.appendChild(row);
+    });
+
+    const overallWinner = myPoints > oppPoints ? "You win!" : oppPoints > myPoints ? "Opponent wins!" : "It's a tie!";
+    verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
+
   } else {
-    modalTitle.textContent = "ROUNDS DONE!";
-    modalDinoName.textContent = "Training round finished.";
+    // We're the host — no opponent data yet, generate the share link instead
+    modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
+    modalTitle.style.color = "var(--accent-primary)";
+    modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
     modalDinoSub.textContent = "";
-    modalMsg.textContent = "Connect to a live multiplayer lobby next time to compete against friends.";
+    modalMsg.textContent = "Share this link with your friend to see who wins!";
+
+    const category = currentDb === DINOSAURS ? "dino" : currentDb === PTEROSAURS ? "ptero" : "marine";
+    const link = buildShareLink(h2hSeed, category, h2hTotalRounds, h2hMyResults);
+
+    breakdown.innerHTML = `
+      <input type="text" readonly value="${link}" id="h2hFinalLink" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--stone); background:var(--bone); color:var(--charcoal); font-size:0.75rem; box-sizing:border-box; margin-bottom:8px;">
+      <button id="h2hFinalCopyBtn" class="mode-btn active" style="width:100%; font-size:0.8rem;">Copy Link</button>
+    `;
+    verdict.textContent = "";
+
+    document.getElementById("h2hFinalCopyBtn").onclick = () => {
+      const linkInput = document.getElementById("h2hFinalLink");
+      linkInput.select();
+      navigator.clipboard.writeText(linkInput.value).then(() => {
+        document.getElementById("h2hFinalCopyBtn").textContent = "Copied!";
+      });
+    };
   }
 
   document.getElementById("h2hResultsContainer").style.display = "block";
   modalOverlay.classList.add("show");
-}
-
-/* ---------------- PERSISTENT MULTIPLAYER ENGINE ---------------- */
-
-window.createLiveRoom = function() {
-  isMultiplayerHost = true;
-  isMultiplayerGame = true;
-  currentRoomCode = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit room code
-  h2hSeed = Math.floor(Math.random() * 999999);
-
-  const category = currentDb === DINOSAURS ? "dino" : currentDb === PTEROSAURS ? "ptero" : "marine";
-
-  const roomData = {
-    roomCode: currentRoomCode,
-    seed: h2hSeed,
-    category: category,
-    totalRounds: h2hTotalRounds,
-    status: "waiting",
-    player1: { finished: false, results: [] },
-    player2: { finished: false, results: [] }
-  };
-
-  window.fbSet(window.fbRef(window.fbDb, 'rooms/' + currentRoomCode), roomData).then(() => {
-    alert(`LOBBY CREATED!\nShare this code with your friend: ${currentRoomCode}`);
-    listenToRoom(currentRoomCode);
-  });
-};
-
-window.joinLiveRoom = function(code) {
-  if (!code) return;
-  isMultiplayerHost = false;
-  isMultiplayerGame = true;
-  currentRoomCode = code.trim();
-
-  window.fbGet(window.fbRef(window.fbDb, 'rooms/' + currentRoomCode)).then((snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      h2hSeed = data.seed;
-      h2hTotalRounds = data.totalRounds;
-      
-      const updates = {};
-      updates[`rooms/${currentRoomCode}/status`] = "playing";
-      window.fbUpdate(window.fbRef(window.fbDb), updates);
-
-      listenToRoom(currentRoomCode);
-    } else {
-      alert("Lobby not found! Check your code selection.");
-    }
-  });
-};
-
-function listenToRoom(roomCode) {
-  window.fbOnValue(window.fbRef(window.fbDb, 'rooms/' + roomCode), (snapshot) => {
-    const data = snapshot.val();
-    if (!data) return;
-
-    // Start match instantly for the host once guest status changes to "playing"
-    if (data.status === "playing" && !h2hModeActive) {
-      h2hModeActive = true;
-      h2hRoundIndex = 0;
-      h2hMyResults = [];
-      hiddenColumnIndex = -1;
-      setCategoryForH2H(data.category);
-      h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
-      startH2HRound();
-    }
-
-    // Trigger point evaluation once BOTH arrays are flagged completed
-    if (data.player1.finished && data.player2.finished) {
-      renderLiveComparison(data.player1.results, data.player2.results);
-    }
-  });
-}
-
-function renderLiveComparison(p1Results, p2Results) {
-  const breakdown = document.getElementById("h2hRoundBreakdown");
-  const verdict = document.getElementById("h2hFinalVerdict");
-  breakdown.innerHTML = "";
-
-  let myPoints = 0;
-  let oppPoints = 0;
-
-  const myRes = isMultiplayerHost ? p1Results : p2Results;
-  const oppRes = isMultiplayerHost ? p2Results : p1Results;
-
-  modalTitle.textContent = "MATCH COMPLETE!";
-  modalTitle.style.color = "var(--accent-primary)";
-  modalDinoName.textContent = "";
-  modalDinoSub.textContent = "";
-  modalMsg.textContent = "";
-
-  myRes.forEach((mine, i) => {
-    const theirs = oppRes[i];
-    let myRoundPoints = 0;
-    let oppRoundPoints = 0;
-
-    if (mine.time < theirs.time) myRoundPoints++;
-    else if (theirs.time < mine.time) oppRoundPoints++;
-
-    if (mine.guesses < theirs.guesses) myRoundPoints++;
-    else if (theirs.guesses < mine.guesses) oppRoundPoints++;
-
-    myPoints += myRoundPoints;
-    oppPoints += oppRoundPoints;
-
-    let roundScoreText = "Tie";
-    let scoreColor = "var(--stone-light)";
-    if (myRoundPoints > oppRoundPoints) {
-      roundScoreText = `You +${myRoundPoints - oppRoundPoints}`;
-      scoreColor = "var(--green)";
-    } else if (oppRoundPoints > myRoundPoints) {
-      roundScoreText = `Opp +${oppRoundPoints - myRoundPoints}`;
-      scoreColor = "var(--red)";
-    }
-
-    const row = document.createElement("div");
-    row.style.cssText = "display:flex; justify-content:space-between; padding:6px 8px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);";
-    row.innerHTML = `
-      <span style="font-weight:bold;">Round ${i+1}</span>
-      <span>You: ${mine.time}s / ${mine.guesses}g</span>
-      <span>Opp: ${theirs.time}s / ${theirs.guesses}g</span>
-      <span style="font-weight:bold; color:${scoreColor};">${roundScoreText}</span>
-    `;
-    breakdown.appendChild(row);
-  });
-
-  const overallWinner = myPoints > oppPoints ? "You win!" : oppPoints > myPoints ? "Opponent wins!" : "It's a tie!";
-  verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
 }
   
   /* ---------------- AUTOCOMPLETE ---------------- */
@@ -1706,10 +1571,8 @@ preloadImages(DINO_BG_IMAGES);
 preloadImages(PTERO_BG_IMAGES);
 preloadImages(MARINE_BG_IMAGES);
   initBackgroundSlideshow(DINO_BG_IMAGES);
-  const loadedH2H = checkForH2HLink();
-  if (!loadedH2H) {
-    startGame();
-  }
+  checkForH2HLink();
+  startGame();
 
   window.addEventListener('keydown', function (e) {
       if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
