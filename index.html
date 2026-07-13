@@ -194,8 +194,8 @@
 <script>
     /* ---------------- BACKGROUND SLIDESHOW ---------------- */
 const DINO_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/dinosaur/${i + 1}.jpg`);
-const PTERO_BG_IMAGES = Array.from({length: 1}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
-const MARINE_BG_IMAGES = Array.from({length: 1}, (_, i) => `images/marine/${i + 1}.jpg`);
+const PTERO_BG_IMAGES = Array.from({length: 16}, (_, i) => `images/pterosaur/${i + 1}.jpg`);
+const MARINE_BG_IMAGES = Array.from({length: 25}, (_, i) => `images/marine/${i + 1}.jpg`);
 
 let bgImages = DINO_BG_IMAGES;
 let bgIndex = 0;
@@ -203,23 +203,33 @@ let bgActiveLayer = document.getElementById("bgLayerA");
 let bgInactiveLayer = document.getElementById("bgLayerB");
 let bgInterval = null;
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function initBackgroundSlideshow(images) {
-  bgImages = images;
-  bgIndex = 0;
   clearInterval(bgInterval);
+  
+  bgImages = shuffleArray([...images]); 
+  bgIndex = 0;
 
   bgActiveLayer.style.backgroundImage = `url("${bgImages[0]}")`;
   bgActiveLayer.classList.add("visible");
   bgInactiveLayer.classList.remove("visible");
 
-  bgInterval = setInterval(cycleBackground, 4500);
+  if (bgImages.length > 1) {
+    bgInterval = setInterval(cycleBackground, 4500);
+  }
 }
 
 function cycleBackground() {
   bgIndex = (bgIndex + 1) % bgImages.length;
   bgInactiveLayer.style.backgroundImage = `url("${bgImages[bgIndex]}")`;
 
-  // crossfade
   bgInactiveLayer.classList.add("visible");
   bgActiveLayer.classList.remove("visible");
 
@@ -329,7 +339,7 @@ function cycleBackground() {
     [modeDino, modePtero, modeMarine].forEach(btn => btn.classList.remove("active"));
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
-    initBackgroundSlideshow(bgImageSet);   
+    initBackgroundSlideshow(bgImageSet); // <-- replaces the old --bg-image line    
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
     else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
@@ -626,6 +636,7 @@ function endTimeAttack() {
   document.getElementById("dailyCountdownContainer").style.display = "none";
   wikiLink.style.display = "none";
 
+  // Build the breakdown list
   const breakdownContainer = document.getElementById("timeAttackBreakdown");
   breakdownContainer.innerHTML = "";
 
@@ -736,7 +747,7 @@ function startH2HAsHost(totalRounds) {
   h2hTotalRounds = totalRounds;
   h2hRoundIndex = 0;
   h2hMyResults = [];
-  h2hOpponentData = null;
+  h2hOpponentData = null; // we're the host, no opponent data yet
   hiddenColumnIndex = -1;
 
   subModeDaily.classList.remove("active");
@@ -796,6 +807,7 @@ function finishH2HMatch() {
   breakdown.innerHTML = "";
 
   if (h2hOpponentData) {
+    // We're the guest — compare against the host's baked-in results
     const oppResults = h2hOpponentData.results;
     let myPoints = 0, oppPoints = 0;
 
@@ -826,6 +838,7 @@ function finishH2HMatch() {
     verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
 
   } else {
+    // We're the host — no opponent data yet, generate the share link instead
     modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
     modalTitle.style.color = "var(--accent-primary)";
     modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
@@ -917,6 +930,7 @@ guessInput.addEventListener("input", () => {
       e.preventDefault();
 
       if (suggestionsVisible && currentSuggestions.length > 0) {
+        // If the player arrowed to a specific one, use that. Otherwise default to the first.
         const chosenIndex = selectedSuggestionIndex >= 0 ? selectedSuggestionIndex : 0;
         guessInput.value = currentSuggestions[chosenIndex].name;
       }
@@ -1016,53 +1030,74 @@ guessInput.addEventListener("input", () => {
       resultsBody.innerHTML = "";
     }
 
-    const relatedFamilies = [
-      ["Muttaburrasaurinae", "Iguanodontian", "Rhabdodontomorph"],
-      ["Hadrosaurid", "Iguanodontian"],
-      ["Hadrosaurid", "Hadrosauromorph"],
-      ["Dilophosaurid", "Neotheropoda"],
-      ["Neotheropoda", "Tetanuran"],
-      ["Hypsilophodontid", "Ornithopoda"],
-      ["Megalosaurid", "Abelisaurid", "Tetanuran"],
-      ["Ceratopsid", "Marginocephalian"],
-      ["Pachycephalosaurid", "Pachycephalosaurian"],
-      ["Tyrannosaurid", "Tyrannosauroid", "Coelurosauria"],
-      ["Scansoriopterygid", "Maniraptoran"],
-      ["Brachiosaurid", "Eusauropoda"],
-      ["Diplodocoid", "Eusauropoda"],
-      ["Titanosaur", "Eusauropoda"],
-      ["Diplodocoid", "Dicraeosaurid"],
-      ["Sauropod", "Sauropodomorph"],
-      ["Titanosaur", "Titanosauriform"],
-      ["Massopoda", "Plateosaurid"],
-      ["Unaysaurid", "Plateosaurid"],
-      ["Paravian", "Avialan"],
-      ["Paravian", "Dromaeosaurid"],
-      ["Neovenatorid", "Allosaurid", "Metriacanthosaurid", "Carcharodontosaurid"],      
-      ["Oviraptosaur", "Oviraptorid"],
-      ["Sauropod", "Sauropodomorph"],
-      ["Psittacosaurid", "Ceratopsid"],
-      ["Neoceratopsian", "Ceratopsid"],
-      ["Iguanodontid", "Hadrosaurid", "Styracosterna"],
-      ["Stegosaurid", "Huayangosaurid"],
-      ["Sauropoda", "Neosauropoda", "Macronaria"],
-      ["Therizinosaurid", "Maniraptoran", "Coelurosauria"],
-      ["Oviraptorid", "Oviraptorosauria", "Maniraptoran"],
-      ["Troodontid", "Maniraptoran", "Coelurosauria"],
-      ["Ornithomimid", "Ornithomimosauria", "Deinocheirid"],
-      ["Abelisaurid", "Ceratosaurid", "Theropoda"],
-      ["Dreadnoughtus", "Titanosaur", "Sauropoda"],
-      ["Brachiosaurid", "Sauropoda", "Macronaria"]
+    const DISPUTED_TARGETS = {
+    "cryolophosaurus": { agreed: "Neotheropoda", disputed: [
+      { name: "Dilophosaurid", direction: "up" },
+      { name: "Tetanuran", direction: "up" }
+    ]},
+    "monolophosaurus": { agreed: "Tetanuran", disputed: [
+      { name: "Megalosaurid", direction: "up" },
+      { name: "Allosaurid", direction: "up" }
+    ]},
+    "fukuiraptor": { agreed: "Megaraptorid", disputed: [
+      { name: "Neovenatorid", direction: "up" },
+      { name: "Tyrannosauroid", direction: "up" }
+    ]},
+    "megaraptor": { agreed: "Megaraptorid", disputed: [
+      { name: "Neovenatorid", direction: "up" },
+      { name: "Tyrannosauroid", direction: "up" }
+    ]},
+    "maip": { agreed: "Megaraptorid", disputed: [
+      { name: "Neovenatorid", direction: "up" },
+      { name: "Tyrannosauroid", direction: "up" }
+    ]},
+    "australovenator": { agreed: "Megaraptorid", disputed: [
+      { name: "Neovenatorid", direction: "up" },
+      { name: "Tyrannosauroid", direction: "up" }
+    ]},
+    "fukuivenator": { agreed: "Maniraptora", disputed: [
+      { name: "Dromaeosaurid", direction: "up" },
+      { name: "Therizinosaurid", direction: "up" }
+    ]}
+  };
+
+  const RELATED_PAIRS = [
+    ["Neovenatorid", "Carcharodontosaurid", "up"],
+    ["Neovenatorid", "Allosaurid", "up"],
+    ["Iguanodontid", "Muttaburrasaurinae", "down"],
+    ["Iguanodontid", "Styracosterna", "up"],
+    ["Paravian", "Dromaeosaurid", "down"],
+    ["Tyrannosauroid", "Proceratosaurid", "down"],
+    ["Ceratopsid", "Neoceratopsian", "up"],
+    ["Hadrosauromorph", "Hadrosauridae", "down"],
+    ["Tyrannosauroid", "Tyrannosaurid", "down"],
+    ["Titanosauriform", "Titanosaur", "down"],
+    ["Ornithomimosaur", "Ornithomimid", "down"],
+    ["Ceratopsid", "Psittacosaurid", "down"],
+    ["Pachycephalosaurian", "Pachycephalosaurid", "down"],
+    ["Sauropodomorph", "Sauropod", "down"],
   ];
 
-  const isCloseSubgroupMatch = (sub1, sub2) => {
-      if (!sub1 || !sub2) return false;
-      return relatedFamilies.some(cluster => 
-        cluster.some(item => item.toLowerCase() === sub1.toLowerCase()) && 
-        cluster.some(item => item.toLowerCase() === sub2.toLowerCase())
-      );
-    };
+  function isDisputedMatch(targetName, guessedSubgroup) {
+    const entry = DISPUTED_TARGETS[targetName.toLowerCase()];
+    if (!entry) return null;
+    return entry.disputed.find(d => d.name.toLowerCase() === guessedSubgroup.toLowerCase()) || null;
+  }
 
+  function isRelatedPair(sub1, sub2) {
+    const found = RELATED_PAIRS.find(pair =>
+      (pair[0].toLowerCase() === sub1.toLowerCase() && pair[1].toLowerCase() === sub2.toLowerCase()) ||
+      (pair[1].toLowerCase() === sub1.toLowerCase() && pair[0].toLowerCase() === sub2.toLowerCase())
+    );
+    if (!found) return null;
+
+   
+    const isFirstMatch = found[0].toLowerCase() === sub1.toLowerCase();
+    const assignedDirection = found[2];
+    const finalDirection = isFirstMatch ? assignedDirection : (assignedDirection === "up" ? "down" : "up");
+
+    return { direction: finalDirection };
+  }
 
 
     const row = document.createElement("tr");
@@ -1126,10 +1161,26 @@ guessInput.addEventListener("input", () => {
     } else {
       const familyCell = document.createElement("td");
       familyCell.textContent = guessed.subgroup;
+
+      const disputedMatch = isDisputedMatch(target.name, guessed.subgroup);
+      const relatedPairMatch = isRelatedPair(guessed.subgroup, target.subgroup);
+
       if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
         familyCell.classList.add("cell-correct");
-      } else if (isCloseSubgroupMatch(guessed.subgroup, target.subgroup)) {
+      } else if (disputedMatch) {
         familyCell.classList.add("cell-close");
+        const badge = document.createElement("span");
+        badge.textContent = " D";
+        badge.title = "Disputed placement";
+        badge.style.fontWeight = "bold";
+        familyCell.appendChild(badge);
+      } else if (relatedPairMatch) {
+        familyCell.classList.add("cell-close");
+        const arrow = document.createElement("span");
+        arrow.classList.add("arrow");
+        arrow.textContent = relatedPairMatch.direction === "up" ? " ↑" : " ↓";
+        arrow.title = relatedPairMatch.direction === "up" ? "More derived than target" : "Broader than target";
+        familyCell.appendChild(arrow);
       } else {
         familyCell.classList.add("cell-wrong");
       }
@@ -1384,9 +1435,9 @@ guessInput.addEventListener("input", () => {
     if (countdownContainer) {
       if (isDailyMode) {
         countdownContainer.style.display = "block";
-        updateCountdown();
+        updateCountdown(); // Run instantly
         clearInterval(countdownInterval);
-        countdownInterval = setInterval(updateCountdown, 1000);
+        countdownInterval = setInterval(updateCountdown, 1000); // Tick every second
       } else {
         countdownContainer.style.display = "none";
         clearInterval(countdownInterval);
@@ -1452,6 +1503,7 @@ preloadImages(MARINE_BG_IMAGES);
     if (!timerSpan) return;
 
     const now = new Date();
+    // Calculate the exact upcoming midnight timestamp
     const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
     const diff = midnight - now;
 
