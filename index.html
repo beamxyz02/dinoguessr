@@ -466,8 +466,10 @@ function checkForH2HLink() {
     h2hOpponentData = decodeH2HData(h2hParam);
     if (h2hOpponentData) {
       startH2HAsGuest();
+      return true;
     }
   }
+  return false; 
 }
 
 function startH2HAsGuest() {
@@ -1480,8 +1482,10 @@ preloadImages(DINO_BG_IMAGES);
 preloadImages(PTERO_BG_IMAGES);
 preloadImages(MARINE_BG_IMAGES);
   initBackgroundSlideshow(DINO_BG_IMAGES);
-  checkForH2HLink();
-  startGame();
+  const loadedH2H = checkForH2HLink();
+  if (!loadedH2H) {
+    startGame();
+  }
 
   window.addEventListener('keydown', function (e) {
       if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
@@ -1516,6 +1520,7 @@ preloadImages(MARINE_BG_IMAGES);
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+    // Format with leading zeros (e.g., 05h 09m 02s)
     const hStr = hours.toString().padStart(2, '0');
     const mStr = minutes.toString().padStart(2, '0');
     const sStr = seconds.toString().padStart(2, '0');
