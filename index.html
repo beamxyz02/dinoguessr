@@ -968,6 +968,53 @@ window.createLiveRoom = function() {
     });
 };
 
+window.joinLiveRoom = function(code) {
+    if (!code) return;
+    isMultiplayerHost = false;
+    isMultiplayerGame = true;
+    currentRoomCode = code.trim();
+
+    window.fbGet(window.fbRef(window.fbDb, 'rooms/' + currentRoomCode)).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        h2hSeed = data.seed;
+        h2hTotalRounds = data.totalRounds || 5;
+        
+        const updates = {};
+        updates[`rooms/${currentRoomCode}/status`] = "playing";
+        window.fbUpdate(window.fbRef(window.fbDb), updates);
+
+        listenToRoom(currentRoomCode);
+      } else {
+        alert("Lobby not found! Check your code selection.");
+      }
+    }).catch((err) => {
+      console.error("Error joining room:", err);
+      alert("Could not join lobby. Switching to manual Head-to-Head fallback.");
+    });
+  };
+
+  function listenToRoom(roomCode) {
+    window.fbOnValue(window.fbRef(window.fbDb, 'rooms/' + roomCode), (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      if (data.status === "playing" && !h2hMode) {
+        h2hMode = true;
+        h2hRoundIndex = 0;
+        h2hMyResults = [];
+        hiddenColumnIndex = -1;
+        setCategoryForH2H(data.category);
+        h2hRounds = generateRoundsFromSeed(h2hSeed, h2hTotalRounds);
+        startH2HRound();
+      }
+
+      if (data.player1 && data.player2 && data.player1.finished && data.player2.finished) {
+        renderLiveComparison(data.player1.results, data.player2.results);
+      }
+    });
+  }
+
     if (data.player1.finished && data.player2.finished) {
       renderLiveComparison(data.player1.results, data.player2.results);
     }
