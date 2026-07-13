@@ -2,6 +2,7 @@
 {
       name: "Spinosaurus aegyptiacus",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Carnivore",
       continent: "Africa",
       group: "Theropod",
@@ -17,6 +18,7 @@
     {
       name: "Allosaurus fragilis",
       period: "Jurassic",
+      difficulty: "Easy",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -32,6 +34,7 @@
     {
       name: "Parasaurolophus walkeri",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
       group: "Ornithischia",
@@ -47,6 +50,7 @@
     {
       name: "Diplodocus longus",
       period: "Jurassic",
+      difficulty: "Medium",
       diet: "Herbivore",
       continent: "North America",
       group: "Sauropod",
@@ -62,6 +66,7 @@
     {
       name: "Iguanodon bernissartensis",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Herbivore",
       continent: "Europe",
       group: "Ornithischia",
@@ -77,6 +82,7 @@
     {
       name: "Compsognathus ellioti",
       period: "Jurassic",
+      difficulty: "Easy",
       diet: "Carnivore",
       continent: "Europe",
       group: "Theropod",
@@ -92,6 +98,7 @@
     {
       name: "Carnotaurus sastrei",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "South America",
       group: "Theropod",
@@ -107,6 +114,7 @@
     {
       name: "Plateosaurus trossingensis",
       period: "Triassic",
+      difficulty: "Hard",
       diet: "Herbivore",
       continent: "Europe",
       group: "Sauropodomorph",
@@ -122,6 +130,7 @@
     {
       name: "Giganotosaurus carolini",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Carnivore",
       continent: "South America",
       group: "Theropod",
@@ -137,6 +146,7 @@
     {
       name: "Coelophysis bauri",
       period: "Triassic",
+      difficulty: "Hard",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -152,6 +162,7 @@
     {
       name: "Dilophosaurus wetherilli",
       period: "Jurassic",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -167,6 +178,7 @@
     {
       name: "Therizinosaurus cheloniformis",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Herbivore",
       continent: "Asia",
       group: "Theropod",
@@ -182,6 +194,7 @@
     {
       name: "Baryonyx walkeri",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Carnivore",
       continent: "Europe",
       group: "Theropod",
@@ -197,6 +210,7 @@
     {
       name: "Deinocheirus mirificus",
       period: "Cretaceous",
+      difficulty: "Hard",
       diet: "Omnivore",
       continent: "Asia",
       group: "Theropod",
@@ -212,6 +226,7 @@
     {
       name: "Pachycephalosaurus wyomingensis",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
       group: "Marginocephalian",
@@ -227,6 +242,7 @@
     {
       name: "Styracosaurus albertensis",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Herbivore",
       continent: "North America",
       group: "Marginocephalian",
@@ -242,6 +258,7 @@
     {
       name: "Tyrannosaurus rex",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -257,6 +274,7 @@
     {
       name: "Protoceratops andrewsi",
       period: "Cretaceous",
+      difficulty: "Hard",
       diet: "Herbivore",
       continent: "Asia",
       group: "Marginocephalian",
@@ -272,6 +290,7 @@
     {
       name: "Maiasaura peeblesorum",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Herbivore",
       continent: "North America",
       group: "Ornithischia",
@@ -287,6 +306,7 @@
     {
       name: "Corythosaurus casuarius",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
       group: "Ornithischia",
@@ -302,6 +322,7 @@
     {
       name: "Edmontosaurus annectens",
       period: "Cretaceous",
+      difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
       group: "Ornithischia",
@@ -317,6 +338,7 @@
     {
       name: "Apatosaurus ajax",
       period: "Jurassic",
+      difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
       group: "Sauropod",
@@ -330,23 +352,9 @@
       ]
     },
     {
-      name: "Amargasaurus cazaui",
-      period: "Cretaceous",
-      diet: "Herbivore",
-      continent: "South America",
-      group: "Sauropod",
-      subgroup: "Dicraeosaurid",
-      length: 10,
-      wiki: "Amargasaurus",
-      hints: [
-        "It is a highly unusual sauropod featuring two parallel rows of long spines down its neck.",
-        "Scientists don't know if the long neck spines supported a sail or stuck out as defensive weapons.",
-        "It was significantly smaller and shorter-necked than its giant cousin Diplodocus."
-      ]
-    },
-    {
       name: "Kentrosaurus aethiopicus",
       period: "Jurassic",
+      difficulty: "Medium",
       diet: "Herbivore",
       continent: "Africa",
       group: "Thyreophoran",
@@ -362,6 +370,7 @@
     {
       name: "Herrerasaurus ischigualastensis",
       period: "Triassic",
+      difficulty: "Hard",
       diet: "Carnivore",
       continent: "South America",
       group: "Theropod",
@@ -377,6 +386,7 @@
     {
       name: "Ceratosaurus nasicornis",
       period: "Jurassic",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -392,6 +402,7 @@
     {
       name: "Troodon formosus",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Omnivore",
       continent: "North America",
       group: "Theropod",
@@ -407,6 +418,7 @@
     {
       name: "Carcharodontosaurus saharicus",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "Africa",
       group: "Theropod",
@@ -422,6 +434,7 @@
     {
       name: "Utahraptor ostrommaysi",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -437,6 +450,7 @@
     {
       name: "Oviraptor philoceratops",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Omnivore",
       continent: "Asia",
       group: "Theropod",
@@ -452,6 +466,7 @@
     {
       name: "Psittacosaurus mongoliensis",
       period: "Cretaceous",
+      difficulty: "Hard",
       diet: "Herbivore",
       continent: "Asia",
       group: "Marginocephalian",
@@ -467,6 +482,7 @@
     {
       name: "Gorgosaurus libratus",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
@@ -482,6 +498,7 @@
       {
       name: "Yutyrannus huali",
       period: "Cretaceous",
+      difficulty: "Medium",
       diet: "Carnivore",
       continent: "Asia",
       group: "Theropod",
@@ -497,6 +514,7 @@
       {
       name: "Oxalaia quilombensis",
       period: "Cretaceous",
+      difficulty: "Hard",
       diet: "Carnivore",
       continent: "South America",
       group: "Theropod",
@@ -512,6 +530,7 @@
       {
     name: "Torvosaurus tanneri",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -527,6 +546,7 @@
   {
     name: "Nanuqsaurus hoglundii",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -542,6 +562,7 @@
   {
     name: "Rajasaurus narmadensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -557,6 +578,7 @@
   {
     name: "Majungasaurus crenatissimus",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
     group: "Theropod",
@@ -572,6 +594,7 @@
   {
     name: "Cryolophosaurus ellioti",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Antarctica",
     group: "Theropod",
@@ -587,6 +610,7 @@
   {
     name: "Tarbosaurus bataar",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -602,6 +626,7 @@
   {
     name: "Masiakasaurus knopfleri",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
     group: "Theropod",
@@ -617,6 +642,7 @@
   {
     name: "Acrocanthosaurus atokensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -632,6 +658,7 @@
   {
     name: "Concavenator corcovatus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -647,6 +674,7 @@
   {
     name: "Metriacanthosaurus parkeri",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -662,6 +690,7 @@
   {
     name: "Irritator challengeri",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
     group: "Theropod",
@@ -677,6 +706,7 @@
   {
     name: "Ichthyovenator laosensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -692,6 +722,7 @@
   {
     name: "Suchomimus tenerensis",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "Africa",
     group: "Theropod",
@@ -707,6 +738,7 @@
   {
     name: "Nanotyrannus lancensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -722,6 +754,7 @@
   {
     name: "Qianzhousaurus sinensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -737,6 +770,7 @@
   {
     name: "Albertosaurus sarcophagus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -752,6 +786,7 @@
     {
     name: "Velociraptor mongoliensis",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -767,6 +802,7 @@
   {
     name: "Dakotaraptor steini",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -782,6 +818,7 @@
   {
     name: "Dromaeosaurus albertensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -797,6 +834,7 @@
   {
     name: "Deinonychus antirrhopus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -812,6 +850,7 @@
   {
     name: "Atrociraptor marshalli",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -827,6 +866,7 @@
   {
     name: "Austroraptor cabazai",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "South America",
     group: "Theropod",
@@ -842,6 +882,7 @@
   {
     name: "Pyroraptor olympius",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -857,6 +898,7 @@
   {
     name: "Imperobator antarcticus",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Antarctica",
     group: "Theropod",
@@ -872,6 +914,7 @@
   {
     name: "Edmontonia longiceps",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -887,6 +930,7 @@
   {
     name: "Ankylosaurus magniventris",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -902,6 +946,7 @@
   {
     name: "Euoplocephalus tutus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -917,6 +962,7 @@
   {
     name: "Nodosaurus textilis",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -932,6 +978,7 @@
   {
     name: "Borealopelta markmitchelli",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -947,6 +994,7 @@
   {
     name: "Antarctopelta oliveroi",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Antarctica",
     group: "Thyreophoran",
@@ -962,6 +1010,7 @@
   {
     name: "Gastonia burgei",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -977,6 +1026,7 @@
   {
     name: "Sauropelta edwardsorum",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -992,6 +1042,7 @@
   {
     name: "Minmi paravertebra",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Australia",
     group: "Thyreophoran",
@@ -1007,6 +1058,7 @@
   {
     name: "Triceratops horridus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1022,6 +1074,7 @@
   {
     name: "Pachyrhinosaurus lakustai",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1037,6 +1090,7 @@
   {
     name: "Diabloceratops eatoni",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1052,6 +1106,7 @@
   {
     name: "Chasmosaurus belli",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1067,6 +1122,7 @@
   {
     name: "Aquilops americanus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1082,6 +1138,7 @@
   {
     name: "Pentaceratops sternbergii",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1097,6 +1154,7 @@
   {
     name: "Torosaurus latus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1112,6 +1170,7 @@
   {
     name: "Lokiceratops rangiformis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1127,6 +1186,7 @@
   {
     name: "Microceratus gobiensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -1142,6 +1202,7 @@
   {
     name: "Nasutoceratops titusi",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1157,6 +1218,7 @@
   {
     name: "Sinoceratops zhuchengensis",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -1172,6 +1234,7 @@
   {
     name: "Psittacosaurus mongoliensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -1187,6 +1250,7 @@
   {
     name: "Stegosaurus stenops",
     period: "Jurassic",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Thyreophoran",
@@ -1202,6 +1266,7 @@
   {
     name: "Gigantspinosaurus sichuanensis",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -1217,6 +1282,7 @@
   {
     name: "Wuerhosaurus homheni",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -1232,6 +1298,7 @@
   {
     name: "Huayangosaurus taibaii",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -1247,6 +1314,7 @@
   {
     name: "Chungkingosaurus jiangbeiensis",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -1262,6 +1330,7 @@
   {
     name: "Argentinosaurus huinculensis",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropod",
@@ -1277,6 +1346,7 @@
   {
     name: "Brachiosaurus altithorax",
     period: "Jurassic",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Sauropod",
@@ -1292,6 +1362,7 @@
   {
     name: "Magyarosaurus dacus",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
     group: "Sauropod",
@@ -1307,6 +1378,7 @@
   {
     name: "Europasaurus holgeri",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Europe",
     group: "Sauropod",
@@ -1322,6 +1394,7 @@
   {
     name: "Lusotitan atalaiensis",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
     group: "Sauropod",
@@ -1337,6 +1410,7 @@
   {
     name: "Amargasaurus cazaui",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropod",
@@ -1352,6 +1426,7 @@
   {
     name: "Mamenchisaurus constructus",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Sauropod",
@@ -1367,6 +1442,7 @@
   {
     name: "Camarasaurus supremus",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Sauropod",
@@ -1382,6 +1458,7 @@
   {
     name: "Dreadnoughtus schrani",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropod",
@@ -1397,6 +1474,7 @@
   {
     name: "Nigersaurus taqueti",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Africa",
     group: "Sauropod",
@@ -1412,6 +1490,7 @@
   {
     name: "Titanosaurus indicus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "Asia",
     group: "Sauropod",
@@ -1427,6 +1506,7 @@
   {
     name: "Ouranosaurus nigeriensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Africa",
     group: "Ornithischia",
@@ -1442,6 +1522,7 @@
   {
     name: "Shantungosaurus giganteus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -1457,6 +1538,7 @@
   {
     name: "Muttaburrasaurus langdoni",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Australia",
     group: "Ornithischia",
@@ -1472,6 +1554,7 @@
   {
     name: "Olorotitan arharensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -1487,6 +1570,7 @@
   {
     name: "Tethyshadros insularis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
     group: "Ornithischia",
@@ -1502,6 +1586,7 @@
   {
     name: "Tsintaosaurus spinorhinus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -1517,6 +1602,7 @@
   {
     name: "Dryosaurus altus",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Ornithischia",
@@ -1532,6 +1618,7 @@
   {
     name: "Hypsilophodon foxii",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
     group: "Ornithischia",
@@ -1547,6 +1634,7 @@
  {
     name: "Daspletosaurus torosus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -1562,6 +1650,7 @@
   {
     name: "Megalosaurus bucklandii",
     period: "Jurassic",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -1576,6 +1665,7 @@
   },{
     name: "Mapusaurus roseae",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
     group: "Theropod",
@@ -1591,6 +1681,7 @@
   {
     name: "Alioramus remotus",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1606,6 +1697,7 @@
   {
     name: "Rugops primus",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
     group: "Theropod",
@@ -1621,6 +1713,7 @@
   {
     name: "Yangchuanosaurus shangyouensis",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1636,6 +1729,7 @@
   {
     name: "Moros intrepidus",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -1651,6 +1745,7 @@
   {
     name: "Raptorex kriegsteini",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1666,6 +1761,7 @@
   {
     name: "Teratophoneus curriei",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -1681,6 +1777,7 @@
   {
     name: "Eustreptospondylus oxoniensis",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -1696,6 +1793,7 @@
   {
     name: "Neovenator salerii",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -1711,6 +1809,7 @@
   {
     name: "Monolophosaurus jiangi",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1726,6 +1825,7 @@
   {
     name: "Sinraptor dongi",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1741,6 +1841,7 @@
   {
     name: "Ornithomimus edmontonicus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "North America",
     group: "Theropod",
@@ -1756,6 +1857,7 @@
   {
     name: "Gallimimus bullatus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Omnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1771,6 +1873,7 @@
   {
     name: "Archaeornithomimus asiaticus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1786,6 +1889,7 @@
   {
     name: "Pelecanimimus polyodon",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "Europe",
     group: "Theropod",
@@ -1800,6 +1904,7 @@
   },
   {
     name: "Sinornithomimus dongi",
+    difficulty: "Hard",
     period: "Cretaceous",
     diet: "Herbivore",
     continent: "Asia",
@@ -1816,6 +1921,7 @@
   {
     name: "Struthiomimus altus",
     period: "Cretaceous",
+    difficulty: "Easy",
     diet: "Omnivore",
     continent: "North America",
     group: "Theropod",
@@ -1831,6 +1937,7 @@
   {
     name: "Iberospinus natarioi",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -1846,6 +1953,7 @@
   {
     name: "Ceratosuchops infernalis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -1861,6 +1969,7 @@
   {
     name: "Siamosaurus suteethorni",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -1876,6 +1985,7 @@
   {
     name: "Sigilmassasaurus brevicollis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Africa",
     group: "Theropod",
@@ -1891,6 +2001,7 @@
   {
     name: "Tuojiangosaurus multispinus",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -1906,6 +2017,7 @@
   {
     name: "Miragaia longicollum",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
     group: "Thyreophoran",
@@ -1921,6 +2033,7 @@
   {
     name: "Thyreosaurus atlasicus",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Africa",
     group: "Thyreophoran",
@@ -1936,6 +2049,7 @@
   {
     name: "Yingshanosaurus jichuanensis",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -1951,6 +2065,7 @@
   {
     name: "Wannanosaurus yansiensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Omnivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -1966,6 +2081,7 @@
   {
     name: "Zavacephale rinpoche",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Omnivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -1981,6 +2097,7 @@
   {
     name: "Stegoceras validum",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -1996,6 +2113,7 @@
   {
     name: "Homalocephale calathocercos",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -2011,6 +2129,7 @@
   {
     name: "Brachylophosaurus canadensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Ornithischia",
@@ -2026,6 +2145,7 @@
   {
     name: "Hadrosaurus foulkii",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Ornithischia",
@@ -2041,6 +2161,7 @@
   {
     name: "Lambeosaurus lambei",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Ornithischia",
@@ -2056,6 +2177,7 @@
   {
     name: "Nipponosaurus sachalinensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -2071,6 +2193,7 @@
   {
     name: "Eolambia caroljonesa",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Ornithischia",
@@ -2086,6 +2209,7 @@
   {
     name: "Jaxartasaurus aralensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -2101,6 +2225,7 @@
   {
     name: "Saurolophus osborni",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Ornithischia",
@@ -2116,6 +2241,7 @@
   {
     name: "Fukuisaurus tetoriensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -2131,6 +2257,7 @@
 {
     name: "Koreaceratops hwaseongensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
@@ -2146,6 +2273,7 @@
   {
     name: "Centrosaurus apertus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -2161,6 +2289,7 @@
   {
     name: "Einiosaurus procurvicornis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
@@ -2176,6 +2305,7 @@
   {
     name: "Fukuiraptor kitadaniensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2191,6 +2321,7 @@
   {
     name: "Megaraptor namunhuaiquii",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
     group: "Theropod",
@@ -2206,6 +2337,7 @@
   {
     name: "Maip macrothorax",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
     group: "Theropod",
@@ -2221,6 +2353,7 @@
   {
     name: "Australovenator wintonensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Australia",
     group: "Theropod",
@@ -2236,6 +2369,7 @@
   {
     name: "Fukuivenator shimizuensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Omnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2251,6 +2385,7 @@
   {
     name: "Deinocheirus mirificus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2266,6 +2401,7 @@
   {
     name: "Segnosaurus galbinensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Theropod",
@@ -2281,6 +2417,7 @@
   {
     name: "Nothronychus mckinleyi",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
     group: "Theropod",
@@ -2296,6 +2433,7 @@
   {
     name: "Erlikosaurus andrewsi",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Theropod",
@@ -2311,6 +2449,7 @@
   {
     name: "Duonychus tsogtbaatari",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Theropod",
@@ -2326,6 +2465,7 @@
  {
     name: "Giraffatitan brancai",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Africa",
     group: "Sauropod",
@@ -2341,6 +2481,7 @@
   {
     name: "Shunosaurus lii",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Sauropod",
@@ -2356,6 +2497,7 @@
   {
     name: "Fukuititan nipponensis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Sauropod",
@@ -2371,6 +2513,7 @@
   {
     name: "Brontosaurus excelsus",
     period: "Jurassic",
+    difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
     group: "Sauropod",
@@ -2386,6 +2529,7 @@
   {
     name: "Supersaurus vivianae",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
     group: "Sauropod",
@@ -2401,6 +2545,7 @@
   {
     name: "Tapuiasaurus macedoi",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropod",
@@ -2416,6 +2561,7 @@
   {
     name: "Isisaurus colberti",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Sauropod",
@@ -2431,6 +2577,7 @@
   {
     name: "Rapetosaurus krausei",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Africa",
     group: "Sauropod",
@@ -2446,6 +2593,7 @@
   {
     name: "Gondwanatitan faustoi",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropod",
@@ -2461,6 +2609,7 @@
   {
     name: "Patagotitan mayorum",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropod",
@@ -2476,6 +2625,7 @@
 {
     name: "Unaysaurus tolentinoi",
     period: "Triassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropodomorph",
@@ -2491,6 +2641,7 @@
   {
     name: "Massospondylus carinatus",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Africa",
     group: "Sauropodomorph",
@@ -2506,6 +2657,7 @@
 {
     name: "Heterodontosaurus tucki",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "Africa",
     group: "Ornitischia",
@@ -2521,6 +2673,7 @@
   {
     name: "Pegomastax africanus",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "Africa",
     group: "Ornitischia",
@@ -2536,6 +2689,7 @@
   {
     name: "Stenonychus inequalis",
     period: "Cretaceous",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
     group: "Theropod",
@@ -2551,6 +2705,7 @@
   {
     name: "Archaeopteryx lithographica",
     period: "Jurassic",
+    difficulty: "Easy",
     diet: "Carnivore",
     continent: "Europe",
     group: "Theropod",
@@ -2566,6 +2721,7 @@
   {
     name: "Sinosauropteryx prima",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2581,6 +2737,7 @@
   {
     name: "Polacanthus foxii",
     period: "Cretaceous",
+    difficulty: "Medium", 
     diet: "Herbivore",
     continent: "Europe",
     group: "Thyreophoran",
@@ -2596,6 +2753,7 @@
   {
     name: "Crichtonsaurus bohlini",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
     group: "Thyreophoran",
@@ -2611,6 +2769,7 @@
   {
     name: "Yuxisaurus kopchicki",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Ornithischia",
@@ -2626,6 +2785,7 @@
   {
     name: "Scelidosaurus harrisonii",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
     group: "Ornithischia",
@@ -2641,6 +2801,7 @@
   {
     name: "Gigantoraptor erlianensis",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Omnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2656,6 +2817,7 @@
   {
     name: "Guanlong wucaii",
     period: "Jurassic",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2671,6 +2833,7 @@
   {
     name: "Yi qi",
     period: "Jurassic",
+    difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
@@ -2686,6 +2849,7 @@
   {
     name: "Microraptor zhaoianus",
     period: "Cretaceous",
+    difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
