@@ -123,8 +123,8 @@
     wiki: "Plesiosaurus",
     hints: [
       "Its species name means 'long-necked', a defining feature of the animal.",
-      "First properly described by Mary Anning, the pioneering English fossil collector.",
-      "The genus that gave its name to the whole plesiosaur group."
+      "First properly discovered by Mary Anning, the pioneering English fossil collector.",
+      "It is the type species for its entire family and clade."
     ]
   },
   {
