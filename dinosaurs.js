@@ -1132,7 +1132,7 @@
     hints: [
       "A large chasmosaurine from the Late Cretaceous Kirtland Formation of New Mexico.",
       "Its name means 'five-horned face', counting its three true horns alongside prominent, pointed jugal bones on its cheeks.",
-      "Once held the record for the largest skull of any land animal, featuring an elongated, rectangular frill structure."
+      "While now re-assigned, a fossil thought to have been this animal once held the record for the largest skull of any land animal."
     ]
   },
   {
