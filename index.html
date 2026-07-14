@@ -245,7 +245,7 @@
             <th style="width: 18%;">Name</th>
             <th style="width: 10%;">1st Letter</th>
             <th style="width: 13%;">Period</th>
-            <th style="width: 12%;">Diet</th>
+            <th id="dietHeader" style="width: 12%;">Diet</th>
             <th style="width: 15%;">Continent</th>
             <th style="width: 12%;">Clade</th>
             <th style="width: 12%;">Family</th>
@@ -459,6 +459,7 @@ function cycleBackground() {
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
     initBackgroundSlideshow(bgImageSet);    
+    document.getElementById("dietHeader").textContent = db === MARINEREPTILES ? "Prey Type" : "Diet";   
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
     else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
