@@ -80,7 +80,7 @@
       ]
     },
     {
-      name: "Compsognathus ellioti",
+      name: "Compsognathus longipes",
       period: "Jurassic",
       difficulty: "Easy",
       diet: "Carnivore",
@@ -176,15 +176,15 @@
       ]
     },
     {
-      name: "Therizinosaurus cheloniformis",
+      name: "Therizinosauridus cheloniformis",
       period: "Cretaceous",
       difficulty: "Easy",
       diet: "Herbivore",
       continent: "Asia",
       group: "Theropod",
-      subgroup: "Therizinosaurid",
+      subgroup: "Therizinosauridid",
       length: 10,
-      wiki: "Therizinosaurus",
+      wiki: "Therizinosauridus",
       hints: [
         "It possessed the longest claws of any animal in history, measuring up to 1 meter.",
         "Despite belonging to the mostly meat-eating theropod family, it was adapted to eating plants.",
@@ -214,7 +214,7 @@
       diet: "Omnivore",
       continent: "Asia",
       group: "Theropod",
-      subgroup: "Ornithomimosaur",
+      subgroup: "Deinocheirid",
       length: 11,
       wiki: "Deinocheirus",
       hints: [
@@ -2367,33 +2367,17 @@
     ]
   },
   {
-    name: "Deinocheirus mirificus",
-    period: "Cretaceous",
-    difficulty: "Medium",
-    diet: "Omnivore",
-    continent: "Asia",
-    group: "Theropod",
-    subgroup: "Deinocheirid",
-    length: 11,
-    wiki: "Deinocheirus",
-    hints: [
-      "A colossal, bizarre ornithomimosaur discovered in the Late Cretaceous Nemegt Formation of Mongolia.",
-      "Features massive 2.4-meter-long arms with curving claws, a prominent camel-like sail or hump on its back, and a broad duck-like bill.",
-      "Preserved stomach contents show fish scales mixed with numerous gastroliths, confirming it was a specialized river-delta omnivore."
-    ]
-  },
-  {
     name: "Segnosaurus galbinensis",
     period: "Cretaceous",
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
     group: "Theropod",
-    subgroup: "Therizinosaur",
+    subgroup: "Therizinosaurid",
     length: 6,
     wiki: "Segnosaurus",
     hints: [
-      "A large, early-diverging therizinosaur recovered from the Late Cretaceous Bayan Shireh Formation of Mongolia.",
+      "A large, early-diverging Therizinosaurid recovered from the Late Cretaceous Bayan Shireh Formation of Mongolia.",
       "Features highly unusual, tightly packed, serrated teeth and a specialized down-turned lower jaw adapted for stripping foliage.",
       "Possessed a remarkably broad, massive pelvis and stocky limbs, supporting a massive gut structure for plant fermentation."
     ]
@@ -2405,13 +2389,13 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Theropod",
-    subgroup: "Therizinosaur",
+    subgroup: "Therizinosaurid",
     length: 5,
     wiki: "Nothronychus",
     hints: [
-      "A North American therizinosaur discovered in the Late Cretaceous Moreno Hill Formation of New Mexico.",
+      "A North American Therizinosaurid discovered in the Late Cretaceous Moreno Hill Formation of New Mexico.",
       "Nicknamed the 'sloth dinosaur' due to its convergent evolution with giant ground sloths, featuring large, curved hand claws.",
-      "Provides definitive proof that specialized herbivorous therizinosaurs migrated out of Asia and into ancient Laramidia."
+      "Provides definitive proof that specialized herbivorous Therizinosaurids migrated out of Asia and into ancient Laramidia."
     ]
   },
   {
@@ -2421,11 +2405,11 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Theropod",
-    subgroup: "Therizinosaur",
+    subgroup: "Therizinosaurid",
     length: 4.5,
     wiki: "Erlikosaurus",
     hints: [
-      "A mid-sized therizinosaur from the Late Cretaceous Bayan Shireh Formation, known from an exceptionally complete fossil skull.",
+      "A mid-sized Therizinosaurid from the Late Cretaceous Bayan Shireh Formation, known from an exceptionally complete fossil skull.",
       "Possessed a completely toothless, horn-covered beak (rhamphotheca) at the front of its jaws, paired with small leaf-like teeth in the back.",
       "Digital brain reconstructions show advanced equilibrium and hearing mechanisms, likely used for complex foraging behaviors."
     ]
@@ -2437,11 +2421,11 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Theropod",
-    subgroup: "Therizinosaur",
+    subgroup: "Therizinosaurid",
     length: 3,
     wiki: "Duonychus",
     hints: [
-      "A highly unusual therizinosaurid discovered in the Late Cretaceous Bayanshiree Formation of the Gobi Desert.",
+      "A highly unusual Therizinosauridid discovered in the Late Cretaceous Bayanshiree Formation of the Gobi Desert.",
       "Unique among its family for being didactyl, possessing only two functional fingers per hand instead of the typical three.",
       "Preserves an exceptionally rare, nearly complete three-dimensional keratinous sheath extending over 30 centimeters past its hand claws."
     ]
@@ -2644,7 +2628,7 @@
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "Africa",
-    group: "Ornitischia",
+    group: "Ornithischia",
     subgroup: "Heterodontosaurid",
     length: 1,
     wiki: "Heterodontosaurus",
@@ -2660,7 +2644,7 @@
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "Africa",
-    group: "Ornitischia",
+    group: "Ornithischia",
     subgroup: "Heterodontosaurid",
     length: 1,
     wiki: "Pegomastax",
@@ -2671,7 +2655,7 @@
     ]
   },
   {
-    name: "Stenonychus inequalis",
+    name: "Stenonychosaurus inequalis",
     period: "Cretaceous",
     difficulty: "Hard",
     diet: "Carnivore",
@@ -2679,7 +2663,7 @@
     group: "Theropod",
     subgroup: "Troodontid",
     length: 2,
-    wiki: "Stenonychus",
+    wiki: "Stenonychosaurus",
     hints: [
       "A highly intelligent, bird-like troodontid from the Late Cretaceous Dinosaur Park Formation of Alberta.",
       "Possessed exceptionally large, forward-facing eyes optimized for nocturnal hunting and stereoscopic vision.",
@@ -2756,8 +2740,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Thyreophoran",
+    group: "Thyreophoran",
+    subgroup: "N/A",
     length: 3,
     wiki: "Yuxisaurus",
     hints: [
@@ -2772,8 +2756,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Ornithischia",
-    subgroup: "Thyreophoran",
+    group: "Theyreophoran",
+    subgroup: "N/A",
     length: 4,
     wiki: "Scelidosaurus",
     hints: [
