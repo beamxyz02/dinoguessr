@@ -1,19 +1,19 @@
 body.theme-dino {
-  --accent-primary: #b5834a;       /* Original Amber Color */
-  --accent-dark: #6b4a2f;          /* Original Earth Color */
-  --accent-deep: #4d3520;          /* Original Earth Dark Color */
+  --accent-primary: #b5834a;       /* Amber Color */
+  --accent-dark: #6b4a2f;          /* Earth Color */
+  --accent-deep: #4d3520;          /* Earth Dark Color */
   --accent-glow: rgba(181, 131, 74, 0.2);
   --table-header-border: #3a2a18;
 }
 body.theme-ptero {
-  --accent-primary: #4c7a54;       /* Specialized Pterosaur Green */
+  --accent-primary: #4c7a54;       /* Pterosaur Green */
   --accent-dark: #3a5f41;          /* Dark Green */
   --accent-deep: #253d2a;          /* Deep Forest Green */
   --accent-glow: rgba(76, 122, 84, 0.2);
   --table-header-border: #1d3021;
 }
 body.theme-marine {
-  --accent-primary: #4a8bb5;       /* Specialized Marine Blue */
+  --accent-primary: #4a8bb5;       /* Marine Blue */
   --accent-dark: #2f5f80;          /* Dark Coastal Blue */
   --accent-deep: #1d3e54;          /* Deep Trench Blue */
   --accent-glow: rgba(74, 139, 181, 0.2);
