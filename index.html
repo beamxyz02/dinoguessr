@@ -201,10 +201,26 @@
   <button class="mode-btn" id="taDuration3" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">3 Min</button>
   </div>
 
-  <div id="h2hRoundPanel" style="display:none; justify-content:center; gap:8px; margin-bottom:15px;">
-  <button class="mode-btn" id="h2hRounds5" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">5 Rounds</button>
-  <button class="mode-btn" id="h2hRounds10" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">10 Rounds</button>
+  <div id="h2hRoundPanel" style="display:none; flex-direction:column; align-items:center; gap:10px; margin-bottom:15px;">
+  <div id="mpMenu" style="display:flex; gap:8px;">
+    <button class="mode-btn" id="mpCreateBtn" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">Create Lobby</button>
+    <button class="mode-btn" id="mpJoinBtn" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">Join Lobby</button>
   </div>
+  <div id="mpCreateChoice" style="display:none; gap:8px;">
+    <button class="mode-btn" id="h2hRounds5" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">5 Rounds</button>
+    <button class="mode-btn" id="h2hRounds10" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">10 Rounds</button>
+  </div>
+  <div id="mpJoinForm" style="display:none; gap:8px;">
+    <input type="text" id="mpJoinCodeInput" placeholder="ROOM CODE" maxlength="5" style="text-transform:uppercase; padding:6px 10px; border-radius:6px; border:1px solid var(--stone); width:110px;">
+    <button class="mode-btn" id="mpJoinSubmitBtn" style="font-size:0.8rem; padding:6px 14px; border-radius:20px;">Join</button>
+  </div>
+  <div id="mpLobbyStatus" style="display:none; text-align:center; font-size:0.85rem;">
+    <div>Room code: <strong id="mpRoomCodeDisplay" style="letter-spacing:2px; color:#9b59b6;"></strong></div>
+    <div id="mpPlayerList" style="opacity:0.8; margin-top:4px;"></div>
+    <button class="mode-btn" id="mpStartBtn" style="display:none; margin-top:8px; font-size:0.8rem; padding:6px 14px; border-radius:20px;">Start Match</button>
+  </div>
+</div>
+<div id="mpLiveStatus" style="display:none; text-align:center; font-size:0.8rem; opacity:0.85; margin-bottom:8px;"></div>
 
   <div id="h2hRoundIndicator" style="display:none; text-align:center; font-weight:bold; color: #9b59b6; margin-bottom:12px;"></div>
   
@@ -232,6 +248,7 @@
 
     <div id="hintBox"></div>
     <div class="guess-count" id="guessCount">Guesses: 0</div>
+    <div id="mpRoundStatus" style="display:none; text-align:center; font-size:0.8rem; opacity:0.8; margin-top:6px;"></div>
     <div id="statsDisplay" style="text-align:center; color: var(--stone-light); font-size: 0.8rem; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); line-height: 1.4;">
       Win Streak: 0 | Max Streak: 0 | Matches Won: 0/0
     </div>
@@ -502,6 +519,81 @@ let h2hRounds = [];
 let h2hMyResults = [];
 let h2hRoundStartTime = null;
 let h2hOpponentData = null;
+
+const MP_SERVER_URL = 'wss://dinoguessr-mp.up.railway.app';
+  
+let mpSocket = null;
+let mpRoomCode = null;
+let mpIsHost = false;
+let mpOpponentName = 'Opponent';
+let mpOpponentResults = [];
+
+function mpConnect(onOpen) {
+  if (mpSocket && mpSocket.readyState === WebSocket.OPEN) { onOpen(); return; }
+  const statusEl = document.getElementById('mpRoundStatus');
+  statusEl.textContent = 'Connecting to server...';
+  statusEl.style.display = 'block';
+  mpSocket = new WebSocket(MP_SERVER_URL);
+  mpSocket.onopen = () => {
+    statusEl.style.display = 'none';
+    onOpen();
+  };
+  mpSocket.onmessage = (evt) => mpHandleMessage(JSON.parse(evt.data));
+  mpSocket.onerror = () => {
+    statusEl.textContent = 'Could not connect to server. Try again.';
+    statusEl.style.display = 'block';
+    mpSocket = null;
+  };
+  mpSocket.onclose = (evt) => {
+    if (evt.code !== 1000) {
+      statusEl.textContent = 'Connection lost. Refresh and try again.';
+      statusEl.style.display = 'block';
+    } else {
+      statusEl.style.display = 'none';
+    }
+    mpSocket = null;
+  };
+}
+
+function mpSend(obj) {
+  if (mpSocket && mpSocket.readyState === WebSocket.OPEN) mpSocket.send(JSON.stringify(obj));
+}
+
+function mpHandleMessage(msg) {
+  if (msg.type === 'lobby_state') {
+    mpRoomCode = msg.code;
+    mpIsHost = msg.yourId ? msg.hostId === msg.yourId : false;
+    document.getElementById('mpRoomCodeDisplay').textContent = msg.code;
+    document.getElementById('mpPlayerList').textContent = msg.players.map(p => p.name).join(' vs ') || 'Waiting...';
+    document.getElementById('mpLobbyStatus').style.display = 'block';
+    document.getElementById('mpMenu').style.display = 'none';
+    document.getElementById('mpCreateChoice').style.display = 'none';
+    document.getElementById('mpJoinForm').style.display = 'none';
+    const startBtn = document.getElementById('mpStartBtn');
+    startBtn.style.display = (mpIsHost && msg.players.length === 2) ? 'block' : 'none';
+  } else if (msg.type === 'game_start') {
+    startMultiplayerMatch(msg.seed, msg.category, msg.totalRounds);
+  } else if (msg.type === 'opponent_round_complete') {
+    mpOpponentName = msg.name;
+    mpOpponentResults[msg.roundIndex] = { name: msg.name, time: msg.time, guesses: msg.guesses };
+    mpUpdateLiveStatus();
+    if (mpOpponentResults.filter(Boolean).length === h2hTotalRounds && h2hMyResults.length === h2hTotalRounds) {
+      renderMultiplayerResults();
+    }
+  } else if (msg.type === 'opponent_left') {
+    document.getElementById('mpRoundStatus').textContent = `${msg.name} disconnected.`;
+    document.getElementById('mpRoundStatus').style.display = 'block';
+  } else if (msg.type === 'error') {
+    alert(msg.message);
+  }
+}
+
+function mpUpdateLiveStatus() {
+  const done = mpOpponentResults.filter(Boolean).length;
+  const el = document.getElementById('mpRoundStatus');
+  el.textContent = `${mpOpponentName}: round ${done} of ${h2hTotalRounds} complete`;
+  el.style.display = 'block';
+}
 
 const subModeHeadToHead = document.getElementById("subModeHeadToHead");
 const h2hRoundPanel = document.getElementById("h2hRoundPanel");
@@ -924,11 +1016,57 @@ skipBtn.onclick = () => {
 subModeHeadToHead.onclick = () => {
   hideEndlessFilterPanel();
   cancelTimeAttack();
-  h2hRoundPanel.style.display = h2hRoundPanel.style.display === "flex" ? "none" : "flex";
+  h2hRoundPanel.style.display = h2hRoundPanel.style.display === 'flex' ? 'none' : 'flex';
 };
 
-h2hRounds5.onclick = () => startH2HAsHost(5);
-h2hRounds10.onclick = () => startH2HAsHost(10);
+document.getElementById('mpCreateBtn').onclick = () => {
+  document.getElementById('mpMenu').style.display = 'none';
+  document.getElementById('mpCreateChoice').style.display = 'flex';
+};
+document.getElementById('mpJoinBtn').onclick = () => {
+  document.getElementById('mpMenu').style.display = 'none';
+  document.getElementById('mpJoinForm').style.display = 'flex';
+};
+document.getElementById('h2hRounds5').onclick = () => mpCreateLobby(5);
+document.getElementById('h2hRounds10').onclick = () => mpCreateLobby(10);
+document.getElementById('mpJoinSubmitBtn').onclick = () => {
+  const code = document.getElementById('mpJoinCodeInput').value.trim().toUpperCase();
+  if (!code) return;
+  const name = prompt('Your name?', 'Player') || 'Player';
+  mpConnect(() => mpSend({ type: 'join_lobby', code, name }));
+};
+document.getElementById('mpStartBtn').onclick = () => {
+  h2hSeed = Math.floor(Math.random() * 1000000);
+  const category = currentDb === DINOSAURS ? 'dino' : currentDb === PTEROSAURS ? 'ptero' : 'marine';
+  mpSend({ type: 'start_game', seed: h2hSeed, category, totalRounds: h2hTotalRounds });
+};
+
+function mpCreateLobby(totalRounds) {
+  h2hTotalRounds = totalRounds;
+  const name = prompt('Your name?', 'Player') || 'Player';
+  document.getElementById('mpCreateChoice').style.display = 'none';
+  const statusEl = document.getElementById('mpRoundStatus');
+  statusEl.textContent = 'Connecting...';
+  statusEl.style.display = 'block';
+  mpConnect(() => mpSend({ type: 'create_lobby', name }));
+}
+
+function startMultiplayerMatch(seed, category, totalRounds) {
+  document.getElementById('h2hRoundPanel').style.display = 'none';
+  cancelTimeAttack();
+  h2hMode = true;
+  h2hSeed = seed;
+  h2hTotalRounds = totalRounds;
+  h2hRoundIndex = 0;
+  h2hMyResults = [];
+  mpOpponentResults = [];
+  hiddenColumnIndex = -1;
+  setCategoryForH2H(category);
+  clearAllSubModeButtons();
+  subModeHeadToHead.classList.add('active');
+  h2hRounds = generateRoundsFromSeed(seed, totalRounds);
+  startH2HRound();
+}
 
 function startH2HAsHost(totalRounds) {
   h2hRoundPanel.style.display = "none";
@@ -978,82 +1116,48 @@ function startH2HRound() {
 }
 
 function finishH2HMatch() {
-  h2hRoundIndicator.style.display = "none";
+  h2hRoundIndicator.style.display = 'none';
   guessInput.disabled = true;
   guessBtn.disabled = true;
+  document.querySelector('.modal').classList.remove('special-yutyrannus', 'special-oxalaia');
+  document.getElementById('distributionContainer').style.display = 'none';
+  document.getElementById('shareBtn').style.display = 'none';
+  document.getElementById('dailyCountdownContainer').style.display = 'none';
+  wikiLink.style.display = 'none';
+  renderMultiplayerResults();
+}
 
-  const modalElement = document.querySelector(".modal");
-  modalElement.classList.remove("special-yutyrannus", "special-oxalaia");
+function renderMultiplayerResults() {
+  const breakdown = document.getElementById('h2hRoundBreakdown');
+  const verdict = document.getElementById('h2hFinalVerdict');
+  breakdown.innerHTML = '';
+  modalTitle.style.color = 'var(--accent-primary)';
+  modalDinoName.textContent = '';
+  modalDinoSub.textContent = '';
+  modalMsg.textContent = '';
 
-  document.getElementById("distributionContainer").style.display = "none";
-  document.getElementById("shareBtn").style.display = "none";
-  document.getElementById("dailyCountdownContainer").style.display = "none";
-  wikiLink.style.display = "none";
-
-  const myTotalTime = h2hMyResults.reduce((sum, r) => sum + r.time, 0);
-  const myTotalGuesses = h2hMyResults.reduce((sum, r) => sum + r.guesses, 0);
-
-  const breakdown = document.getElementById("h2hRoundBreakdown");
-  const verdict = document.getElementById("h2hFinalVerdict");
-  breakdown.innerHTML = "";
-
-  if (h2hOpponentData) {
-    const oppResults = h2hOpponentData.results;
+  const oppDone = mpOpponentResults.filter(Boolean).length;
+  if (oppDone < h2hTotalRounds) {
+    modalTitle.textContent = 'WAITING ON YOUR OPPONENT...';
+    verdict.textContent = `${mpOpponentName} has finished ${oppDone} of ${h2hTotalRounds} rounds`;
+  } else {
+    modalTitle.textContent = 'MATCH COMPLETE!';
     let myPoints = 0, oppPoints = 0;
-
-    modalTitle.textContent = "MATCH COMPLETE!";
-    modalTitle.style.color = "var(--accent-primary)";
-    modalDinoName.textContent = "";
-    modalDinoSub.textContent = "";
-    modalMsg.textContent = "";
-
     h2hMyResults.forEach((mine, i) => {
-      const theirs = oppResults[i];
-      let roundWinner = "Tie";
-      if (mine.time < theirs.time) { roundWinner = "You"; myPoints++; }
-      else if (theirs.time < mine.time) { roundWinner = "Opponent"; oppPoints++; }
-
-      const row = document.createElement("div");
-      row.style.cssText = "display:flex; justify-content:space-between; padding:4px 6px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);";
-      row.innerHTML = `
-        <span>${mine.name}</span>
-        <span>You: ${mine.time}s/${mine.guesses}g</span>
-        <span>Opp: ${theirs.time}s/${theirs.guesses}g</span>
-        <span style="font-weight:bold; color:${roundWinner === "You" ? "var(--green)" : roundWinner === "Opponent" ? "var(--red)" : "var(--stone-light)"};">${roundWinner === "Tie" ? "Tie" : roundWinner + " +1"}</span>
-      `;
+      const theirs = mpOpponentResults[i];
+      let roundWinner = 'Tie';
+      if (mine.time < theirs.time) { roundWinner = 'You'; myPoints++; }
+      else if (theirs.time < mine.time) { roundWinner = mpOpponentName; oppPoints++; }
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex; justify-content:space-between; padding:4px 6px; font-size:0.8rem; border-bottom:1px solid rgba(255,255,255,0.05);';
+      row.innerHTML = `<span>${mine.name}</span><span>You: ${mine.time}s/${mine.guesses}g</span><span>${mpOpponentName}: ${theirs.time}s/${theirs.guesses}g</span><span style="font-weight:bold; color:${roundWinner === 'You' ? 'var(--green)' : roundWinner === 'Tie' ? 'var(--stone-light)' : 'var(--red)'};">${roundWinner === 'Tie' ? 'Tie' : roundWinner + ' +1'}</span>`;
       breakdown.appendChild(row);
     });
-
-    const overallWinner = myPoints > oppPoints ? "You win!" : oppPoints > myPoints ? "Opponent wins!" : "It's a tie!";
+    const overallWinner = myPoints > oppPoints ? 'You win!' : oppPoints > myPoints ? `${mpOpponentName} wins!` : "It's a tie!";
     verdict.textContent = `${overallWinner} (${myPoints} - ${oppPoints})`;
-
-  } else {
-    modalTitle.textContent = "YOUR ROUNDS ARE DONE!";
-    modalTitle.style.color = "var(--accent-primary)";
-    modalDinoName.textContent = `${myTotalTime}s total, ${myTotalGuesses} guesses`;
-    modalDinoSub.textContent = "";
-    modalMsg.textContent = "Share this link with your friend to see who wins!";
-
-    const category = currentDb === DINOSAURS ? "dino" : currentDb === PTEROSAURS ? "ptero" : "marine";
-    const link = buildShareLink(h2hSeed, category, h2hTotalRounds, h2hMyResults);
-
-    breakdown.innerHTML = `
-      <input type="text" readonly value="${link}" id="h2hFinalLink" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--stone); background:var(--bone); color:var(--charcoal); font-size:0.75rem; box-sizing:border-box; margin-bottom:8px;">
-      <button id="h2hFinalCopyBtn" class="mode-btn active" style="width:100%; font-size:0.8rem;">Copy Link</button>
-    `;
-    verdict.textContent = "";
-
-    document.getElementById("h2hFinalCopyBtn").onclick = () => {
-      const linkInput = document.getElementById("h2hFinalLink");
-      linkInput.select();
-      navigator.clipboard.writeText(linkInput.value).then(() => {
-        document.getElementById("h2hFinalCopyBtn").textContent = "Copied!";
-      });
-    };
   }
-
-  document.getElementById("h2hResultsContainer").style.display = "block";
-  modalOverlay.classList.add("show");
+  document.getElementById('h2hResultsContainer').style.display = 'block';
+  modalOverlay.classList.add('show');
 }
   
   /* ---------------- AUTOCOMPLETE ---------------- */
@@ -1193,11 +1297,12 @@ guessInput.addEventListener("input", () => {
         resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
         pickNewTimeAttackTarget();
       } else if (h2hMode) {
-        const timeTaken = Math.round((Date.now() - h2hRoundStartTime) / 1000);
-        h2hMyResults.push({ name: target.name, time: timeTaken, guesses: guessCount });
-        h2hRoundIndex++;
-        startH2HRound();
-      } else {
+  const timeTaken = Math.round((Date.now() - h2hRoundStartTime) / 1000);
+  h2hMyResults.push({ name: target.name, time: timeTaken, guesses: guessCount });
+  mpSend({ type: 'round_complete', roundIndex: h2hRoundIndex, name: 'You', guesses: guessCount, time: timeTaken });
+  h2hRoundIndex++;
+  startH2HRound();
+  } else {
         endGame(true);
       }
     }
