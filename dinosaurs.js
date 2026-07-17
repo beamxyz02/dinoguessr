@@ -182,9 +182,9 @@
       diet: "Herbivore",
       continent: "Asia",
       group: "Theropod",
-      subgroup: "Therizinosauridid",
+      subgroup: "Therizinosaurid",
       length: 10,
-      wiki: "Therizinosauridus",
+      wiki: "Therizinosaurus",
       hints: [
         "It possessed the longest claws of any animal in history, measuring up to 1 meter.",
         "Despite belonging to the mostly meat-eating theropod family, it was adapted to eating plants.",
