@@ -218,6 +218,7 @@
     <div>Room code: <strong id="mpRoomCodeDisplay" style="letter-spacing:2px; color:#9b59b6;"></strong></div>
     <div id="mpPlayerList" style="opacity:0.8; margin-top:4px;"></div>
     <button class="mode-btn" id="mpStartBtn" style="display:none; margin-top:8px; font-size:0.8rem; padding:6px 14px; border-radius:20px;">Start Match</button>
+    <button class="mode-btn" id="mpLeaveBtn" style="margin-top:6px; font-size:0.8rem; padding:6px 14px; border-radius:20px; opacity:0.6;">Leave Lobby</button>
   </div>
 </div>
 <div id="mpLiveStatus" style="display:none; text-align:center; font-size:0.8rem; opacity:0.85; margin-bottom:8px;"></div>
@@ -526,6 +527,7 @@ let mpSocket = null;
 let mpRoomCode = null;
 let mpIsHost = false;
 let mpOpponentName = 'Opponent';
+let mpMyId = null;
 let mpOpponentResults = [];
 
 function mpConnect(onOpen) {
@@ -562,7 +564,8 @@ function mpSend(obj) {
 function mpHandleMessage(msg) {
   if (msg.type === 'lobby_state') {
     mpRoomCode = msg.code;
-    mpIsHost = msg.yourId ? msg.hostId === msg.yourId : false;
+    if (msg.yourId) mpMyId = msg.yourId;
+    mpIsHost = mpMyId ? msg.hostId === mpMyId : false;
     document.getElementById('mpRoomCodeDisplay').textContent = msg.code;
     document.getElementById('mpPlayerList').textContent = msg.players.map(p => p.name).join(' vs ') || 'Waiting...';
     document.getElementById('mpLobbyStatus').style.display = 'block';
@@ -1039,6 +1042,15 @@ document.getElementById('mpStartBtn').onclick = () => {
   h2hSeed = Math.floor(Math.random() * 1000000);
   const category = currentDb === DINOSAURS ? 'dino' : currentDb === PTEROSAURS ? 'ptero' : 'marine';
   mpSend({ type: 'start_game', seed: h2hSeed, category, totalRounds: h2hTotalRounds });
+};
+
+document.getElementById('mpLeaveBtn').onclick = () => {
+  mpSend({ type: 'leave_lobby' });
+  mpSocket?.close();
+  mpSocket = null;
+  mpMyId = null;
+  document.getElementById('mpLobbyStatus').style.display = 'none';
+  document.getElementById('mpMenu').style.display = 'flex';
 };
 
 function mpCreateLobby(totalRounds) {
