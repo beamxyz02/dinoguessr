@@ -492,7 +492,7 @@
       hints: [
         "It was a large, early relative of Tyrannosaurus rex that lived in a surprisingly chilly, semi-forested environment in what is now China.",
         "It is currently the largest known dinosaur to be discovered with direct, unmistakable fossil evidence of a full coat of feathers.",
-        "its SUPEEERRRR NICHE bro"
+        "This one doesn't have a third hint. Sorry, I got lazy."
       ]
       },
       {
@@ -508,7 +508,7 @@
       hints: [
         "It was a massive, fish-eating theropod that inhabited the mangrove swamps of Late Cretaceous Brazil.",
         "It possessed a long, crocodile-like snout filled with conical teeth and a distinct neural spine sail along its back.",
-        "Its js a bloody synonym of spinosaurus lad"
+        "Its validity is disputed, due to a lack of fossils some classify it as a Spinosaurus synonym"
       ]
       },
       {
