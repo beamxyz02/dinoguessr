@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>DINOGUESSR — Guess the Dinosaur</title>
   
   <link rel="stylesheet" href="styles.css">
@@ -123,6 +123,7 @@
   border: 1px dashed #e74c3c !important;
   text-align: center;
 }
+
 </style>
 </head>
 <body class="theme-dino">
@@ -145,7 +146,7 @@
     <h3>Color Legend</h3>
     <div class="rules-legend-row"><span class="rules-legend-swatch sw-green"></span> Exact match</div>
     <div class="rules-legend-row"><span class="rules-legend-swatch sw-yellow"></span> Related clade / Close match</div>
-    <div class="rules-legend-row"><strong>D</strong> Disputed placement (the family classification is debated)</div>
+    <div class="rules-legend-row"><strong>(?)</strong> Disputed placement (the family classification is debated)</div>
     <div class="rules-legend-row"><strong>↑/↓</strong> Whether your guess' clade is broader or more derived</div>
     <div class="rules-legend-row"><span class="rules-legend-swatch sw-red"></span> No match</div>
     <div class="rules-legend-row"><span class="rules-legend-swatch" style="background:#2c3e50; border:1px dashed #e74c3c;"></span> Hidden column (Challenge mode only)</div>
@@ -260,20 +261,35 @@
       <table id="resultsTable">
         <thead>
           <tr>
-            <th style="width: 18%;">Name</th>
-            <th style="width: 10%;">1st Letter</th>
-            <th style="width: 13%;">Period</th>
-            <th id="dietHeader" style="width: 12%;">Diet</th>
-            <th style="width: 15%;">Continent</th>
-            <th style="width: 12%;">Clade</th>
-            <th style="width: 12%;">Family</th>
-            <th style="width: 8%;">Length</th>
+<th style="width: 18%;">Name</th>
+<th style="width: 5%;">1st</th>
+<th style="width: 12%;">Period</th>
+<th id="dietHeader" style="width: 11%;">Diet</th>
+<th style="width: 12%;">Continent</th>
+<th style="width: 17%;">Clade</th>
+<th style="width: 17%;">Family</th>
+<th style="width: 8%;">Length</th>
           </tr>
         </thead>
         <tbody id="resultsBody">
           <tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>
         </tbody>
       </table>
+  <div id="mobileResultsWrap">
+  <div id="mobileColumns" class="mobile-guess-table">
+    <div class="mobile-label-col mobile-column">
+      <div class="mobile-cell mobile-header">Name</div>
+      <div class="mobile-cell mobile-header">1st Letter</div>
+      <div class="mobile-cell mobile-header">Period</div>
+      <div class="mobile-cell mobile-header" id="mobileDietHeader">Diet</div>
+      <div class="mobile-cell mobile-header">Continent</div>
+      <div class="mobile-cell mobile-header">Clade</div>
+      <div class="mobile-cell mobile-header">Family</div>
+      <div class="mobile-cell mobile-header">Length</div>
+    </div>
+  </div>
+</div>
+    <div class="legend">
     </div>
     <div class="legend">
       <span><span class="swatch sw-green"></span> Exact match</span>
@@ -412,6 +428,15 @@ function cycleBackground() {
   const modeDino = document.getElementById("modeDino");
   const modePtero = document.getElementById("modePtero");
   const modeMarine = document.getElementById("modeMarine");
+
+  function resetMobileColumns() {
+  const mc = document.getElementById("mobileColumns");
+  Array.from(mc.children).forEach(child => {
+    if (!child.classList.contains("mobile-label-col")) {
+      mc.removeChild(child);
+    }
+  });
+}
   /* ---------------- MODE SWITCHING & GAME LOOPS ---------------- */
   function startGame(){
     if (document.getElementById("subModeHardcore").classList.contains("active")) {
@@ -458,11 +483,14 @@ function cycleBackground() {
     guessBtn.disabled = false;
     hintBtn.disabled = false;
     giveUpBtn.disabled = false;
+    giveUpBtn.style.display = "block";
+    playAgainMain.style.display = "none";
     hintBtn.textContent = "Hint";
     hintBox.style.display = "none";
     hintBox.textContent = "";
     guessCountEl.textContent = "Guesses: 0";
     resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+    resetMobileColumns();
     modalOverlay.classList.remove("show");
     suggestionsBox.style.display = "none";
   }
@@ -477,7 +505,8 @@ function cycleBackground() {
     activeBtn.classList.add("active");
     headerSubtext.textContent = subtext;
     initBackgroundSlideshow(bgImageSet);    
-    document.getElementById("dietHeader").textContent = db === MARINEREPTILES ? "Prey Type" : "Diet";   
+    document.getElementById("dietHeader").textContent = db === MARINEREPTILES ? "Prey Type" : "Diet";
+    document.getElementById("mobileDietHeader").textContent = db === MARINEREPTILES ? "Prey Type" : "Diet";   
     if (db === DINOSAURS) document.body.className = "theme-dino";
     else if (db === PTEROSAURS) document.body.className = "theme-ptero";
     else if (db === MARINEREPTILES) document.body.className = "theme-marine"; 
@@ -864,6 +893,7 @@ function startTimeAttack(durationKey) {
   hintBox.style.display = "none";
   guessCountEl.textContent = "Guesses: 0";
   resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+  resetMobileColumns();
   modalOverlay.classList.remove("show");
   suggestionsBox.style.display = "none";
 
@@ -1009,6 +1039,7 @@ skipBtn.onclick = () => {
   guessCount = 0;
   guessCountEl.textContent = "Guesses: 0";
   resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+  resetMobileColumns();
   pickNewTimeAttackTarget();
   if (timeAttackRemaining <= 0) {
     endTimeAttack();
@@ -1121,6 +1152,7 @@ function startH2HRound() {
   hintBox.style.display = "none";
   guessCountEl.textContent = "Guesses: 0";
   resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+  resetMobileColumns();
   modalOverlay.classList.remove("show");
 
   h2hRoundIndicator.style.display = "block";
@@ -1205,7 +1237,7 @@ guessInput.addEventListener("input", () => {
       });
       suggestionsBox.appendChild(div);
     });
-    suggestionsBox.style.display = "block";
+    suggestionsBox.style.display = (hiddenColumnIndex !== -1) ? "none" : "block";
   });
 
   document.addEventListener("click", (e) => {
@@ -1231,18 +1263,18 @@ guessInput.addEventListener("input", () => {
       return;
     }
 
-    if (e.key === "Enter") {
-      e.preventDefault();
+if (e.key === "Enter") {
+  e.preventDefault();
 
-      if (suggestionsVisible && currentSuggestions.length > 0) {
-        const chosenIndex = selectedSuggestionIndex >= 0 ? selectedSuggestionIndex : 0;
-        guessInput.value = currentSuggestions[chosenIndex].name;
-      }
+  if (currentSuggestions.length > 0) {
+    const chosenIndex = selectedSuggestionIndex >= 0 ? selectedSuggestionIndex : 0;
+    guessInput.value = currentSuggestions[chosenIndex].name;
+  }
 
-      suggestionsBox.style.display = "none";
-      selectedSuggestionIndex = -1;
-      guessBtn.click();
-    }
+  suggestionsBox.style.display = "none";
+  selectedSuggestionIndex = -1;
+  guessBtn.click();
+}
   });
 
   function highlightSuggestion() {
@@ -1296,6 +1328,7 @@ guessInput.addEventListener("input", () => {
     guessCount++;
     guessCountEl.textContent = "Guesses: " + guessCount;
     renderRow(guessed);
+    buildMobileColumn(guessed);
     guessInput.value = "";
 
       if(guessed.name.toLowerCase() === target.name.toLowerCase()){
@@ -1307,6 +1340,7 @@ guessInput.addEventListener("input", () => {
         guessCount = 0;
         guessCountEl.textContent = "Guesses: 0";
         resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">Make your first guess to get some clues.</td></tr>';
+        resetMobileColumns();
         pickNewTimeAttackTarget();
       } else if (h2hMode) {
   const timeTaken = Math.round((Date.now() - h2hRoundStartTime) / 1000);
@@ -1330,81 +1364,272 @@ guessInput.addEventListener("input", () => {
   }
 
   /* ---------------- ROW RENDERING & COMPARISON ---------------- */
-  function renderRow(guessed){
-    if(resultsBody.querySelector(".empty-state")){
-      resultsBody.innerHTML = "";
-    }
-
     const DISPUTED_TARGETS = {
-    "cryolophosaurus": { agreed: "Neotheropoda", disputed: [
-      { name: "Dilophosaurid", direction: "up" },
-      { name: "Tetanuran", direction: "up" }
+    "cryolophosaurus": { agreed: "Averostriformes", disputed: [
+      { name: "Tetanurae", direction: "up" }
     ]},
-    "monolophosaurus": { agreed: "Tetanuran", disputed: [
-      { name: "Megalosaurid", direction: "up" },
-      { name: "Allosaurid", direction: "up" }
+    "dakotaraptor": { agreed: "Unenlagiinae", disputed: [
+      { name: "Dromaeosauridae", direction: "up" }
+    ]}, 
+    "dakotaraptor": { agreed: "incertae sedis", disputed: [
+      { name: "Yandusaurus", direction: "up" }
+    ]},           
+    "deinonychus": { agreed: "Eudromaeosauria", disputed: [
+      { name: "Saurornitholestinae", direction: "up" },
+      { name: "Dromaeosaurinae", direction: "up" },
+      { name: "Velociraptorinae", direction: "up" }
+    ]},      
+    "atrociraptor": { agreed: "Saurornitholestinae", disputed: [
+      { name: "Eudromaeosauria", direction: "up" },
+    ]},  
+    "yuxisaurus": { agreed: "incertae sedis", disputed: [
+      { name: "Ankylosauridae", direction: "up" },
+    ]},     
+    "pyroraptor": { agreed: "incertae sedis", disputed: [
+      { name: "Eudromaeosauria", direction: "up" },
+      { name: "Dromaeosaurinae", direction: "up" },
+      { name: "Velociraptorinae", direction: "up" }
+    ]},      
+    "raptorex": { agreed: "Eutyrannosauria", disputed: [
+      { name: "Tyrannosauridae", direction: "up" }
+    ]},    
+    "yutyrannus": { agreed: "Proceratosauridae", disputed: [
+      { name: "Pantyrannosauria", direction: "up" }
+    ]},       
+    "imperobator": { agreed: "incertae sedis", disputed: [
+      { name: "Unenlagiinae", direction: "up" }
+    ]},   
+    "muttaburrasaurus": { agreed: "incertae sedis", disputed: [
+      { name: "Iguanodontidae", direction: "up" }
+    ]},                   
+    "monolophosaurus": { agreed: "Tetanurae", disputed: [
+      { name: "Megalosauridae", direction: "up" },
+      { name: "Spinosauridae", direction: "up" },
+      { name: "Allosauridae", direction: "up" }
     ]},
-    "fukuiraptor": { agreed: "Megaraptorid", disputed: [
-      { name: "Neovenatorid", direction: "up" },
-      { name: "Tyrannosauroid", direction: "up" }
+    "fukuiraptor": { agreed: "Megaraptora", disputed: [
+      { name: "Neovenatoridae", direction: "up" },
+      { name: "Tyrannosauroidae", direction: "up" }
     ]},
-    "megaraptor": { agreed: "Megaraptorid", disputed: [
-      { name: "Neovenatorid", direction: "up" },
-      { name: "Tyrannosauroid", direction: "up" }
+    "megaraptor": { agreed: "Megaraptora", disputed: [
+      { name: "Neovenatoridae", direction: "up" },
+      { name: "Tyrannosauroidae", direction: "up" }
     ]},
-    "maip": { agreed: "Megaraptorid", disputed: [
-      { name: "Neovenatorid", direction: "up" },
-      { name: "Tyrannosauroid", direction: "up" }
+    "maip": { agreed: "Megaraptora", disputed: [
+      { name: "Neovenatoridae", direction: "up" },
+      { name: "Tyrannosauroidae", direction: "up" }
     ]},
-    "australovenator": { agreed: "Megaraptorid", disputed: [
-      { name: "Neovenatorid", direction: "up" },
-      { name: "Tyrannosauroid", direction: "up" }
+    "australovenator": { agreed: "Megaraptora", disputed: [
+      { name: "Neovenatoridae", direction: "up" },
+      { name: "Tyrannosauroidae", direction: "up" }
     ]},
     "fukuivenator": { agreed: "Maniraptora", disputed: [
-      { name: "Dromaeosaurid", direction: "up" },
-      { name: "Therizinosaurid", direction: "up" }
+      { name: "Dromaeosauridae", direction: "up" },
+      { name: "Therizinosauridae", direction: "up" }
+    ]},
+    "neovenator": { agreed: "Carcharodontosauria", disputed: [
+      { name: "Carcharodontosauridae", direction: "up" },
+      { name: "Allosauridae", direction: "up" }
+    ]},
+    "iberospinus": { agreed: "N/A", disputed: [
+      { name: "Baryonychinae", direction: "up" },
+      { name: "Spinosaurinae", direction: "up" }
     ]}
   };
 
   const RELATED_PAIRS = [
-    ["Neovenatorid", "Carcharodontosaurid", "up"],
-    ["Neovenatorid", "Allosaurid", "up"],
-    ["Iguanodontid", "Muttaburrasaurinae", "down"],
-    ["Iguanodontid", "Styracosterna", "up"],
-    ["Paravian", "Dromaeosaurid", "down"],
-    ["Tyrannosauroid", "Proceratosaurid", "down"],
-    ["Ceratopsid", "Neoceratopsian", "up"],
-    ["Hadrosauromorph", "Hadrosauridae", "down"],
+    ["Neovenatoridae", "Carcharodontosauridae", "up"],
+    ["Carcharodontosauridae", "Carcharodontosauria", "up"],
+    ["Neovenatoridae", "Allosauridae", "up"],
+    ["Iguanodontidae", "Muttaburrasaurinae", "down"],
+    ["Iguanodontidae", "Styracosterna", "up"],
+    ["Iguanodontidae", "Dryosauridae", "down"],
+    ["Iguanodontidae", "Iguanodontia", "down"],
+    ["Paraves", "Dromaeosauridae", "down"],
+    ["Tyrannosauroidae", "Proceratosauridae", "down"],
+    ["Ceratopsidae", "Neoceratopsia", "up"],
     ["Tyrannosauroid", "Tyrannosaurid", "down"],
     ["Titanosauriform", "Titanosaur", "down"],
-    ["Ornithomimosaur", "Ornithomimid", "down"],
-    ["Ceratopsid", "Psittacosaurid", "down"],
-    ["Pachycephalosaurian", "Pachycephalosaurid", "down"],
+    ["Ornithomimosauria", "Ornithomimidae", "down"],
+    ["Ceratopsidae", "Psittacosauridae", "down"],
+    ["Pachycephalosauria", "Pachycephalosauridae", "down"],
     ["Sauropodomorph", "Sauropod", "down"],
-    ["Stegosaurid", "Huayangosaurid", "down"],
-  ];
+    ["Sauropodomorph", "Eusauropoda", "down"],
+    ["Diplodocoidea", "Dicraeosauridae", "down"],
+    ["Diplodocoidea", "Rebbachisauridae", "down"],
+    ["Eusauropoda", "Sauropoda", "up"],
+    ["Titanosauriformes", "Brachiosauridae", "down"],
+    ["Titanosauriformes", "Titanosauria", "down"],        
+    ["Camarasauridae", "Brachiosauridae", "down"],
+    ["Camarasauridae", "Titanosauria", "down"],      
+    ["Spinosaurinae", "Spinosaurini", "down"],
+    ["Baryonychinae", "Ceratosuchopsini", "down"],
+    ["Carcharodontosaurinae", "Giganotosaurini", "down"],
+    ["Neotheropoda", "Ceratosauria", "down"],
+    ["Neotheropoda", "Abelisauridae", "down"],
+    ["Neotheropoda", "Noasauridae", "down"],
+    ["Neotheropoda", "Tetanurae", "down"],
+    ["Maniraptora", "Scansoriopterygidae", "down"],
+    ["Paraves", "Scansoriopterygidae", "down"],
+    ["Maniraptora", "Dromaeosauridae", "down"],
+    ["Maniraptora", "Paraves", "down"],
+    ["Maniraptora", "Oviraptoridae", "down"],
+    ["Tyrannosauridae", "Tyrannosauroidae", "up"],
+    ["Tyrannosaurini", "Tyrannosauridae", "up"],
+    ["Abelisauridae", "Ceratosauria", "up"],
+    ["Oviraptosauria", "Maniraptora", "up"],
+    ["Maniraptoriform", "Maniraptora", "down"],    
+    ["Dromaeosaurinae", "Eudromaeosauria", "up"],    
+    ["Saurornitholestinae", "Eudromaeosauria", "up"],    
+    ["Velociraptorinae", "Eudromaeosauria", "up"],    
+    ["Unenlagiinae", "Eudromaeosauria", "down"],    
+    ["Velociraptorinae", "Eudromaeosauria", "up"],    
+    ["Microraptoria", "Eudromaeosauria", "up"],    
+    ["Theropod", "Saurischia", "up"],    
+    ["Megalosauridae", "Carnosauria", "up"],    
+    ["Metriacanthosauridae", "Carnosauria", "up"],    
+    ["Metriacanthosaurinae", "Metriacanthosauridae", "up"],    
+    ["Maniraptoriform", "Ornithomimosauria", "up"],    
+    ["Macrocheiriformes", "Ornithomimidae", "down"],
+    ["Macrocheiriformes", "Deinocheiridae", "down"],    
+    ["Maniraptoriform", "Maniraptora", "up"],    
+    ["Paraves", "Troodontidae", "down"],    
+    ["Averostra", "Ceratosauria", "down"],    
+    ["Averostra", "Averostriformes", "up"],    
+    ["Ornithopoda", "Hadrosauridae", "down"],      
+    ["Ornithopoda", "Hadrosauromorpha", "down"],        
+    ["Hadrosauromorpha", "Hadrosauridae", "down"],     
+    ["Hadrosauromorpha", "Styracosterna", "up"],        
+    ["Styracosterna", "Hadrosauridae", "down"],        
+    ["Stegosauria", "Thyreophora", "up"],        
+    ["Ankylosauria", "Thyreophora", "up"],  
+    ["Chasmosaurinae", "Neoceratopsia", "up"],  
+    ["Chasmosaurinae", "Ceratopsia", "up"],  
+    ["Chasmosaurinae", "Protoceratopsidae", "up"],  
+    ["Centrosaurinae", "Neoceratopsia", "up"],  
+    ["Centrosaurinae", "Ceratopsia", "up"],  
+    ["Centrosaurinae", "Protoceratopsidae", "up"],      
+    ["Pachycephalosaurinae", "Pachycephalosauridae", "up"],  
+    ["Pachycephalosauridae", "Pachycephalosauria", "up"],  
+    ["Pachycephalosaurinae", "Pachycephalosauria", "up"],  
+    ["Ornithopoda", "Neornithischia", "up"],  
+    ["Marginocephalia", "Neornithischia", "up"],  
+    ];
+  
+function isDisputedMatch(targetName, guessedValue) {
+  const genus = targetName.toLowerCase().split(" ")[0];
+  const entry = DISPUTED_TARGETS[genus];
+  if (!entry) return null;
+  return entry.disputed.find(d => d.name.toLowerCase() === guessedValue.toLowerCase()) || null;
+}
 
-  function isDisputedMatch(targetName, guessedSubgroup) {
-    const entry = DISPUTED_TARGETS[targetName.toLowerCase()];
-    if (!entry) return null;
-    return entry.disputed.find(d => d.name.toLowerCase() === guessedSubgroup.toLowerCase()) || null;
-  }
-
-  function isRelatedPair(sub1, sub2) {
+function isRelatedPair(sub1, sub2) {
     const found = RELATED_PAIRS.find(pair =>
       (pair[0].toLowerCase() === sub1.toLowerCase() && pair[1].toLowerCase() === sub2.toLowerCase()) ||
       (pair[1].toLowerCase() === sub1.toLowerCase() && pair[0].toLowerCase() === sub2.toLowerCase())
     );
     if (!found) return null;
 
-   
     const isFirstMatch = found[0].toLowerCase() === sub1.toLowerCase();
     const assignedDirection = found[2];
     const finalDirection = isFirstMatch ? assignedDirection : (assignedDirection === "up" ? "down" : "up");
 
     return { direction: finalDirection };
+}
+
+function buildComparisonCell(guessedValue, targetValue, targetName) {
+  const cell = document.createElement("td");
+  cell.textContent = guessedValue;
+
+  const disputedMatch = isDisputedMatch(targetName, guessedValue);
+  const relatedPairMatch = isRelatedPair(guessedValue, targetValue);
+
+  if (guessedValue.toLowerCase() === targetValue.toLowerCase()) {
+    cell.classList.add("cell-correct");
+  } else if (disputedMatch) {
+    cell.classList.add("cell-close");
+    const badge = document.createElement("span");
+    badge.textContent = " (?)";
+    badge.title = "Disputed placement";
+    badge.style.fontWeight = "bold";
+    cell.appendChild(badge);
+  } else if (relatedPairMatch) {
+    cell.classList.add("cell-close");
+    const arrow = document.createElement("span");
+    arrow.classList.add("arrow");
+    arrow.textContent = relatedPairMatch.direction === "up" ? " ↑" : " ↓";
+    arrow.title = relatedPairMatch.direction === "up" ? "More derived than target" : "Broader than target";
+    cell.appendChild(arrow);
+  } else {
+    cell.classList.add("cell-wrong");
   }
 
+  return cell;
+}
+
+  function buildMobileColumn(guessed) {
+  const col = document.createElement("div");
+  col.className = "mobile-column";
+
+  const add = (colorClass, text) => {
+    const c = document.createElement("div");
+    c.className = "mobile-cell " + colorClass;
+    c.textContent = text;
+    col.appendChild(c);
+  };
+
+  const parts = guessed.name.split(' ');
+  const mobileName = parts.length > 1 ? `${parts[0]} ${parts[1][0]}.` : parts[0];
+  add(guessed.name.toLowerCase() === target.name.toLowerCase() ? "cell-correct" : "cell-wrong", mobileName);
+
+  const gl = guessed.name[0].toUpperCase(), tl = target.name[0].toUpperCase();
+  add(gl === tl ? "cell-correct" : "cell-wrong", gl);
+
+  const field = (idx, value, isMatch) => {
+    if (hiddenColumnIndex === idx) add("blind-box", "Unknown");
+    else add(isMatch ? "cell-correct" : "cell-wrong", value);
+  };
+  field(1, guessed.period, guessed.period === target.period);
+  field(2, guessed.diet, guessed.diet === target.diet);
+  field(3, guessed.continent, guessed.continent === target.continent);
+  if (hiddenColumnIndex === 4) {
+  add("blind-box", "Unknown");
+} else {
+  const cladeDisputedMatch = isDisputedMatch(target.name, guessed.group);
+  const cladeRelatedMatch = isRelatedPair(guessed.group, target.group);
+  let cladeCls = "cell-wrong", cladeExtra = "";
+  if (guessed.group.toLowerCase() === target.group.toLowerCase()) cladeCls = "cell-correct";
+  else if (cladeDisputedMatch) { cladeCls = "cell-close"; cladeExtra = " ?"; }
+  else if (cladeRelatedMatch) { cladeCls = "cell-close"; cladeExtra = cladeRelatedMatch.direction === "up" ? " ↑" : " ↓"; }
+  add(cladeCls, guessed.group + cladeExtra);
+}
+
+  if (hiddenColumnIndex === 5) {
+    add("blind-box", "Unknown");
+  } else {
+    const disputedMatch = isDisputedMatch(target.name, guessed.subgroup);
+    const relatedPairMatch = isRelatedPair(guessed.subgroup, target.subgroup);
+    let cls = "cell-wrong", extra = "";
+    if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) cls = "cell-correct";
+    else if (disputedMatch) { cls = "cell-close"; extra = " D"; }
+    else if (relatedPairMatch) { cls = "cell-close"; extra = relatedPairMatch.direction === "up" ? " ↑" : " ↓"; }
+    add(cls, guessed.subgroup + extra);
+  }
+
+  if (hiddenColumnIndex === 6) {
+    add("blind-box", "Unknown");
+  } else {
+    const diff = target.length - guessed.length;
+    const match = Math.abs(diff) < 0.5;
+    add(match ? "cell-correct" : "cell-wrong", guessed.length + "m" + (match ? "" : (diff > 0 ? " ↑" : " ↓")));
+  }
+
+  document.getElementById("mobileColumns").appendChild(col);
+}
+  function renderRow(guessed){
+    if(resultsBody.querySelector(".empty-state")){
+      resultsBody.innerHTML = "";
+    }
 
     const row = document.createElement("tr");
 
@@ -1448,51 +1673,25 @@ guessInput.addEventListener("input", () => {
       row.appendChild(makeCell(guessed.continent, guessed.continent === target.continent));
     }
 
-    // CLADE (Column 4)
-    if (hiddenColumnIndex === 4) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      row.appendChild(makeCell(guessed.group, guessed.group === target.group));
-    }
-
-    // FAMILY (Column 5)
-    if (hiddenColumnIndex === 5) {
-      const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
-      blindCell.classList.add("blind-box");
-      row.appendChild(blindCell);
-    } else {
-      const familyCell = document.createElement("td");
-      familyCell.textContent = guessed.subgroup;
-
-      const disputedMatch = isDisputedMatch(target.name, guessed.subgroup);
-      const relatedPairMatch = isRelatedPair(guessed.subgroup, target.subgroup);
-
-      if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) {
-        familyCell.classList.add("cell-correct");
-      } else if (disputedMatch) {
-        familyCell.classList.add("cell-close");
-        const badge = document.createElement("span");
-        badge.textContent = " D";
-        badge.title = "Disputed placement";
-        badge.style.fontWeight = "bold";
-        familyCell.appendChild(badge);
-      } else if (relatedPairMatch) {
-        familyCell.classList.add("cell-close");
-        const arrow = document.createElement("span");
-        arrow.classList.add("arrow");
-        arrow.textContent = relatedPairMatch.direction === "up" ? " ↑" : " ↓";
-        arrow.title = relatedPairMatch.direction === "up" ? "More derived than target" : "Broader than target";
-        familyCell.appendChild(arrow);
+      // CLADE (Column 4)
+      if (hiddenColumnIndex === 4) {
+        const blindCell = document.createElement("td");
+        blindCell.textContent = "Unknown";
+        blindCell.classList.add("blind-box");
+        row.appendChild(blindCell);
       } else {
-        familyCell.classList.add("cell-wrong");
+        row.appendChild(buildComparisonCell(guessed.group, target.group, target.name));
       }
-      row.appendChild(familyCell);
-    }
 
+      // FAMILY (Column 5)
+      if (hiddenColumnIndex === 5) {
+        const blindCell = document.createElement("td");
+        blindCell.textContent = "Unknown";
+        blindCell.classList.add("blind-box");
+        row.appendChild(blindCell);
+      } else {
+        row.appendChild(buildComparisonCell(guessed.subgroup, target.subgroup, target.name));
+      }
     // LENGTH (Column 6)
     if (hiddenColumnIndex === 6) {
       const blindCell = document.createElement("td");
@@ -1658,12 +1857,12 @@ guessInput.addEventListener("input", () => {
 
     if (won && target.name.toLowerCase().includes("yutyrannus")) {
       modalElement.classList.add("special-yutyrannus");
-      modalTitle.textContent = "NICHE?!?";
-      modalMsg.textContent = `Incredible! You guessed the niche Yutyrannus in ${guessCount} guesses! This is an inside joke in my friend group.`;
+      modalTitle.textContent = "YOOOO THATS SO NICHE";
+      modalMsg.textContent = `Incredible! You guessed the nichest of them all, the fully-feathered Yutyrannus in ${guessCount} guesses! This is an inside joke in my friend group.`;
       
     } else if (won && target.name.toLowerCase().includes("oxalaia")) {
       modalElement.classList.add("special-oxalaia");
-      modalTitle.textContent = "Spinosaurus Identified!";
+      modalTitle.textContent = "you're not niche bud.";
       modalMsg.textContent = `Damn, you tracked down the Spinosaurus synonym, Oxalaia, in ${guessCount} guesses... This is an inside joke in my friend group.`;
       
     } else {
@@ -1763,6 +1962,7 @@ guessInput.addEventListener("input", () => {
     });
     if(!discovered) {
       renderRow(target);
+      buildMobileColumn(target);
     }
   });
 
@@ -1815,18 +2015,6 @@ preloadImages(MARINE_BG_IMAGES);
     rulesBtn.style.display = "flex";
   }
   startGame();
-
-  window.addEventListener('keydown', function (e) {
-      if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
-          e.preventDefault();
-      }
-  }, { passive: false });
-
-  window.addEventListener('wheel', function (e) {
-      if (e.ctrlKey) {
-          e.preventDefault();
-      }
-  }, { passive: false });
 
   /* ---------------- DAILY COUNTDOWN TIMER ---------------- */
   let countdownInterval = null;
