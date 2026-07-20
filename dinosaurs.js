@@ -5,8 +5,8 @@
       difficulty: "Easy",
       diet: "Carnivore",
       continent: "Africa",
-      group: "Theropod",
-      subgroup: "Spinosaurid",
+      group: "Spinosauridae",
+      subgroup: "Spinosaurini",
       length: 15,
       wiki: "Spinosaurus",
       hints: [
@@ -21,8 +21,8 @@
       difficulty: "Easy",
       diet: "Carnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Allosaurid",
+      group: "Carnosauria",
+      subgroup: "Allosauridae",
       length: 9,
       wiki: "Allosaurus",
       hints: [
@@ -37,8 +37,8 @@
       difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
-      group: "Ornithischia",
-      subgroup: "Hadrosaurid",
+      group: "Hadrosauridae",
+      subgroup: "Lambeosaurinae",
       length: 9,
       wiki: "Parasaurolophus",
       hints: [
@@ -53,8 +53,8 @@
       difficulty: "Medium",
       diet: "Herbivore",
       continent: "North America",
-      group: "Sauropod",
-      subgroup: "Diplodocoid",
+      group: "Eusauropoda",
+      subgroup: "Diplodocoidea",
       length: 25,
       wiki: "Diplodocus",
       hints: [
@@ -69,8 +69,8 @@
       difficulty: "Medium",
       diet: "Herbivore",
       continent: "Europe",
-      group: "Ornithischia",
-      subgroup: "Iguanodontid",
+      group: "Ornithopoda",
+      subgroup: "Iguanodontidae",
       length: 10,
       wiki: "Iguanodon",
       hints: [
@@ -80,13 +80,13 @@
       ]
     },
     {
-      name: "Compsognathus longipes",
+      name: "Compsognathus ellioti",
       period: "Jurassic",
       difficulty: "Easy",
       diet: "Carnivore",
       continent: "Europe",
       group: "Theropod",
-      subgroup: "Compsognathid",
+      subgroup: "Compsognathidae",
       length: 1,
       wiki: "Compsognathus",
       hints: [
@@ -101,8 +101,8 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "South America",
-      group: "Theropod",
-      subgroup: "Abelisaurid",
+      group: "Abelisauridae",
+      subgroup: "Brachyrostra",
       length: 8,
       wiki: "Carnotaurus",
       hints: [
@@ -118,7 +118,7 @@
       diet: "Herbivore",
       continent: "Europe",
       group: "Sauropodomorph",
-      subgroup: "Plateosaurid",
+      subgroup: "Plateosauridae",
       length: 8,
       wiki: "Plateosaurus",
       hints: [
@@ -133,8 +133,8 @@
       difficulty: "Easy",
       diet: "Carnivore",
       continent: "South America",
-      group: "Theropod",
-      subgroup: "Carcharodontosaurid",
+      group: "Carcharodontosauria",
+      subgroup: "Carcharodontosaurinae",
       length: 13,
       wiki: "Giganotosaurus",
       hints: [
@@ -150,7 +150,7 @@
       diet: "Carnivore",
       continent: "North America",
       group: "Theropod",
-      subgroup: "Coelophysid",
+      subgroup: "Coelophysidae",
       length: 3,
       wiki: "Coelophysis",
       hints: [
@@ -165,8 +165,8 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Dilophosaurid",
+      group: "Neotheropoda",
+      subgroup: "Averostriformes",
       length: 7,
       wiki: "Dilophosaurus",
       hints: [
@@ -176,13 +176,13 @@
       ]
     },
     {
-      name: "Therizinosauridus cheloniformis",
+      name: "Therizinosaurus cheloniformis",
       period: "Cretaceous",
       difficulty: "Easy",
       diet: "Herbivore",
       continent: "Asia",
-      group: "Theropod",
-      subgroup: "Therizinosaurid",
+      group: "Maniraptora",
+      subgroup: "Therizinosauridae",
       length: 10,
       wiki: "Therizinosaurus",
       hints: [
@@ -197,8 +197,8 @@
       difficulty: "Easy",
       diet: "Carnivore",
       continent: "Europe",
-      group: "Theropod",
-      subgroup: "Spinosaurid",
+      group: "Spinosauridae",
+      subgroup: "Baryonychinae",
       length: 9,
       wiki: "Baryonyx",
       hints: [
@@ -213,8 +213,8 @@
       difficulty: "Hard",
       diet: "Omnivore",
       continent: "Asia",
-      group: "Theropod",
-      subgroup: "Deinocheirid",
+      group: "Ornithomimosauria",
+      subgroup: "Deinocheiridae",
       length: 11,
       wiki: "Deinocheirus",
       hints: [
@@ -230,7 +230,7 @@
       diet: "Herbivore",
       continent: "North America",
       group: "Marginocephalian",
-      subgroup: "Pachycephalosaurid",
+      subgroup: "Pachycephalosaurinae",
       length: 4.5,
       wiki: "Pachycephalosaurus",
       hints: [
@@ -246,7 +246,7 @@
       diet: "Herbivore",
       continent: "North America",
       group: "Marginocephalian",
-      subgroup: "Ceratopsid",
+      subgroup: "Centrosaurinae",
       length: 5.5,
       wiki: "Styracosaurus",
       hints: [
@@ -261,8 +261,8 @@
       difficulty: "Easy",
       diet: "Carnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Tyrannosaurid",
+      group: "Tyrannosauridae",
+      subgroup: "Tyrannosaurini",
       length: 12,
       wiki: "Tyrannosaurus",
       hints: [
@@ -278,7 +278,7 @@
       diet: "Herbivore",
       continent: "Asia",
       group: "Marginocephalian",
-      subgroup: "Protoceratopsid",
+      subgroup: "Protoceratopsidae",
       length: 2,
       wiki: "Protoceratops",
       hints: [
@@ -293,8 +293,8 @@
       difficulty: "Medium",
       diet: "Herbivore",
       continent: "North America",
-      group: "Ornithischia",
-      subgroup: "Hadrosaurid",
+      group: "Hadrosauridae",
+      subgroup: "Saurolophinae",
       length: 9,
       wiki: "Maiasaura",
       hints: [
@@ -309,8 +309,8 @@
       difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
-      group: "Ornithischia",
-      subgroup: "Hadrosaurid",
+      group: "Hadrosauridae",
+      subgroup: "Lambeosaurinae",
       length: 9,
       wiki: "Corythosaurus",
       hints: [
@@ -325,8 +325,8 @@
       difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
-      group: "Ornithischia",
-      subgroup: "Hadrosaurid",
+      group: "Hadrosauridae",
+      subgroup: "Saurolophinae",
       length: 12,
       wiki: "Edmontosaurus",
       hints: [
@@ -341,8 +341,8 @@
       difficulty: "Easy",
       diet: "Herbivore",
       continent: "North America",
-      group: "Sauropod",
-      subgroup: "Diplodocoid",
+      group: "Eusauropoda",
+      subgroup: "Diplodocoidea",
       length: 22,
       wiki: "Apatosaurus",
       hints: [
@@ -357,8 +357,8 @@
       difficulty: "Medium",
       diet: "Herbivore",
       continent: "Africa",
-      group: "Thyreophoran",
-      subgroup: "Stegosaurid",
+      group: "Stegosauria",
+      subgroup: "Stegosauridae",
       length: 4.5,
       wiki: "Kentrosaurus",
       hints: [
@@ -373,8 +373,8 @@
       difficulty: "Hard",
       diet: "Carnivore",
       continent: "South America",
-      group: "Theropod",
-      subgroup: "Herrerasaurid",
+      group: "Saurischia",
+      subgroup: "Herrerasauridae",
       length: 6,
       wiki: "Herrerasaurus",
       hints: [
@@ -389,8 +389,8 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Ceratosaurian",
+      group: "Ceratosauria",
+      subgroup: "Ceratosauridae",
       length: 6,
       wiki: "Ceratosaurus",
       hints: [
@@ -405,8 +405,8 @@
       difficulty: "Medium",
       diet: "Omnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Troodontid",
+      group: "Troodontidae",
+      subgroup: "Troodontinae",
       length: 2.5,
       wiki: "Troodon",
       hints: [
@@ -421,8 +421,8 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "Africa",
-      group: "Theropod",
-      subgroup: "Carcharodontosaurid",
+      group: "Carcharodontosauria",
+      subgroup: "Carcharodontosaurinae",
       length: 12.5,
       wiki: "Carcharodontosaurus",
       hints: [
@@ -437,8 +437,8 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Dromaeosaurid",
+      group: "Dromaeosauridae",
+      subgroup: "Dromaeosaurinae",
       length: 6,
       wiki: "Utahraptor",
       hints: [
@@ -453,8 +453,8 @@
       difficulty: "Medium",
       diet: "Omnivore",
       continent: "Asia",
-      group: "Theropod",
-      subgroup: "Oviraptorid",
+      group: "Oviraptorosauria",
+      subgroup: "Oviraptoridae",
       length: 1.6,
       wiki: "Oviraptor",
       hints: [
@@ -469,8 +469,8 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "North America",
-      group: "Theropod",
-      subgroup: "Tyrannosaurid",
+      group: "Tyrannosauridae",
+      subgroup: "Albertosaurinae",
       length: 8,
       wiki: "Gorgosaurus",
       hints: [
@@ -485,14 +485,14 @@
       difficulty: "Medium",
       diet: "Carnivore",
       continent: "Asia",
-      group: "Theropod",
-      subgroup: "Proceratosaurid",
+      group: "Tyrannosauroidae",
+      subgroup: "Proceratosauridae",
       length: 9,
       wiki: "Yutyrannus",
       hints: [
         "It was a large, early relative of Tyrannosaurus rex that lived in a surprisingly chilly, semi-forested environment in what is now China.",
         "It is currently the largest known dinosaur to be discovered with direct, unmistakable fossil evidence of a full coat of feathers.",
-        "This one doesn't have a third hint. Sorry, I got lazy."
+        "its SUPEEERRRR NICHE bro"
       ]
       },
       {
@@ -501,14 +501,14 @@
       difficulty: "Hard",
       diet: "Carnivore",
       continent: "South America",
-      group: "Theropod",
-      subgroup: "Spinosaurid",
+      group: "Spinosauridae",
+      subgroup: "Spinosaurini",
       length: 13,
       wiki: "Oxalaia",
       hints: [
         "It was a massive, fish-eating theropod that inhabited the mangrove swamps of Late Cretaceous Brazil.",
         "It possessed a long, crocodile-like snout filled with conical teeth and a distinct neural spine sail along its back.",
-        "Its validity is disputed, due to a lack of fossils some classify it as a Spinosaurus synonym"
+        "Its js a bloody synonym of spinosaurus lad"
       ]
       },
       {
@@ -517,8 +517,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Megalosaurid",
+    group: "Megalosauridae",
+    subgroup: "Megalosaurinae",
     length: 10,
     wiki: "Torvosaurus",
     hints: [
@@ -533,8 +533,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Tyrannosaurinae",
     length: 5,
     wiki: "Nanuqsaurus",
     hints: [
@@ -549,8 +549,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Abelisaurid",
+    group: "Abelisauridae",
+    subgroup: "Majungasaurinae",
     length: 9,
     wiki: "Rajasaurus",
     hints: [
@@ -565,8 +565,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
-    group: "Theropod",
-    subgroup: "Abelisaurid",
+    group: "Abelisauridae",
+    subgroup: "Majungasaurinae",
     length: 7,
     wiki: "Majungasaurus",
     hints: [
@@ -581,8 +581,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Antarctica",
-    group: "Theropod",
-    subgroup: "Neotheropoda",
+    group: "Neotheropoda",
+    subgroup: "Averostriformes",
     length: 6,
     wiki: "Cryolophosaurus",
     hints: [
@@ -597,8 +597,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Tyrannosaurini",
     length: 10,
     wiki: "Tarbosaurus",
     hints: [
@@ -613,8 +613,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
-    group: "Theropod",
-    subgroup: "Noasaurid",
+    group: "Ceratosauria",
+    subgroup: "Noasauridae",
     length: 2,
     wiki: "Masiakasaurus",
     hints: [
@@ -629,8 +629,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Carcharodontosaurid",
+    group: "Carcharodontosauria",
+    subgroup: "Carcharodontosauridae",
     length: 11,
     wiki: "Acrocanthosaurus",
     hints: [
@@ -645,8 +645,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Carcharodontosaurid",
+    group: "Carcharodontosauria",
+    subgroup: "Carcharodontosauridae",
     length: 6,
     wiki: "Concavenator",
     hints: [
@@ -661,8 +661,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Metriacanthosaurid",
+    group: "Metriacanthosauridae",
+    subgroup: "Metriacanthosaurinae",
     length: 8,
     wiki: "Metriacanthosaurus",
     hints: [
@@ -677,8 +677,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "Spinosaurinae",
     length: 8,
     wiki: "Irritator",
     hints: [
@@ -693,8 +693,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "Spinosaurinae",
     length: 8,
     wiki: "Ichthyovenator",
     hints: [
@@ -709,8 +709,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "Africa",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "Ceratosuchopsini",
     length: 11,
     wiki: "Suchomimus",
     hints: [
@@ -725,8 +725,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauroidae",
+    subgroup: "Eutyrannosauria",
     length: 5,
     wiki: "Nanotyrannus",
     hints: [
@@ -741,8 +741,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Alioramini",
     length: 9,
     wiki: "Qianzhousaurus",
     hints: [
@@ -757,8 +757,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Albertosaurinae",
     length: 9,
     wiki: "Albertosaurus",
     hints: [
@@ -773,8 +773,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "Velociraptorinae",
     length: 2,
     wiki: "Velociraptor",
     hints: [
@@ -789,8 +789,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Maniraptoriform",
+    subgroup: "Unenlagiinae",
     length: 5,
     wiki: "Dakotaraptor",
     hints: [
@@ -805,8 +805,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "Dromaeosaurinae",
     length: 2,
     wiki: "Dromaeosaurus",
     hints: [
@@ -821,8 +821,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "Eudromaeosauria",
     length: 3,
     wiki: "Deinonychus",
     hints: [
@@ -837,8 +837,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "Saurornitholestinae",
     length: 2,
     wiki: "Atrociraptor",
     hints: [
@@ -853,8 +853,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "South America",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "Unenlagiinae",
     length: 5,
     wiki: "Austroraptor",
     hints: [
@@ -869,8 +869,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "incertae sedis",
     length: 2,
     wiki: "Pyroraptor",
     hints: [
@@ -885,8 +885,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Antarctica",
-    group: "Theropod",
-    subgroup: "Paravian",
+    group: "Paraves",
+    subgroup: "incertae sedis",
     length: 2,
     wiki: "Imperobator",
     hints: [
@@ -901,8 +901,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Nodosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 6,
     wiki: "Edmontonia",
     hints: [
@@ -917,8 +917,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Ankylosaurid",
+    group: "Ankylosauria",
+    subgroup: "Ankylosauridae",
     length: 8,
     wiki: "Ankylosaurus",
     hints: [
@@ -933,8 +933,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Ankylosaurid",
+    group: "Ankylosauria",
+    subgroup: "Ankylosauridae",
     length: 6,
     wiki: "Euoplocephalus",
     hints: [
@@ -949,8 +949,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Nodosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 5,
     wiki: "Nodosaurus",
     hints: [
@@ -965,8 +965,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Nodosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 6,
     wiki: "Borealopelta",
     hints: [
@@ -981,8 +981,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Antarctica",
-    group: "Thyreophoran",
-    subgroup: "Nodosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 4,
     wiki: "Antarctopelta",
     hints: [
@@ -997,8 +997,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Ankylosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 5,
     wiki: "Gastonia_(dinosaur)",
     hints: [
@@ -1013,8 +1013,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Nodosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 5,
     wiki: "Sauropelta",
     hints: [
@@ -1029,8 +1029,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Australia",
-    group: "Thyreophoran",
-    subgroup: "Ankylosaurid",
+    group: "Ankylosauria",
+    subgroup: "Ankylosauridae",
     length: 3,
     wiki: "Minmi_(dinosaur)",
     hints: [
@@ -1046,7 +1046,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Chasmosaurinae",
     length: 9,
     wiki: "Triceratops",
     hints: [
@@ -1062,7 +1062,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 6,
     wiki: "Pachyrhinosaurus",
     hints: [
@@ -1078,7 +1078,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 5,
     wiki: "Diabloceratops",
     hints: [
@@ -1094,7 +1094,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Chasmosaurinae",
     length: 5,
     wiki: "Chasmosaurus",
     hints: [
@@ -1110,7 +1110,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Neoceratopsian",
+    subgroup: "Neoceratopsia",
     length: 1,
     wiki: "Aquilops",
     hints: [
@@ -1126,13 +1126,13 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Chasmosaurinae",
     length: 6,
     wiki: "Pentaceratops",
     hints: [
       "A large chasmosaurine from the Late Cretaceous Kirtland Formation of New Mexico.",
       "Its name means 'five-horned face', counting its three true horns alongside prominent, pointed jugal bones on its cheeks.",
-      "While now re-assigned, a fossil thought to have been this animal once held the record for the largest skull of any land animal."
+      "Once held the record for the largest skull of any land animal, featuring an elongated, rectangular frill structure."
     ]
   },
   {
@@ -1142,7 +1142,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Chasmosaurinae",
     length: 8,
     wiki: "Torosaurus",
     hints: [
@@ -1158,7 +1158,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 7,
     wiki: "Lokiceratops",
     hints: [
@@ -1174,7 +1174,7 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
-    subgroup: "Neoceratopsian",
+    subgroup: "Neoceratopsia",
     length: 1,
     wiki: "Microceratus",
     hints: [
@@ -1190,7 +1190,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 5,
     wiki: "Nasutoceratops",
     hints: [
@@ -1206,7 +1206,7 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 6,
     wiki: "Sinoceratops",
     hints: [
@@ -1222,7 +1222,7 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
-    subgroup: "Psittacosaurid",
+    subgroup: "Ceratopsia",
     length: 2,
     wiki: "Psittacosaurus",
     hints: [
@@ -1237,8 +1237,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Stegosauridae",
     length: 9,
     wiki: "Stegosaurus",
     hints: [
@@ -1253,8 +1253,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Huayangosauridae",
     length: 4,
     wiki: "Gigantspinosaurus",
     hints: [
@@ -1269,8 +1269,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Stegosauridae",
     length: 7,
     wiki: "Wuerhosaurus",
     hints: [
@@ -1285,8 +1285,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Huayangosaurid",
+    group: "Stegosauria",
+    subgroup: "Huayangosauridae",
     length: 4,
     wiki: "Huayangosaurus",
     hints: [
@@ -1301,8 +1301,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Huayangosauridae",
     length: 4,
     wiki: "Chungkingosaurus",
     hints: [
@@ -1317,8 +1317,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "South America",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 35,
     wiki: "Argentinosaurus",
     hints: [
@@ -1333,8 +1333,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
-    group: "Sauropod",
-    subgroup: "Brachiosaurid",
+    group: "Eusauropoda",
+    subgroup: "Brachiosauridae",
     length: 22,
     wiki: "Brachiosaurus",
     hints: [
@@ -1349,8 +1349,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 6,
     wiki: "Magyarosaurus",
     hints: [
@@ -1365,8 +1365,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Sauropod",
-    subgroup: "Brachiosaurid",
+    group: "Eusauropoda",
+    subgroup: "Brachiosauridae",
     length: 6,
     wiki: "Europasaurus",
     hints: [
@@ -1381,8 +1381,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Sauropod",
-    subgroup: "Brachiosaurid",
+    group: "Eusauropoda",
+    subgroup: "Brachiosauridae",
     length: 22,
     wiki: "Lusotitan",
     hints: [
@@ -1397,8 +1397,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
-    group: "Sauropod",
-    subgroup: "Dicraeosaurid",
+    group: "Eusauropoda",
+    subgroup: "Dicraeosauridae",
     length: 10,
     wiki: "Amargasaurus",
     hints: [
@@ -1413,8 +1413,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Sauropod",
-    subgroup: "Mamenchisaurid",
+    group: "Eusauropoda",
+    subgroup: "Mamenchisauridae",
     length: 22,
     wiki: "Mamenchisaurus",
     hints: [
@@ -1429,8 +1429,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Sauropod",
-    subgroup: "Camarasaurid",
+    group: "Eusauropoda",
+    subgroup: "Camarasauridae",
     length: 18,
     wiki: "Camarasaurus",
     hints: [
@@ -1445,8 +1445,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 26,
     wiki: "Dreadnoughtus",
     hints: [
@@ -1461,8 +1461,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Africa",
-    group: "Sauropod",
-    subgroup: "Rebbachisaurid",
+    group: "Eusauropoda",
+    subgroup: "Rebbachisauridae",
     length: 9,
     wiki: "Nigersaurus",
     hints: [
@@ -1477,8 +1477,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 12,
     wiki: "Titanosaurus",
     hints: [
@@ -1493,8 +1493,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Africa",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Styracosterna",
+    subgroup: "N/A",
     length: 7,
     wiki: "Ouranosaurus",
     hints: [
@@ -1509,8 +1509,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Saurolophinae",
     length: 15,
     wiki: "Shantungosaurus",
     hints: [
@@ -1525,8 +1525,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Australia",
-    group: "Ornithischia",
-    subgroup: "Muttaburrasaurinae",
+    group: "Ornithopoda",
+    subgroup: "incertae sedis",
     length: 8,
     wiki: "Muttaburrasaurus",
     hints: [
@@ -1541,8 +1541,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Lambeosaurinae",
     length: 8,
     wiki: "Olorotitan",
     hints: [
@@ -1557,8 +1557,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauromorpha",
+    subgroup: "Telmatosauridae",
     length: 4,
     wiki: "Tethyshadros",
     hints: [
@@ -1573,8 +1573,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Lambeosaurinae",
     length: 8,
     wiki: "Tsintaosaurus",
     hints: [
@@ -1589,8 +1589,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Dryosaurid",
+    group: "Ornithopoda",
+    subgroup: "Dryosauridae",
     length: 3,
     wiki: "Dryosaurus",
     hints: [
@@ -1605,8 +1605,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Ornithischia",
-    subgroup: "Hypsilophodontid",
+    group: "Ornithopoda",
+    subgroup: "Hypsilophodontidae",
     length: 2,
     wiki: "Hypsilophodon",
     hints: [
@@ -1621,8 +1621,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Daspletosaurini",
     length: 9,
     wiki: "Daspletosaurus",
     hints: [
@@ -1637,8 +1637,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Megalosaurid",
+    group: "Megalosauridae",
+    subgroup: "Megalosaurinae",
     length: 6,
     wiki: "Megalosaurus",
     hints: [
@@ -1652,8 +1652,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
-    group: "Theropod",
-    subgroup: "Carcharodontosaurid",
+    group: "Carcharodontosauria",
+    subgroup: "Carcharodontosaurinae",
     length: 12,
     wiki: "Mapusaurus",
     hints: [
@@ -1668,8 +1668,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Alioramini",
     length: 6,
     wiki: "Alioramus",
     hints: [
@@ -1684,8 +1684,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
-    group: "Theropod",
-    subgroup: "Abelisaurid",
+    group: "Abelisauridae",
+    subgroup: "N/A",
     length: 6,
     wiki: "Rugops",
     hints: [
@@ -1700,8 +1700,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Metriacanthosaurid",
+    group: "Carnosauria",
+    subgroup: "Metriacanthosauridae",
     length: 8,
     wiki: "Yangchuanosaurus",
     hints: [
@@ -1716,8 +1716,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Tyrannosauroid",
+    group: "Tyrannosauroidae",
+    subgroup: "Pantyrannosauria",
     length: 2,
     wiki: "Moros_intrepidus",
     hints: [
@@ -1732,8 +1732,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Tyrannosauroid",
+    group: "Tyrannosauroidae",
+    subgroup: "Eutyrannosauria",
     length: 3,
     wiki: "Raptorex",
     hints: [
@@ -1748,8 +1748,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Tyrannosaurid",
+    group: "Tyrannosauridae",
+    subgroup: "Teratophoneini",
     length: 6,
     wiki: "Teratophoneus",
     hints: [
@@ -1764,8 +1764,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Megalosaurid",
+    group: "Megalosauridae",
+    subgroup: "Eustreptospondylinae",
     length: 6,
     wiki: "Eustreptospondylus",
     hints: [
@@ -1780,12 +1780,12 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Neovenatorid",
+    group: "Carnosauria",
+    subgroup: "Carcharodontosauria",
     length: 8,
     wiki: "Neovenator",
     hints: [
-      "An Early Cretaceous allosauroid unearthed from the Wessex Formation of the Isle of Wight, England.",
+      "An Early Cretaceous carcharodontosaur unearthed from the Wessex Formation of the Isle of Wight, England.",
       "Its name means 'new hunter,' serving as the type genus for a distinct lineage of slender, long-legged predators.",
       "Exceptional skull fossils show a highly complex network of neurovascular cavities in its snout, likely used as tactile sensory organs."
     ]
@@ -1796,8 +1796,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Tetanuran",
+    group: "Averostra",
+    subgroup: "Tetanurae",
     length: 5,
     wiki: "Monolophosaurus",
     hints: [
@@ -1812,8 +1812,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Metriacanthosaurid",
+    group: "Metriacanthosauridae",
+    subgroup: "Metriacanthosaurinae",
     length: 8,
     wiki: "Sinraptor",
     hints: [
@@ -1828,8 +1828,8 @@
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Ornithomimid",
+    group: "Ornithomimosauria",
+    subgroup: "Ornithomimidae",
     length: 4,
     wiki: "Ornithomimus",
     hints: [
@@ -1844,8 +1844,8 @@
     difficulty: "Easy",
     diet: "Omnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Ornithomimid",
+    group: "Ornithomimosauria",
+    subgroup: "Ornithomimidae",
     length: 6,
     wiki: "Gallimimus",
     hints: [
@@ -1860,8 +1860,8 @@
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Ornithomimid",
+    group: "Ornithomimosauria",
+    subgroup: "Ornithomimidae",
     length: 3,
     wiki: "Archaeornithomimus",
     hints: [
@@ -1876,8 +1876,8 @@
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Ornithomimosauria",
+    group: "Ornithomimosauria",
+    subgroup: "Macrocheiriformes",
     length: 2.5,
     wiki: "Pelecanimimus",
     hints: [
@@ -1892,8 +1892,8 @@
     period: "Cretaceous",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Ornithomimid",
+    group: "Ornithomimosauria",
+    subgroup: "Ornithomimidae",
     length: 2.5,
     wiki: "Sinornithomimus",
     hints: [
@@ -1908,8 +1908,8 @@
     difficulty: "Easy",
     diet: "Omnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Ornithomimid",
+    group: "Ornithomimosauria",
+    subgroup: "Ornithomimidae",
     length: 4,
     wiki: "Struthiomimus",
     hints: [
@@ -1924,12 +1924,12 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "incertae sedis",
     length: 8,
     wiki: "Iberospinus",
     hints: [
-      "A mid-sized baryonychine spinosaurid discovered in the Early Cretaceous Papo Seco Formation of Portugal.",
+      "A mid-sized debated baryonychine spinosaurid discovered in the Early Cretaceous Papo Seco Formation of Portugal.",
       "Its description features unique neurovascular patterns in the lower jaw, highly adapted for sensing underwater vibrations.",
       "Provides concrete evidence of intense spinosaurid diversification and specialization across the Western European archipelago."
     ]
@@ -1940,8 +1940,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "Ceratosuchopsini",
     length: 8.5,
     wiki: "Ceratosuchops",
     hints: [
@@ -1956,8 +1956,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "Spinosaurinae",
     length: 9,
     wiki: "Siamosaurus",
     hints: [
@@ -1972,8 +1972,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Africa",
-    group: "Theropod",
-    subgroup: "Spinosaurid",
+    group: "Spinosauridae",
+    subgroup: "Spinosaurini",
     length: 10,
     wiki: "Sigilmassasaurus",
     hints: [
@@ -1988,8 +1988,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Stegosauridae",
     length: 7,
     wiki: "Tuojiangosaurus",
     hints: [
@@ -2004,8 +2004,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Stegosauridae",
     length: 6.5,
     wiki: "Miragaia_(dinosaur)",
     hints: [
@@ -2020,8 +2020,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Africa",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Stegosauridae",
     length: 4.5,
     wiki: "Thyreosaurus",
     hints: [
@@ -2036,8 +2036,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Stegosaurid",
+    group: "Stegosauria",
+    subgroup: "Stegosauridae",
     length: 5,
     wiki: "Yingshanosaurus",
     hints: [
@@ -2069,7 +2069,7 @@
     diet: "Omnivore",
     continent: "Asia",
     group: "Marginocephalian",
-    subgroup: "Pachycephalosaurid",
+    subgroup: "Pachycephalosauria",
     length: 1,
     wiki: "Zavacephale",
     hints: [
@@ -2085,7 +2085,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Pachycephalosaurid",
+    subgroup: "Pachycephalosauridae",
     length: 2,
     wiki: "Stegoceras",
     hints: [
@@ -2101,7 +2101,7 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
-    subgroup: "Pachycephalosaurid",
+    subgroup: "Pachycephalosaurinae",
     length: 2,
     wiki: "Homalocephale",
     hints: [
@@ -2116,8 +2116,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Saurolophinae",
     length: 9,
     wiki: "Brachylophosaurus",
     hints: [
@@ -2132,8 +2132,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "N/A",
     length: 8,
     wiki: "Hadrosaurus",
     hints: [
@@ -2148,8 +2148,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Lambeosaurinae",
     length: 9,
     wiki: "Lambeosaurus",
     hints: [
@@ -2164,8 +2164,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Lambeosaurinae",
     length: 7,
     wiki: "Nipponosaurus",
     hints: [
@@ -2180,8 +2180,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Hadrosauromorph",
+    group: "Hadrosauromorpha",
+    subgroup: "N/A",
     length: 6,
     wiki: "Eolambia",
     hints: [
@@ -2191,13 +2191,13 @@
     ]
   },
   {
-    name: "Jaxartasaurus aralensis",
+    name: "Jaxartosaurus aralensis",
     period: "Cretaceous",
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Lambeosaurinae",
     length: 6,
     wiki: "Jaxartasaurus",
     hints: [
@@ -2212,8 +2212,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Ornithischia",
-    subgroup: "Hadrosaurid",
+    group: "Hadrosauridae",
+    subgroup: "Saurolophinae",
     length: 9,
     wiki: "Saurolophus",
     hints: [
@@ -2228,8 +2228,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Ornithischia",
-    subgroup: "Styracosterna",
+    group: "Styracosterna",
+    subgroup: "N/A",
     length: 4.5,
     wiki: "Fukuisaurus",
     hints: [
@@ -2245,7 +2245,7 @@
     diet: "Herbivore",
     continent: "Asia",
     group: "Marginocephalian",
-    subgroup: "Neoceratopsian",
+    subgroup: "Neoceratopsia",
     length: 2,
     wiki: "Koreaceratops",
     hints: [
@@ -2261,7 +2261,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 6,
     wiki: "Centrosaurus",
     hints: [
@@ -2277,7 +2277,7 @@
     diet: "Herbivore",
     continent: "North America",
     group: "Marginocephalian",
-    subgroup: "Ceratopsid",
+    subgroup: "Centrosaurinae",
     length: 4.5,
     wiki: "Einiosaurus",
     hints: [
@@ -2292,8 +2292,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Megaraptoran",
+    group: "Megaraptora",
+    subgroup: "N/A",
     length: 4.2,
     wiki: "Fukuiraptor",
     hints: [
@@ -2308,8 +2308,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
-    group: "Theropod",
-    subgroup: "Megaraptorid",
+    group: "Megaraptora",
+    subgroup: "Megaraptoridae",
     length: 8,
     wiki: "Megaraptor",
     hints: [
@@ -2324,8 +2324,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
-    group: "Theropod",
-    subgroup: "Megaraptorid",
+    group: "Megaraptora",
+    subgroup: "Megaraptoridae",
     length: 10,
     wiki: "Maip",
     hints: [
@@ -2340,8 +2340,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Australia",
-    group: "Theropod",
-    subgroup: "Megaraptorid",
+    group: "Megaraptora",
+    subgroup: "Megaraptoridae",
     length: 6,
     wiki: "Australovenator",
     hints: [
@@ -2356,8 +2356,8 @@
     difficulty: "Hard",
     diet: "Omnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Maniraptoran",
+    group: "Maniraptora",
+    subgroup: "N/A",
     length: 2.5,
     wiki: "Fukuivenator",
     hints: [
@@ -2372,12 +2372,12 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Therizinosaurid",
+    group: "Maniraptora",
+    subgroup: "Therizinosauridae",
     length: 6,
     wiki: "Segnosaurus",
     hints: [
-      "A large, early-diverging Therizinosaurid recovered from the Late Cretaceous Bayan Shireh Formation of Mongolia.",
+      "A large, early-diverging therizinosaur recovered from the Late Cretaceous Bayan Shireh Formation of Mongolia.",
       "Features highly unusual, tightly packed, serrated teeth and a specialized down-turned lower jaw adapted for stripping foliage.",
       "Possessed a remarkably broad, massive pelvis and stocky limbs, supporting a massive gut structure for plant fermentation."
     ]
@@ -2388,14 +2388,14 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Therizinosaurid",
+    group: "Maniraptora",
+    subgroup: "Therizinosauridae",
     length: 5,
     wiki: "Nothronychus",
     hints: [
-      "A North American Therizinosaurid discovered in the Late Cretaceous Moreno Hill Formation of New Mexico.",
+      "A North American therizinosaur discovered in the Late Cretaceous Moreno Hill Formation of New Mexico.",
       "Nicknamed the 'sloth dinosaur' due to its convergent evolution with giant ground sloths, featuring large, curved hand claws.",
-      "Provides definitive proof that specialized herbivorous Therizinosaurids migrated out of Asia and into ancient Laramidia."
+      "Provides definitive proof that specialized herbivorous therizinosaurs migrated out of Asia and into ancient Laramidia."
     ]
   },
   {
@@ -2404,12 +2404,12 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Therizinosaurid",
+    group: "Maniraptora",
+    subgroup: "Therizinosauridae",
     length: 4.5,
     wiki: "Erlikosaurus",
     hints: [
-      "A mid-sized Therizinosaurid from the Late Cretaceous Bayan Shireh Formation, known from an exceptionally complete fossil skull.",
+      "A mid-sized therizinosaur from the Late Cretaceous Bayan Shireh Formation, known from an exceptionally complete fossil skull.",
       "Possessed a completely toothless, horn-covered beak (rhamphotheca) at the front of its jaws, paired with small leaf-like teeth in the back.",
       "Digital brain reconstructions show advanced equilibrium and hearing mechanisms, likely used for complex foraging behaviors."
     ]
@@ -2420,12 +2420,12 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Therizinosaurid",
+    group: "Maniraptora",
+    subgroup: "Therizinosauridae",
     length: 3,
     wiki: "Duonychus",
     hints: [
-      "A highly unusual Therizinosauridid discovered in the Late Cretaceous Bayanshiree Formation of the Gobi Desert.",
+      "A highly unusual therizinosaurid discovered in the Late Cretaceous Bayanshiree Formation of the Gobi Desert.",
       "Unique among its family for being didactyl, possessing only two functional fingers per hand instead of the typical three.",
       "Preserves an exceptionally rare, nearly complete three-dimensional keratinous sheath extending over 30 centimeters past its hand claws."
     ]
@@ -2436,8 +2436,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Africa",
-    group: "Sauropod",
-    subgroup: "Brachiosaurid",
+    group: "Eusauropoda",
+    subgroup: "Brachiosauridae",
     length: 23,
     wiki: "Giraffatitan",
     hints: [
@@ -2452,8 +2452,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Sauropod",
-    subgroup: "Eusauropod",
+    group: "Eusauropoda",
+    subgroup: "N/A",
     length: 10,
     wiki: "Shunosaurus",
     hints: [
@@ -2468,8 +2468,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Sauropod",
-    subgroup: "Titanosauriform",
+    group: "Eusauropoda",
+    subgroup: "Titanosauriformes",
     length: 10,
     wiki: "Fukuititan",
     hints: [
@@ -2484,8 +2484,8 @@
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
-    group: "Sauropod",
-    subgroup: "Diplodocid",
+    group: "Eusauropoda",
+    subgroup: "Diplodocoidea",
     length: 22,
     wiki: "Brontosaurus",
     hints: [
@@ -2500,8 +2500,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
-    group: "Sauropod",
-    subgroup: "Diplodocid",
+    group: "Eusauropoda",
+    subgroup: "Diplodocoidea",
     length: 39,
     wiki: "Supersaurus",
     hints: [
@@ -2516,8 +2516,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "South America",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 13,
     wiki: "Tapuiasaurus",
     hints: [
@@ -2532,8 +2532,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 18,
     wiki: "Isisaurus",
     hints: [
@@ -2548,8 +2548,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Africa",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 15,
     wiki: "Rapetosaurus",
     hints: [
@@ -2564,8 +2564,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "South America",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 8,
     wiki: "Gondwanatitan",
     hints: [
@@ -2580,8 +2580,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
-    group: "Sauropod",
-    subgroup: "Titanosaur",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
     length: 37,
     wiki: "Patagotitan",
     hints: [
@@ -2597,7 +2597,7 @@
     diet: "Herbivore",
     continent: "South America",
     group: "Sauropodomorph",
-    subgroup: "Unaysaurid",
+    subgroup: "Unaysauridae",
     length: 2.5,
     wiki: "Unaysaurus",
     hints: [
@@ -2629,7 +2629,7 @@
     diet: "Omnivore",
     continent: "Africa",
     group: "Ornithischia",
-    subgroup: "Heterodontosaurid",
+    subgroup: "Heterodontosauridae",
     length: 1,
     wiki: "Heterodontosaurus",
     hints: [
@@ -2645,7 +2645,7 @@
     diet: "Omnivore",
     continent: "Africa",
     group: "Ornithischia",
-    subgroup: "Heterodontosaurid",
+    subgroup: "Heterodontosauridae",
     length: 1,
     wiki: "Pegomastax",
     hints: [
@@ -2655,15 +2655,15 @@
     ]
   },
   {
-    name: "Stenonychosaurus inequalis",
+    name: "Stenonychus inequalis",
     period: "Cretaceous",
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "North America",
-    group: "Theropod",
-    subgroup: "Troodontid",
+    group: "Troodontidae",
+    subgroup: "Troodontinae",
     length: 2,
-    wiki: "Stenonychosaurus",
+    wiki: "Stenonychus",
     hints: [
       "A highly intelligent, bird-like troodontid from the Late Cretaceous Dinosaur Park Formation of Alberta.",
       "Possessed exceptionally large, forward-facing eyes optimized for nocturnal hunting and stereoscopic vision.",
@@ -2676,8 +2676,8 @@
     difficulty: "Easy",
     diet: "Carnivore",
     continent: "Europe",
-    group: "Theropod",
-    subgroup: "Avialan",
+    group: "Paraves",
+    subgroup: "Archaeopterygidae",
     length: 0.5,
     wiki: "Archaeopteryx",
     hints: [
@@ -2693,7 +2693,7 @@
     diet: "Carnivore",
     continent: "Asia",
     group: "Theropod",
-    subgroup: "Compsognathid",
+    subgroup: "Compsognathidae",
     length: 1,
     wiki: "Sinosauropteryx",
     hints: [
@@ -2708,8 +2708,8 @@
     difficulty: "Medium", 
     diet: "Herbivore",
     continent: "Europe",
-    group: "Thyreophoran",
-    subgroup: "Nodosaurid",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
     length: 5,
     wiki: "Polacanthus",
     hints: [
@@ -2724,8 +2724,8 @@
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "Ankylosaurid",
+    group: "Ankylosauria",
+    subgroup: "Ankylosauridae",
     length: 3.5,
     wiki: "Crichtonsaurus",
     hints: [
@@ -2740,8 +2740,8 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Thyreophoran",
-    subgroup: "N/A",
+    group: "Stegosauria",
+    subgroup: "incertae sedis",
     length: 3,
     wiki: "Yuxisaurus",
     hints: [
@@ -2756,7 +2756,7 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Europe",
-    group: "Theyreophoran",
+    group: "Thyreophora",
     subgroup: "N/A",
     length: 4,
     wiki: "Scelidosaurus",
@@ -2772,8 +2772,8 @@
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Oviraptorosaur",
+    group: "Oviraptorosauria",
+    subgroup: "Caenagnathidae",
     length: 8,
     wiki: "Gigantoraptor",
     hints: [
@@ -2788,8 +2788,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Proceratosaurid",
+    group: "Tyrannosauroidae",
+    subgroup: "Proceratosauridae",
     length: 3,
     wiki: "Guanlong",
     hints: [
@@ -2804,8 +2804,8 @@
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Scansoriopterygid",
+    group: "Scansoriopterygidae",
+    subgroup: "N/A",
     length: 0.6,
     wiki: "Yi_(dinosaur)",
     hints: [
@@ -2820,8 +2820,8 @@
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
-    group: "Theropod",
-    subgroup: "Dromaeosaurid",
+    group: "Dromaeosauridae",
+    subgroup: "Microraptoria",
     length: 0.8,
     wiki: "Microraptor",
     hints: [
@@ -2829,13 +2829,359 @@
       "Bizarrely evolved as a 'four-winged' dinosaur, possessing long vaned flight feathers on both its forelimbs and its hind legs.",
       "Analysis of fossilized melanosomes proves its feathers exhibited a striking, glossy iridescent black sheen, much like a modern crow or raven."
     ]
+  },
+  {
+    name: "Denversaurus schlessmani",
+    period: "Late Cretaceous",
+    difficulty: "Hard",
+    diet: "Herbivore",
+    continent: "North America",
+    group: "Ankylosauria",
+    subgroup: "Nodosauridae",
+    length: 6,
+    wiki: "Denversaurus",
+    hints: [
+      "A heavily armored, squat nodosaurid discovered in the famous Hell Creek Formation.",
+      "Lacked a tail club, relying instead on broad shoulder spines and thick dermal armor plates for defense.",
+      "Named in honor of the Denver Museum of Nature & Science where its primary fossils are kept."
+    ]
+  },
+  {
+    name: "Proceratosaurus bradleyi",
+    period: "Middle Jurassic",
+    difficulty: "Medium",
+    diet: "Carnivore",
+    continent: "Europe",
+    group: "Tyrannosauroidae",
+    subgroup: "Proceratosauridae",
+    length: 3,
+    wiki: "Proceratosaurus",
+    hints: [
+      "Initially thought to be a direct ancestor of Ceratosaurus due to its small nasal crest.",
+      "Later analysis proved it to be one of the earliest known members of the tyrannosauroid lineage.",
+      "Known primarily from a single, well-preserved fossil skull discovered in England."
+    ]
+  },
+  {
+    name: "Futalognkosaurus dukei",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "South America",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
+    length: 26,
+    wiki: "Futalognkosaurus",
+    hints: [
+      "A gigantic titanosaur whose Mapudungun name translates to 'Giant Chief Lizard'.",
+      "Known from one of the most complete gigantic sauropod skeletons ever excavated in Patagonia.",
+      "Had an exceptionally broad, massive neck and deep hips supporting a colossal torso."
+    ]
+  },
+  {
+    name: "Puertosaurus reuili",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "South America",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
+    length: 30,
+    wiki: "Puertosaurus",
+    hints: [
+      "An enormous titanosaurian sauropod that coexisted alongside other giant South American herbivores.",
+      "Possessed extraordinarily wide dorsal vertebrae measuring nearly 5 feet across.",
+      "Named after the Puerto Yrigoyen locality in Santa Cruz Province, Argentina."
+    ]
+  },
+  {
+    name: "Antarctosaurus wichmannianus",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "South America",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
+    length: 18,
+    wiki: "Antarctosaurus",
+    hints: [
+      "Despite its name meaning 'Southern Lizard', it was not discovered in Antarctica, but in Argentina.",
+      "Possessed a surprisingly broad, square-shaped lower jaw with teeth concentrated at the very front.",
+      "One of the first giant South American titanosaurs described in the early 20th century."
+    ]
+  },
+  {
+    name: "Corythoraptor jacobsi",
+    period: "Late Cretaceous",
+    difficulty: "Hard",
+    diet: "Omnivore",
+    continent: "Asia",
+    group: "Oviraptorsauria",
+    subgroup: "Oviraptoridae",
+    length: 1.5,
+    wiki: "Corythoraptor",
+    hints: [
+      "Possessed a high, helmet-like bony crest atop its skull remarkably similar to modern cassowaries.",
+      "Discovered in the Nanxiong Formation of Ganzhou, China.",
+      "A toothless, bird-like theropod that used a sharp, keratinous beak to feed."
+    ]
+  },
+  {
+    name: "Abelisaurus comahuensis",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Carnivore",
+    continent: "South America",
+    group: "Abelisauridae",
+    subgroup: "Brachyrostra",
+    length: 7.5,
+    wiki: "Abelisaurus",
+    hints: [
+      "The type genus of the Abelisauridae family, named after its discoverer Roberto Abel.",
+      "Possessed a tall, deep skull with large openings (fenestrae) to reduce weight.",
+      "A top predator of Cretaceous Argentina with short, blunt snout features."
+    ]
+  },
+  {
+    name: "Yandusaurus hongheensis",
+    period: "Middle Jurassic",
+    difficulty: "Hard",
+    diet: "Herbivore",
+    continent: "Asia",
+    group: "Neornithischia",
+    subgroup: "incertae sedis",
+    length: 3,
+    wiki: "Yandusaurus",
+    hints: [
+      "A fast-running, bipedal herbivore discovered during construction work at a salt factory in Zigong, China.",
+      "Possessed large eyes and five-fingered hands suited for foraging low-lying vegetation.",
+      "Its genus name derives from 'Yandu', the ancient name for Zigong meaning 'Salt Capital'."
+    ]
+  },
+  {
+    name: "Gasosaurus constructus",
+    period: "Middle Jurassic",
+    difficulty: "Hard",
+    diet: "Carnivore",
+    continent: "Asia",
+    group: "Averostra",
+    subgroup: "Tetanurae",
+    length: 3.5,
+    wiki: "Gasosaurus",
+    hints: [
+      "Given its unusual name because its fossils were discovered during petroleum company gas field excavations.",
+      "A relatively small, early tetanuran theropod found in the Dashanpu Formation of Sichuan, China.",
+      "Possessed strong legs and sharp, serrated teeth for hunting smaller herbivorous dinosaurs."
+    ]
+  },
+  {
+    name: "Rinchenia mongoliensis",
+    period: "Late Cretaceous",
+    difficulty: "Hard",
+    diet: "Omnivore",
+    continent: "Asia",
+    group: "Oviraptorosauria",
+    subgroup: "Oviraptoridae",
+    length: 1.5,
+    wiki: "Rinchenia",
+    hints: [
+      "Named in honor of the famed Mongolian paleontologist Rinchen Barsbold.",
+      "Originally classified as a species of Oviraptor before being assigned its own distinct genus.",
+      "Sported a prominent, dome-like skull crest formed by its nasal and frontal bones."
+    ]
+  },
+  {
+    name: "Prenocephale prenes",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "Asia",
+    group: "Marginocephalia",
+    subgroup: "Pachycephalosaurinae",
+    length: 2.5,
+    wiki: "Prenocephale",
+    hints: [
+      "A thick-skulled dome-headed dinosaur discovered in the Gobi Desert of Mongolia.",
+      "Unlike its relative Pachycephalosaurus, its skull dome was surrounded by a row of small bony spikes and knobs.",
+      "Its name translates to 'Slanting Head', referring to the rounded shape of its skull dome."
+    ]
+  },
+  {
+    name: "Australotitan cooperensis",
+    period: "Early Cretaceous",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "Australia",
+    group: "Eusauropoda",
+    subgroup: "Titanosauria",
+    length: 28,
+    wiki: "Australotitan",
+    hints: [
+      "Nicknamed 'Buster', it is officially the largest dinosaur ever discovered in Australia.",
+      "Discovered in the Eromanga Basin of Queensland.",
+      "A massive titanosaur that stood over 5 meters tall at the hip."
+    ]
+  },
+  {
+    name: "Ratchasimasaurus suranyeei",
+    period: "Early Cretaceous",
+    difficulty: "Hard",
+    diet: "Herbivore",
+    continent: "Asia",
+    group: "Ornithischia",
+    subgroup: "Iguanodontia",
+    length: 5,
+    wiki: "Ratchasimasaurus",
+    hints: [
+      "An iguanodontian dinosaur discovered in the Khok Kruat Formation of Thailand.",
+      "Named after Nakhon Ratchasima Province where its fossils were excavated.",
+      "Recognized by its distinctively flat and elongated lower jaw bone (dentary)."
+    ]
+  },
+  {
+    name: "Chirostenotes pergracilis",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Omnivore",
+    continent: "North America",
+    group: "Oviraptorosauria",
+    subgroup: "Caenagnathidae",
+    length: 2,
+    wiki: "Chirostenotes",
+    hints: [
+      "Its name means 'slender-handed', referencing its long, dexterous three-fingered claws.",
+      "A bird-like theropod with a toothless beak and long, slender legs designed for fast running.",
+      "Discovered in the Dinosaur Park Formation of Alberta, Canada."
+    ]
+  },
+  {
+    name: "Mononykus olecranus",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Carnivore",
+    continent: "Asia",
+    group: "Maniraptora",
+    subgroup: "Alvarezsauridae",
+    length: 1,
+    wiki: "Mononykus",
+    hints: [
+      "A small nocturnal theropod with extremely reduced, stubby arms ending in a single large claw.",
+      "Used its specialized claw to tear open insect mounds and rotting wood in ancient Mongolia.",
+      "Had long, bird-like legs indicating it was an exceptionally fast runner."
+    ]
+  },
+  {
+    name: "Scutellosaurus lawleri",
+    period: "Early Jurassic",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "North America",
+    group: "Thyreophora",
+    subgroup: "N/A",
+    length: 1.5,
+    wiki: "Scutellosaurus",
+    hints: [
+      "One of the earliest known armored dinosaurs (thyreophorans), covered in hundreds of small bony scutes.",
+      "Unlike later armored dinosaurs like Stegosaurus or Ankylosaurus, it was lightweight and bipedal.",
+      "Discovered in the Kayenta Formation of Arizona."
+    ]
+  },
+  {
+    name: "Tenontosaurus tilletti",
+    period: "Early Cretaceous",
+    difficulty: "Easy",
+    diet: "Herbivore",
+    continent: "North America",
+    group: "Ornithischia",
+    subgroup: "Iguanodontia",
+    length: 6.5,
+    wiki: "Tenontosaurus",
+    hints: [
+      "A medium-to-large herbivore with an extremely long, stiffened tail supported by ossified tendons.",
+      "Famous for often being found preserved alongside teeth and fossils of the predator Deinonychus.",
+      "Switched between walking on two legs and four legs while grazing."
+    ]
+  },
+  {
+    name: "Bajadasaurus pronuspinax",
+    period: "Early Cretaceous",
+    difficulty: "Medium",
+    diet: "Herbivore",
+    continent: "South America",
+    group: "Eusauropoda",
+    subgroup: "Dicraeosauridae",
+    length: 9,
+    wiki: "Bajadasaurus",
+    hints: [
+      "Famous for possessing extremely long, forward-pointing bony spines extending from its neck vertebrae.",
+      "Its dramatic neck spines were likely covered in keratin sheaths to deter predators while grazing.",
+      "Discovered in the Bajada Colorada Formation of Patagonia, Argentina."
+    ]
+  },
+  {
+    name: "Dracovenator regenti",
+    period: "Early Jurassic",
+    difficulty: "Hard",
+    diet: "Carnivore",
+    continent: "Africa",
+    group: "Neotheropoda",
+    subgroup: "Averostriformes",
+    length: 5.5,
+    wiki: "Dracovenator",
+    hints: [
+      "Its name translates to 'Dragon Hunter', discovered in the Elliot Formation of South Africa.",
+      "A close relative of Dilophosaurus that likely possessed paired bony crests on its head.",
+      "One of the largest apex predators of the Early Jurassic in southern Africa."
+    ]
+  },
+  {
+    name: "Saurornitholestes langstoni",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Carnivore",
+    continent: "North America",
+    group: "Dromaeosauridae",
+    subgroup: "Saurornitholestinae",
+    length: 2,
+    wiki: "Saurornitholestes",
+    hints: [
+      "A small, agile dromaeosaurid predator with a keen sense of smell and large sickled foot claws.",
+      "One specimen preserves teeth marks from a young tyrannosaurid that fed on its skull.",
+      "Its genus name means 'Lizard-Bird Robber'."
+    ]
+  },
+  {
+    name: "Skorpiovenator bustingorryi",
+    period: "Late Cretaceous",
+    difficulty: "Medium",
+    diet: "Carnivore",
+    continent: "South America",
+    group: "Abelisauridae",
+    subgroup: "Brachyrostra",
+    length: 6,
+    wiki: "Skorpiovenator",
+    hints: [
+      "Named 'Scorpion Hunter' due to the high concentration of scorpions present during its excavation.",
+      "Possessed extremely reduced, stubby arms and a short, deep skull covered in bony bumps.",
+      "Discovered in the Huincul Formation of Argentina."
+    ]
+  },
+  {
+    name: "Procompsognathus triassicus",
+    period: "Late Triassic",
+    difficulty: "Medium",
+    diet: "Carnivore",
+    continent: "Europe",
+    group: "Theropoda",
+    subgroup: "Coelophysidae",
+    length: 1,
+    wiki: "Procompsognathus",
+    hints: [
+      "A tiny, lightweight Triassic predator with slender legs designed for chasing fast prey.",
+      "Discovered in the Löwenstein Formation of Germany.",
+      "Gained pop-culture fame through Michael Crichton's *Jurassic Park* novel as 'compies'."
+    ]
   }
 
 
-
-
-
-
-
-
-]
+ ]
