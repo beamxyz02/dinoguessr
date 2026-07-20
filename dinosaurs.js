@@ -982,7 +982,7 @@
     diet: "Herbivore",
     continent: "Antarctica",
     group: "Ankylosauria",
-    subgroup: "Nodosauridae",
+    subgroup: "Parankylosauria",
     length: 4,
     wiki: "Antarctopelta",
     hints: [
@@ -1030,7 +1030,7 @@
     diet: "Herbivore",
     continent: "Australia",
     group: "Ankylosauria",
-    subgroup: "Ankylosauridae",
+    subgroup: "Parankylosauria",
     length: 3,
     wiki: "Minmi_(dinosaur)",
     hints: [
