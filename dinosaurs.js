@@ -2740,7 +2740,7 @@
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
-    group: "Stegosauria",
+    group: "Thyreophora",
     subgroup: "incertae sedis",
     length: 3,
     wiki: "Yuxisaurus",
