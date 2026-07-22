@@ -44,6 +44,28 @@
   filter: brightness(1.2);
 }
 
+#updatesBtn {
+  position: fixed;
+  top: 15px;
+  right: 60px;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--charcoal-light);
+  color: var(--bone);
+  border: 1px solid #55493a;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#updatesBtn:hover {
+  filter: brightness(1.2);
+}
+
 .rules-modal {
   text-align: left;
   max-width: 560px;
@@ -130,6 +152,7 @@
 <div class="bg-layer" id="bgLayerA"></div>
 <div class="bg-layer" id="bgLayerB"></div>
 <button id="rulesBtn" title="How to Play">?</button>
+<button id="updatesBtn" title="What's New">!</button>
 
 <div class="modal-overlay" id="rulesOverlay">
   <div class="modal rules-modal">
@@ -157,6 +180,13 @@
     <p><span class="rules-key">H</span> — Hint (when available)</p>
     <p><span class="rules-key">G</span> — Focus the guess box</p>
     <p><span class="rules-key">S</span> — Skip (Time Attack only)</p>
+  </div>
+</div>
+<div class="modal-overlay" id="updatesOverlay">
+  <div class="modal rules-modal">
+    <button class="modal-close" id="updatesCloseBtn">&times;</button>
+    <h2 style="text-align:center; margin-bottom:12px;">WHAT'S NEW</h2>
+    <div id="updatesList"></div>
   </div>
 </div>
 <div class="wrap">
@@ -444,6 +474,52 @@ function cycleBackground() {
     } else {
       hiddenColumnIndex = -1;
     }
+
+    function showCompletedDaily(modeKey) {
+  const saved = getDailyRoundData(modeKey);
+
+  guessCount = 0;
+  hintIndex = 0;
+  gameOver = true;
+  guessInput.value = "";
+  guessInput.disabled = true;
+  guessBtn.disabled = true;
+  hintBtn.disabled = true;
+  giveUpBtn.style.display = "none";
+  playAgainMain.style.display = "none";
+  resultsBody.innerHTML = "";
+  resetMobileColumns();
+  modalOverlay.classList.remove("show");
+  suggestionsBox.style.display = "none";
+
+  if (!saved) {
+    resultsBody.innerHTML = '<tr><td colspan="8" class="empty-state">You already completed today\'s Daily Challenge.</td></tr>';
+    guessCountEl.textContent = "Guesses: 0";
+    return;
+  }
+
+  target = currentDb.find(d => d.name === saved.targetName) || target;
+
+  saved.guesses.forEach(name => {
+    const guessedDino = currentDb.find(d => d.name === name);
+    if (guessedDino) {
+      renderRow(guessedDino);
+      buildMobileColumn(guessedDino);
+    }
+  });
+
+  const alreadyRevealed = saved.guesses.some(n => n.toLowerCase() === target.name.toLowerCase());
+  if (!alreadyRevealed) {
+    renderRow(target);
+    buildMobileColumn(target);
+  }
+
+  guessCount = saved.guesses.length;
+  guessCountEl.textContent = "Guesses: " + guessCount;
+
+  hintBox.style.display = "block";
+  hintBox.textContent = "You've already completed today's Daily Challenge.";
+}
     
     if (typeof isDailyMode !== 'undefined' && isDailyMode) {
       const dailyIndex = getDailySeedIndex(currentDb.length);
@@ -457,17 +533,10 @@ function cycleBackground() {
       const lastPlayedDate = localStorage.getItem(`lastDailyDate_${modeKey}`);
       const todayStr = new Date().toDateString();
       
-      if (lastPlayedDate === todayStr) {
-        alert(`You already completed today's Daily ${categoryName} Challenge! Reverting to Endless Mode.`);
-        isDailyMode = false;
-        
-        if (typeof subModeEndless !== 'undefined' && typeof subModeDaily !== 'undefined') {
-          subModeDaily.classList.remove("active");
-          subModeEndless.classList.add("active");
-        }
-        
-        target = currentDb[Math.floor(Math.random() * currentDb.length)];
-      }
+    if (lastPlayedDate === todayStr) {
+      showCompletedDaily(modeKey);
+      return;
+    }
     } else {
   const pool = (typeof subModeEndless !== 'undefined' && subModeEndless.classList.contains("active"))
   ? getEndlessPool(currentDb)
@@ -1613,7 +1682,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
     const relatedPairMatch = isRelatedPair(guessed.subgroup, target.subgroup);
     let cls = "cell-wrong", extra = "";
     if (guessed.subgroup.toLowerCase() === target.subgroup.toLowerCase()) cls = "cell-correct";
-    else if (disputedMatch) { cls = "cell-close"; extra = " D"; }
+    else if (disputedMatch) { cls = "cell-close"; extra = " (?)"; }
     else if (relatedPairMatch) { cls = "cell-close"; extra = relatedPairMatch.direction === "up" ? " ↑" : " ↓"; }
     add(cls, guessed.subgroup + extra);
   }
@@ -1648,7 +1717,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
 // PERIOD (Column 1)
     if (hiddenColumnIndex === 1) {
       const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
+      blindCell.textContent = "Hidden";
       blindCell.classList.add("blind-box");
       row.appendChild(blindCell);
     } else {
@@ -1658,7 +1727,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
     // DIET (Column 2)
     if (hiddenColumnIndex === 2) {
       const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
+      blindCell.textContent = "Hidden";
       blindCell.classList.add("blind-box");
       row.appendChild(blindCell);
     } else {
@@ -1668,7 +1737,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
     // CONTINENT (Column 3)
     if (hiddenColumnIndex === 3) {
       const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
+      blindCell.textContent = "Hidden";
       blindCell.classList.add("blind-box");
       row.appendChild(blindCell);
     } else {
@@ -1678,7 +1747,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
       // CLADE (Column 4)
       if (hiddenColumnIndex === 4) {
         const blindCell = document.createElement("td");
-        blindCell.textContent = "Unknown";
+        blindCell.textContent = "Hidden";
         blindCell.classList.add("blind-box");
         row.appendChild(blindCell);
       } else {
@@ -1688,7 +1757,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
       // FAMILY (Column 5)
       if (hiddenColumnIndex === 5) {
         const blindCell = document.createElement("td");
-        blindCell.textContent = "Unknown";
+        blindCell.textContent = "Hidden";
         blindCell.classList.add("blind-box");
         row.appendChild(blindCell);
       } else {
@@ -1697,7 +1766,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
     // LENGTH (Column 6)
     if (hiddenColumnIndex === 6) {
       const blindCell = document.createElement("td");
-      blindCell.textContent = "Unknown";
+      blindCell.textContent = "Hidden";
       blindCell.classList.add("blind-box");
       row.appendChild(blindCell);
     } else {
@@ -1781,21 +1850,53 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
   const statsDisplay = document.getElementById("statsDisplay");
   const playAgainMain = document.getElementById("playAgainMain");
 
-  function getDailySeedIndex(arrayLength) {
-    const today = new Date();
-    const dateNum = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-    return dateNum % arrayLength;
+  function hashString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
   }
-  function lockDailyChallenge() {
-    if (isDailyMode) {
-      let modeKey = "dino";
-      if (currentDb === PTEROSAURS) modeKey = "ptero";
-      if (currentDb === MARINEREPTILES) modeKey = "marine";
-      
-      localStorage.setItem(`lastDailyDate_${modeKey}`, new Date().toDateString());
-    }
+  return hash;
+}
+
+function getCurrentGuessNames() {
+  return Array.from(resultsBody.querySelectorAll("tr"))
+    .map(r => r.cells[0] ? r.cells[0].textContent : null)
+    .filter(Boolean);
+}
+
+function saveDailyRoundData(modeKey, data) {
+  localStorage.setItem(`dailyRoundData_${modeKey}`, JSON.stringify(data));
+}
+
+function getDailyRoundData(modeKey) {
+  const saved = localStorage.getItem(`dailyRoundData_${modeKey}`);
+  return saved ? JSON.parse(saved) : null;
+}
+
+
+function getDailySeedIndex(arrayLength) {
+  const today = new Date();
+  const dateNum = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const seed = hashString(dateNum.toString());
+  const rand = seededRandom(seed);
+  return Math.floor(rand() * arrayLength);
+}
+function lockDailyChallenge(won) {
+  if (isDailyMode) {
+    let modeKey = "dino";
+    if (currentDb === PTEROSAURS) modeKey = "ptero";
+    if (currentDb === MARINEREPTILES) modeKey = "marine";
+
+    localStorage.setItem(`lastDailyDate_${modeKey}`, new Date().toDateString());
+    saveDailyRoundData(modeKey, {
+      targetName: target.name,
+      guesses: getCurrentGuessNames(),
+      won: won
+    });
   }
-  
+}
+
   function getStats() {
     const saved = localStorage.getItem("dinoguessr_stats");
     return saved ? JSON.parse(saved) : {
@@ -1950,7 +2051,7 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
         clearInterval(countdownInterval);
       }
     }
-   lockDailyChallenge();
+   lockDailyChallenge(won);
   }
   modalCloseBtn.addEventListener("click", () => {
     modalOverlay.classList.remove("show");
@@ -1998,6 +2099,67 @@ function buildComparisonCell(guessedValue, targetValue, targetName) {
     playAgainMain.style.display = "none";
     startGame();
   }
+
+/* ---------------- UPDATE LOG ---------------- */
+const UPDATE_LOG = [
+    { date: "2026-07-23", notes: [
+    "Now allows you to view your daily after having completing it.",  
+    "Yuxisaurus classification error fixed.",
+    "Bug in disputed Families cell fixed, now correctly displays '(?)'.",
+    "Updated Daily seed selector to be more random."
+  ]},
+  { date: "2026-07-20", notes: [
+    "Zoom re-enabled.",
+    "Clade and Family overhaul, far more exact now.",
+    "UI has been Mobile optimized.",
+    "Typo's fixed.",  
+    "Minmi and Antarctopelta classification fixed.",  
+    "24 new dinosaur specimens added.",
+    "Removed autosuggestion dropdown on challenge mode."  
+  ]},
+  // { date: "2026-07-01", notes: ["Example older entry."] },
+];
+
+function renderUpdatesLog() {
+  const container = document.getElementById("updatesList");
+  container.innerHTML = "";
+  UPDATE_LOG.forEach(entry => {
+    const block = document.createElement("div");
+    block.style.marginBottom = "16px";
+
+    const dateHeader = document.createElement("h3");
+    dateHeader.textContent = entry.date;
+    block.appendChild(dateHeader);
+
+    const list = document.createElement("ul");
+    entry.notes.forEach(note => {
+      const li = document.createElement("li");
+      li.textContent = note;
+      list.appendChild(li);
+    });
+    block.appendChild(list);
+
+    container.appendChild(block);
+  });
+}
+
+const updatesBtn = document.getElementById("updatesBtn");
+const updatesOverlay = document.getElementById("updatesOverlay");
+const updatesCloseBtn = document.getElementById("updatesCloseBtn");
+
+function openUpdates() {
+  renderUpdatesLog();
+  updatesOverlay.classList.add("show");
+}
+function closeUpdates() {
+  updatesOverlay.classList.remove("show");
+}
+
+updatesBtn.addEventListener("click", openUpdates);
+updatesCloseBtn.addEventListener("click", closeUpdates);
+updatesOverlay.addEventListener("click", (e) => {
+  if (e.target === updatesOverlay) closeUpdates();
+});
 
   /* ---------------- INIT ---------------- */
   hintBtn.textContent = "Hint";
