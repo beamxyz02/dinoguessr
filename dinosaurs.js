@@ -2832,7 +2832,7 @@
   },
   {
     name: "Denversaurus schlessmani",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "North America",
@@ -2848,7 +2848,7 @@
   },
   {
     name: "Proceratosaurus bradleyi",
-    period: "Middle Jurassic",
+    period: "Jurassic",
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
@@ -2864,7 +2864,7 @@
   },
   {
     name: "Futalognkosaurus dukei",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
@@ -2880,7 +2880,7 @@
   },
   {
     name: "Puertosaurus reuili",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
@@ -2896,7 +2896,7 @@
   },
   {
     name: "Antarctosaurus wichmannianus",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
@@ -2912,7 +2912,7 @@
   },
   {
     name: "Corythoraptor jacobsi",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Hard",
     diet: "Omnivore",
     continent: "Asia",
@@ -2928,7 +2928,7 @@
   },
   {
     name: "Abelisaurus comahuensis",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
@@ -2944,7 +2944,7 @@
   },
   {
     name: "Yandusaurus hongheensis",
-    period: "Middle Jurassic",
+    period: "Jurassic",
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
@@ -2960,7 +2960,7 @@
   },
   {
     name: "Gasosaurus constructus",
-    period: "Middle Jurassic",
+    period: "Jurassic",
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Asia",
@@ -2976,7 +2976,7 @@
   },
   {
     name: "Rinchenia mongoliensis",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Hard",
     diet: "Omnivore",
     continent: "Asia",
@@ -2992,7 +2992,7 @@
   },
   {
     name: "Prenocephale prenes",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Asia",
@@ -3008,7 +3008,7 @@
   },
   {
     name: "Australotitan cooperensis",
-    period: "Early Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "Australia",
@@ -3024,7 +3024,7 @@
   },
   {
     name: "Ratchasimasaurus suranyeei",
-    period: "Early Cretaceous",
+    period: "Cretaceous",
     difficulty: "Hard",
     diet: "Herbivore",
     continent: "Asia",
@@ -3040,7 +3040,7 @@
   },
   {
     name: "Chirostenotes pergracilis",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Omnivore",
     continent: "North America",
@@ -3056,7 +3056,7 @@
   },
   {
     name: "Mononykus olecranus",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Asia",
@@ -3072,7 +3072,7 @@
   },
   {
     name: "Scutellosaurus lawleri",
-    period: "Early Jurassic",
+    period: "Jurassic",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "North America",
@@ -3088,7 +3088,7 @@
   },
   {
     name: "Tenontosaurus tilletti",
-    period: "Early Cretaceous",
+    period: "Cretaceous",
     difficulty: "Easy",
     diet: "Herbivore",
     continent: "North America",
@@ -3104,7 +3104,7 @@
   },
   {
     name: "Bajadasaurus pronuspinax",
-    period: "Early Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Herbivore",
     continent: "South America",
@@ -3120,7 +3120,7 @@
   },
   {
     name: "Dracovenator regenti",
-    period: "Early Jurassic",
+    period: "Jurassic",
     difficulty: "Hard",
     diet: "Carnivore",
     continent: "Africa",
@@ -3136,7 +3136,7 @@
   },
   {
     name: "Saurornitholestes langstoni",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "North America",
@@ -3152,7 +3152,7 @@
   },
   {
     name: "Skorpiovenator bustingorryi",
-    period: "Late Cretaceous",
+    period: "Cretaceous",
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "South America",
@@ -3168,7 +3168,7 @@
   },
   {
     name: "Procompsognathus triassicus",
-    period: "Late Triassic",
+    period: "Triassic",
     difficulty: "Medium",
     diet: "Carnivore",
     continent: "Europe",
