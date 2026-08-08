@@ -86,64 +86,80 @@
 }
 #dbBtn:hover { filter: brightness(1.2); }
 
-.db-modal { text-align: left; max-width: 720px; width: 92vw; max-height: 85vh; display: flex; flex-direction: column; }
-.db-filter-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
-.db-filter-row label {
+.db-modal {
+  text-align: left;
+  max-width: 1100px;
+  width: 95vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.db-layout {
+  display: flex;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+}
+
+.db-sidebar {
+  flex: 0 0 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.db-field { display: flex; flex-direction: column; gap: 6px; }
+.db-field label {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--stone);
-  margin-right: 4px;
-  width: 100%;
 }
-.db-filter-row > div { display: flex; align-items: center; gap: 4px; }
-.db-filter-row select {
+.db-field select {
   background: var(--charcoal-light);
   color: var(--bone);
   border: 1px solid #55493a;
   border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 0.8rem;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  width: 100%;
 }
-.db-filter-row select option {
+.db-field select option {
   background: var(--charcoal-light);
   color: var(--bone);
 }
-.db-chip-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+
+.db-chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.db-chip-col { flex-direction: column; }
+.db-chip-col .db-chip { width: 100%; text-align: left; }
 
 .db-chip {
   background: var(--charcoal-light);
   color: var(--stone-light);
   border: 1px solid #55493a;
   border-radius: 6px;
-  padding: 8px 16px;
+  padding: 8px 12px;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: transform 0.08s ease, filter 0.15s ease;
 }
-
-.db-chip:hover {
-  filter: brightness(1.15);
-}
-
-.db-chip:active {
-  transform: translateY(1px);
-}
-
+.db-chip:hover { filter: brightness(1.15); }
+.db-chip:active { transform: translateY(1px); }
 .db-chip.active {
   background: var(--accent-primary);
   color: var(--bone);
   border-color: var(--accent-primary);
 }
-.db-count { font-size: 0.75rem; color: var(--stone); margin: 4px 0 8px; }
-.db-table-wrap { overflow-y: auto; flex: 1; border: 1px solid #55493a; border-radius: 6px; }
+
+.db-count { font-size: 0.75rem; color: var(--stone); margin-top: 4px; }
+
+.db-table-wrap { overflow-y: auto; flex: 1; min-width: 0; border: 1px solid #55493a; border-radius: 6px; }
 .db-table-wrap table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.78rem; color: var(--charcoal); }
 .db-table-wrap th, .db-table-wrap td {
   padding: 8px 8px;
@@ -166,29 +182,17 @@
 .db-table-wrap tr:hover td { background: rgba(0,0,0,0.04); }
 .db-table-wrap td.db-length-cell { white-space: nowrap; text-align: right; }
 
-.db-table-wrap th[data-sort] {
-  cursor: pointer;
-  user-select: none;
-}
+.db-table-wrap th[data-sort] { cursor: pointer; user-select: none; }
+.db-table-wrap th[data-sort]:hover { filter: brightness(1.15); }
+.db-table-wrap th[data-sort]::after { content: " ↕"; opacity: 0.45; font-size: 0.7em; }
+.db-table-wrap th[data-sort].sort-asc::after { content: " ↑"; opacity: 1; }
+.db-table-wrap th[data-sort].sort-desc::after { content: " ↓"; opacity: 1; }
 
-.db-table-wrap th[data-sort]:hover {
-  filter: brightness(1.15);
-}
-
-.db-table-wrap th[data-sort]::after {
-  content: " ↕";
-  opacity: 0.45;
-  font-size: 0.7em;
-}
-
-.db-table-wrap th[data-sort].sort-asc::after {
-  content: " ↑";
-  opacity: 1;
-}
-
-.db-table-wrap th[data-sort].sort-desc::after {
-  content: " ↓";
-  opacity: 1;
+@media (max-width: 640px) {
+  .db-layout { flex-direction: column; }
+  .db-sidebar { flex: 0 0 auto; flex-direction: row; flex-wrap: wrap; overflow-y: visible; }
+  .db-field { flex: 1 1 130px; }
+  .db-table-wrap { max-height: 45vh; }
 }
 
 .rules-modal {
@@ -320,62 +324,65 @@
     <button class="modal-close" id="dbCloseBtn">&times;</button>
     <h2 style="text-align:center; margin-bottom:12px;">SPECIMEN DATABASE</h2>
 
-    <div class="mode-selector" style="margin-bottom:12px;">
-      <button class="mode-btn active" id="dbCatDino">Dinosaurs</button>
-      <button class="mode-btn" id="dbCatPtero">Pterosaurs</button>
-      <button class="mode-btn" id="dbCatMarine">Marine Reptiles</button>
-    </div>
-
-    <div class="db-filter-row">
-      <div>
-        <label style="width:auto;">Starts With</label>
-        <select id="dbLetterFilter"><option value="all">All</option></select>
+    <div class="db-layout">
+      <div class="db-sidebar">
+        <div class="db-field">
+          <label>Category</label>
+          <select id="dbCategoryFilter">
+            <option value="dino">Dinosaurs</option>
+            <option value="ptero">Pterosaurs</option>
+            <option value="marine">Marine Reptiles</option>
+          </select>
+        </div>
+        <div class="db-field">
+          <label>Starts With</label>
+          <select id="dbLetterFilter"><option value="all">All</option></select>
+        </div>
+        <div class="db-field">
+          <label>Size</label>
+          <select id="dbSizeFilter">
+            <option value="all">All</option>
+            <option value="small">Small (&lt;5m)</option>
+            <option value="medium">Medium (5–15m)</option>
+            <option value="large">Large (15m+)</option>
+          </select>
+        </div>
+        <div class="db-field">
+          <label>Period</label>
+          <div class="db-chip-row db-chip-col" id="dbPeriodChips"></div>
+        </div>
+        <div class="db-field">
+          <label>Diet</label>
+          <div class="db-chip-row db-chip-col" id="dbDietChips"></div>
+        </div>
+        <div class="db-count" id="dbResultCount"></div>
       </div>
-      <div>
-        <label style="width:auto;">Size</label>
-        <select id="dbSizeFilter">
-          <option value="all">All</option>
-          <option value="small">Small (&lt;5m)</option>
-          <option value="medium">Medium (5–15m)</option>
-          <option value="large">Large (15m+)</option>
-        </select>
+
+      <div class="db-table-wrap">
+        <table>
+          <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 13%;">
+            <col style="width: 13%;">
+            <col style="width: 15%;">
+            <col style="width: 16%;">
+            <col style="width: 17%;">
+            <col style="width: 6%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th data-sort="name">Name</th>
+              <th data-sort="period">Period</th>
+              <th id="dbDietHeader" data-sort="diet">Diet</th>
+              <th data-sort="continent">Continent</th>
+              <th data-sort="group">Clade</th>
+              <th data-sort="subgroup">Family</th>
+              <th data-sort="length">Length</th>
+            </tr>
+          </thead>
+          <tbody id="dbResultsBody"></tbody>
+        </table>
       </div>
-    </div>
-    <div class="db-filter-row">
-      <label>Period</label>
-      <div class="db-chip-row" id="dbPeriodChips"></div>
-    </div>
-    <div class="db-filter-row">
-      <label>Diet</label>
-      <div class="db-chip-row" id="dbDietChips"></div>
-    </div>
-
-    <div class="db-count" id="dbResultCount"></div>
-
-    <div class="db-table-wrap">
-<table>
-  <colgroup>
-    <col style="width: 20%;">
-    <col style="width: 13%;">
-    <col style="width: 13%;">
-    <col style="width: 15%;">
-    <col style="width: 16%;">
-    <col style="width: 17%;">
-    <col style="width: 6%;">
-  </colgroup>
-  <thead>
-    <tr>
-    <th data-sort="name">Name</th>
-    <th data-sort="period">Period</th>
-    <th id="dbDietHeader" data-sort="diet">Diet</th>
-    <th data-sort="continent">Continent</th>
-    <th data-sort="group">Clade</th>
-    <th data-sort="subgroup">Family</th>
-    <th data-sort="length">Length</th>
-    </tr>
-  </thead>
-  <tbody id="dbResultsBody"></tbody>
-</table>
     </div>
   </div>
 </div>
@@ -2298,8 +2305,11 @@ function lockDailyChallenge(won) {
 
 /* ---------------- UPDATE LOG ---------------- */
 const UPDATE_LOG = [
+        { date: "2026-08-09", notes: [
+    "Visual update to the database interface."
+  ]},
       { date: "2026-08-08", notes: [
-    "New button to view the entire database of specimens, work in progress & still ugly.",
+    "New button to view the entire database of specimens (still a WIP).",
     "Fixed the inconsistencies with period classification of pterosaurs and new dinosaurs.",
     "Custom scroll bar, just to make it look a bit nicer :)",
     "Disabled Head To Head temporarily, will be re-added in the future."
@@ -2415,9 +2425,7 @@ preloadImages(MARINE_BG_IMAGES);
   const dbBtn = document.getElementById("dbBtn");
   const dbOverlay = document.getElementById("dbOverlay");
   const dbCloseBtn = document.getElementById("dbCloseBtn");
-  const dbCatDino = document.getElementById("dbCatDino");
-  const dbCatPtero = document.getElementById("dbCatPtero");
-  const dbCatMarine = document.getElementById("dbCatMarine");
+  const dbCategoryFilter = document.getElementById("dbCategoryFilter");
   const dbLetterFilter = document.getElementById("dbLetterFilter");
   const dbSizeFilter = document.getElementById("dbSizeFilter");
   const dbPeriodChips = document.getElementById("dbPeriodChips");
@@ -2528,10 +2536,9 @@ preloadImages(MARINE_BG_IMAGES);
   });
 });
 
-  function dbSwitchCategory(cat, activeBtn) {
+function dbSwitchCategory(cat) {
     dbCategory = cat;
-    [dbCatDino, dbCatPtero, dbCatMarine].forEach(b => b.classList.remove("active"));
-    activeBtn.classList.add("active");
+    dbCategoryFilter.value = cat;
     dbDietHeader.textContent = cat === "marine" ? "Prey Type" : "Diet";
     const db = dbGetDatabase();
     dbPopulateLetters(db);
@@ -2542,9 +2549,7 @@ preloadImages(MARINE_BG_IMAGES);
     dbRender();
   }
 
-  dbCatDino.onclick = () => dbSwitchCategory("dino", dbCatDino);
-  dbCatPtero.onclick = () => dbSwitchCategory("ptero", dbCatPtero);
-  dbCatMarine.onclick = () => dbSwitchCategory("marine", dbCatMarine);
+  dbCategoryFilter.addEventListener("change", () => dbSwitchCategory(dbCategoryFilter.value));
 
   function dbRender() {
     const db = dbGetDatabase();
@@ -2596,7 +2601,7 @@ filtered.sort((a, b) => {
 
   dbBtn.addEventListener("click", () => {
     dbOverlay.classList.add("show");
-    dbSwitchCategory("dino", dbCatDino);
+    dbSwitchCategory("dino");
   });
   dbCloseBtn.addEventListener("click", () => dbOverlay.classList.remove("show"));
   dbOverlay.addEventListener("click", (e) => {
