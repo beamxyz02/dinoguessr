@@ -25,7 +25,7 @@
 #rulesBtn {
   position: fixed;
   top: 15px;
-  right: 15px;
+  right: 105px;
   z-index: 50;
   width: 36px;
   height: 36px;
@@ -64,6 +64,131 @@
 }
 #updatesBtn:hover {
   filter: brightness(1.2);
+}
+
+#dbBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--charcoal-light);
+  color: var(--bone);
+  border: 1px solid #55493a;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#dbBtn:hover { filter: brightness(1.2); }
+
+.db-modal { text-align: left; max-width: 720px; width: 92vw; max-height: 85vh; display: flex; flex-direction: column; }
+.db-filter-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.db-filter-row label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--stone);
+  margin-right: 4px;
+  width: 100%;
+}
+.db-filter-row > div { display: flex; align-items: center; gap: 4px; }
+.db-filter-row select {
+  background: var(--charcoal-light);
+  color: var(--bone);
+  border: 1px solid #55493a;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+.db-filter-row select option {
+  background: var(--charcoal-light);
+  color: var(--bone);
+}
+.db-chip-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.db-chip {
+  background: var(--charcoal-light);
+  color: var(--stone-light);
+  border: 1px solid #55493a;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.db-chip:hover {
+  filter: brightness(1.15);
+}
+
+.db-chip:active {
+  transform: translateY(1px);
+}
+
+.db-chip.active {
+  background: var(--accent-primary);
+  color: var(--bone);
+  border-color: var(--accent-primary);
+}
+.db-count { font-size: 0.75rem; color: var(--stone); margin: 4px 0 8px; }
+.db-table-wrap { overflow-y: auto; flex: 1; border: 1px solid #55493a; border-radius: 6px; }
+.db-table-wrap table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.78rem; color: var(--charcoal); }
+.db-table-wrap th, .db-table-wrap td {
+  padding: 8px 8px;
+  border-bottom: 2px solid rgba(0,0,0,0.15);
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+  color: var(--charcoal);
+  vertical-align: top;
+}
+.db-table-wrap th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--accent-deep);
+  color: var(--bone);
+  white-space: nowrap;
+  box-shadow: 0 2px 0 var(--accent-deep);
+}
+.db-table-wrap tr:hover td { background: rgba(0,0,0,0.04); }
+.db-table-wrap td.db-length-cell { white-space: nowrap; text-align: right; }
+
+.db-table-wrap th[data-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+.db-table-wrap th[data-sort]:hover {
+  filter: brightness(1.15);
+}
+
+.db-table-wrap th[data-sort]::after {
+  content: " ↕";
+  opacity: 0.45;
+  font-size: 0.7em;
+}
+
+.db-table-wrap th[data-sort].sort-asc::after {
+  content: " ↑";
+  opacity: 1;
+}
+
+.db-table-wrap th[data-sort].sort-desc::after {
+  content: " ↓";
+  opacity: 1;
 }
 
 .rules-modal {
@@ -151,6 +276,7 @@
 <body class="theme-dino">
 <div class="bg-layer" id="bgLayerA"></div>
 <div class="bg-layer" id="bgLayerB"></div>
+<button id="dbBtn" title="Database">☰</button>
 <button id="rulesBtn" title="How to Play">?</button>
 <button id="updatesBtn" title="What's New">!</button>
 
@@ -187,6 +313,70 @@
     <button class="modal-close" id="updatesCloseBtn">&times;</button>
     <h2 style="text-align:center; margin-bottom:12px;">WHAT'S NEW</h2>
     <div id="updatesList"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="dbOverlay">
+  <div class="modal db-modal">
+    <button class="modal-close" id="dbCloseBtn">&times;</button>
+    <h2 style="text-align:center; margin-bottom:12px;">SPECIMEN DATABASE</h2>
+
+    <div class="mode-selector" style="margin-bottom:12px;">
+      <button class="mode-btn active" id="dbCatDino">Dinosaurs</button>
+      <button class="mode-btn" id="dbCatPtero">Pterosaurs</button>
+      <button class="mode-btn" id="dbCatMarine">Marine Reptiles</button>
+    </div>
+
+    <div class="db-filter-row">
+      <div>
+        <label style="width:auto;">Starts With</label>
+        <select id="dbLetterFilter"><option value="all">All</option></select>
+      </div>
+      <div>
+        <label style="width:auto;">Size</label>
+        <select id="dbSizeFilter">
+          <option value="all">All</option>
+          <option value="small">Small (&lt;5m)</option>
+          <option value="medium">Medium (5–15m)</option>
+          <option value="large">Large (15m+)</option>
+        </select>
+      </div>
+    </div>
+    <div class="db-filter-row">
+      <label>Period</label>
+      <div class="db-chip-row" id="dbPeriodChips"></div>
+    </div>
+    <div class="db-filter-row">
+      <label>Diet</label>
+      <div class="db-chip-row" id="dbDietChips"></div>
+    </div>
+
+    <div class="db-count" id="dbResultCount"></div>
+
+    <div class="db-table-wrap">
+<table>
+  <colgroup>
+    <col style="width: 20%;">
+    <col style="width: 13%;">
+    <col style="width: 13%;">
+    <col style="width: 15%;">
+    <col style="width: 16%;">
+    <col style="width: 17%;">
+    <col style="width: 6%;">
+  </colgroup>
+  <thead>
+    <tr>
+    <th data-sort="name">Name</th>
+    <th data-sort="period">Period</th>
+    <th id="dbDietHeader" data-sort="diet">Diet</th>
+    <th data-sort="continent">Continent</th>
+    <th data-sort="group">Clade</th>
+    <th data-sort="subgroup">Family</th>
+    <th data-sort="length">Length</th>
+    </tr>
+  </thead>
+  <tbody id="dbResultsBody"></tbody>
+</table>
+    </div>
   </div>
 </div>
 <div class="wrap">
@@ -432,6 +622,9 @@ function cycleBackground() {
   let gameOver = false;
   let isDailyMode = true
   let currentGridEmojis = "";
+
+// Set to true to bring Head to Head back
+const FEATURE_HEAD_TO_HEAD = false;
 
   if (!localStorage.getItem("dinoGuessDistribution")) {
     localStorage.setItem("dinoGuessDistribution", JSON.stringify({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, "6+": 0}));
@@ -697,6 +890,7 @@ function mpUpdateLiveStatus() {
 }
 
 const subModeHeadToHead = document.getElementById("subModeHeadToHead");
+if (!FEATURE_HEAD_TO_HEAD) subModeHeadToHead.style.display = "none";
 const h2hRoundPanel = document.getElementById("h2hRoundPanel");
 const h2hRounds5 = document.getElementById("h2hRounds5");
 const h2hRounds10 = document.getElementById("h2hRounds10");
@@ -773,6 +967,7 @@ function setCategoryForH2H(category) {
 }
 
 function checkForH2HLink() {
+  if (!FEATURE_HEAD_TO_HEAD) return false;
   const params = new URLSearchParams(window.location.search);
   const h2hParam = params.get("h2h");
   if (h2hParam) {
@@ -1117,6 +1312,7 @@ skipBtn.onclick = () => {
 
 /* ---------------- HEAD TO HEAD HANDLERS ---------------- */
 subModeHeadToHead.onclick = () => {
+  if (!FEATURE_HEAD_TO_HEAD) return;
   hideEndlessFilterPanel();
   cancelTimeAttack();
   h2hRoundPanel.style.display = h2hRoundPanel.style.display === 'flex' ? 'none' : 'flex';
@@ -2102,11 +2298,16 @@ function lockDailyChallenge(won) {
 
 /* ---------------- UPDATE LOG ---------------- */
 const UPDATE_LOG = [
+      { date: "2026-08-08", notes: [
+    "New button to view the entire database of specimens.",
+    "Fixed the inconsistencies with period classification of pterosaurs and new dinosaurs.",
+    "Custom scroll bar, just to make it look a bit nicer :)",
+    "Disabled Head To Head temporarily, will be re-added in the future."
+  ]},
     { date: "2026-07-23", notes: [
     "Now allows you to view your daily after having completing it.",  
     "Yuxisaurus classification error fixed.",
     "Bug in disputed Families cell fixed, now correctly displays '(?)'.",
-    "Fixed bug which wouldnt correctly reset 'Give Up' function after dismissing victory panel",
     "Updated Daily seed selector to be more random."
   ]},
   { date: "2026-07-20", notes: [
@@ -2123,7 +2324,7 @@ const UPDATE_LOG = [
 
 function renderUpdatesLog() {
   const container = document.getElementById("updatesList");
-  container.innerHTML = "";
+  container.innerHTML = '<div class="beta-header">BETA</div>';
   UPDATE_LOG.forEach(entry => {
     const block = document.createElement("div");
     block.style.marginBottom = "16px";
@@ -2208,5 +2409,201 @@ preloadImages(MARINE_BG_IMAGES);
     timerSpan.textContent = `${hStr}h ${mStr}m ${sStr}s`;
   }
 </script>
+
+<script>
+(function() {
+  const dbBtn = document.getElementById("dbBtn");
+  const dbOverlay = document.getElementById("dbOverlay");
+  const dbCloseBtn = document.getElementById("dbCloseBtn");
+  const dbCatDino = document.getElementById("dbCatDino");
+  const dbCatPtero = document.getElementById("dbCatPtero");
+  const dbCatMarine = document.getElementById("dbCatMarine");
+  const dbLetterFilter = document.getElementById("dbLetterFilter");
+  const dbSizeFilter = document.getElementById("dbSizeFilter");
+  const dbPeriodChips = document.getElementById("dbPeriodChips");
+  const dbDietChips = document.getElementById("dbDietChips");
+  const dbResultsBody = document.getElementById("dbResultsBody");
+  const dbResultCount = document.getElementById("dbResultCount");
+  const dbDietHeader = document.getElementById("dbDietHeader");
+
+  let dbCategory = "dino";
+  let dbPeriod = "all";
+  let dbDiet = "all";
+  let dbSortColumn = "name";
+  let dbSortDirection = "asc";
+
+  function dbGetDatabase() {
+    if (dbCategory === "ptero") return PTEROSAURS;
+    if (dbCategory === "marine") return MARINEREPTILES;
+    return DINOSAURS;
+  }
+
+  // Buckets "Early Cretaceous" / "Late Cretaceous" / "Cretaceous" together,
+  // since the underlying data mixes granularity across the three files.
+  function dbGetEra(period) {
+    if (!period) return "Unknown";
+    if (period.includes("Triassic")) return "Triassic";
+    if (period.includes("Jurassic")) return "Jurassic";
+    if (period.includes("Cretaceous")) return "Cretaceous";
+    return period;
+  }
+
+  function dbGetSizeBucket(length) {
+    if (length < 5) return "small";
+    if (length < 15) return "medium";
+    return "large";
+  }
+
+  function dbMakeChip(label, value, isActive) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "db-chip" + (isActive ? " active" : "");
+    chip.textContent = label;
+    chip.dataset.value = value;
+    return chip;
+  }
+
+  function dbPopulateLetters(db) {
+    const letters = Array.from(new Set(db.map(d => d.name[0].toUpperCase()))).sort();
+    dbLetterFilter.innerHTML = '<option value="all">All</option>' +
+      letters.map(l => `<option value="${l}">${l}</option>`).join("");
+  }
+
+  function dbPopulatePeriodChips(db) {
+    const order = ["Triassic", "Jurassic", "Cretaceous"];
+    const eras = Array.from(new Set(db.map(d => dbGetEra(d.period))))
+      .sort((a, b) => order.indexOf(a) - order.indexOf(b));
+    dbPeriod = "all";
+    dbPeriodChips.innerHTML = "";
+    dbPeriodChips.appendChild(dbMakeChip("All", "all", true));
+    eras.forEach(era => dbPeriodChips.appendChild(dbMakeChip(era, era, false)));
+  }
+
+  function dbPopulateDietChips(db) {
+    const diets = Array.from(new Set(db.map(d => d.diet))).sort();
+    dbDiet = "all";
+    dbDietChips.innerHTML = "";
+    dbDietChips.appendChild(dbMakeChip("All", "all", true));
+    diets.forEach(d => dbDietChips.appendChild(dbMakeChip(d, d, false)));
+  }
+
+  dbPeriodChips.addEventListener("click", (e) => {
+    const chip = e.target.closest(".db-chip");
+    if (!chip) return;
+    dbPeriod = chip.dataset.value;
+    Array.from(dbPeriodChips.children).forEach(c => c.classList.toggle("active", c === chip));
+    dbRender();
+  });
+
+  dbDietChips.addEventListener("click", (e) => {
+    const chip = e.target.closest(".db-chip");
+    if (!chip) return;
+    dbDiet = chip.dataset.value;
+    Array.from(dbDietChips.children).forEach(c => c.classList.toggle("active", c === chip));
+    dbRender();
+  });
+
+  dbLetterFilter.addEventListener("change", dbRender);
+  dbSizeFilter.addEventListener("change", dbRender);
+  document.querySelectorAll(".db-table-wrap th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const column = th.dataset.sort;
+
+    if (dbSortColumn === column) {
+      dbSortDirection = dbSortDirection === "asc" ? "desc" : "asc";
+    } else {
+      dbSortColumn = column;
+      dbSortDirection = "asc";
+    }
+
+    document.querySelectorAll(".db-table-wrap th[data-sort]").forEach(header => {
+      header.classList.remove("sort-asc", "sort-desc");
+    });
+
+    th.classList.add(
+      dbSortDirection === "asc" ? "sort-asc" : "sort-desc"
+    );
+
+    dbRender();
+  });
+});
+
+  function dbSwitchCategory(cat, activeBtn) {
+    dbCategory = cat;
+    [dbCatDino, dbCatPtero, dbCatMarine].forEach(b => b.classList.remove("active"));
+    activeBtn.classList.add("active");
+    dbDietHeader.textContent = cat === "marine" ? "Prey Type" : "Diet";
+    const db = dbGetDatabase();
+    dbPopulateLetters(db);
+    dbPopulatePeriodChips(db);
+    dbPopulateDietChips(db);
+    dbLetterFilter.value = "all";
+    dbSizeFilter.value = "all";
+    dbRender();
+  }
+
+  dbCatDino.onclick = () => dbSwitchCategory("dino", dbCatDino);
+  dbCatPtero.onclick = () => dbSwitchCategory("ptero", dbCatPtero);
+  dbCatMarine.onclick = () => dbSwitchCategory("marine", dbCatMarine);
+
+  function dbRender() {
+    const db = dbGetDatabase();
+    const letter = dbLetterFilter.value;
+    const size = dbSizeFilter.value;
+
+const filtered = db.filter(d => {
+  if (letter !== "all" && d.name[0].toUpperCase() !== letter) return false;
+  if (dbPeriod !== "all" && dbGetEra(d.period) !== dbPeriod) return false;
+  if (dbDiet !== "all" && d.diet !== dbDiet) return false;
+  if (size !== "all" && dbGetSizeBucket(d.length) !== size) return false;
+  return true;
+});
+
+filtered.sort((a, b) => {
+  let valueA;
+  let valueB;
+
+  if (dbSortColumn === "length") {
+    valueA = Number(a.length);
+    valueB = Number(b.length);
+  } else if (dbSortColumn === "period") {
+    valueA = dbGetEra(a.period);
+    valueB = dbGetEra(b.period);
+  } else {
+    valueA = String(a[dbSortColumn] ?? "");
+    valueB = String(b[dbSortColumn] ?? "");
+  }
+
+  let result;
+
+  if (typeof valueA === "number") {
+    result = valueA - valueB;
+  } else {
+    result = valueA.localeCompare(valueB);
+  }
+
+  return dbSortDirection === "asc" ? result : -result;
+});
+
+    dbResultCount.textContent = `${filtered.length} of ${db.length} specimens`;
+    dbResultsBody.innerHTML = filtered.map(d => `
+      <tr>
+        <td>${d.name.split(' ')[0]}</td><td>${d.period}</td><td>${d.diet}</td>
+        <td>${d.continent}</td><td>${d.group}</td><td>${d.subgroup}</td><td class="db-length-cell">${d.length}m</td>
+      </tr>
+    `).join("") || `<tr><td colspan="7" style="text-align:center; opacity:0.6;">No specimens match these filters.</td></tr>`;
+  }
+
+  dbBtn.addEventListener("click", () => {
+    dbOverlay.classList.add("show");
+    dbSwitchCategory("dino", dbCatDino);
+  });
+  dbCloseBtn.addEventListener("click", () => dbOverlay.classList.remove("show"));
+  dbOverlay.addEventListener("click", (e) => {
+    if (e.target === dbOverlay) dbOverlay.classList.remove("show");
+  });
+})();
+</script>
+
 </body>
 </html>
