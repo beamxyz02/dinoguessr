@@ -1,7 +1,7 @@
   const PTEROSAURS = [
   {
     "name": "Austriadactylus cristatus",
-    "period": "Late Triassic",
+    "period": "Triassic",
     "difficulty": "Hard",
     "diet": "Insectivore",
     "continent": "Europe",
@@ -17,7 +17,7 @@
   },
   {
     "name": "Ctenochasma roemeri",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Medium",
     "diet": "Filter Feeder",
     "continent": "Europe",
@@ -33,7 +33,7 @@
   },
   {
     "name": "Gnathosaurus subulatus",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Hard",
     "diet": "Filter Feeder",
     "continent": "Europe",
@@ -49,7 +49,7 @@
   },
   {
     "name": "Dorygnathus banthensis",
-    "period": "Early Jurassic",
+    "period": "Jurassic",
     "difficulty": "Medium",
     "diet": "Piscivore",
     "continent": "Europe",
@@ -65,7 +65,7 @@
   },
   {
     "name": "Sinopterus dongi",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Frugivore",
     "continent": "Asia",
@@ -81,7 +81,7 @@
   },
   {
     "name": "Liaoningopterus gui",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Piscivore",
     "continent": "Asia",
@@ -97,7 +97,7 @@
   },
   {
     "name": "Anurognathus ammoni",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Medium",
     "diet": "Insectivore",
     "continent": "Europe",
@@ -113,7 +113,7 @@
   },
   {
     "name": "Pterodactylus antiquus",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Easy",
     "diet": "Generalist",
     "continent": "Europe",
@@ -129,7 +129,7 @@
   },
   {
     "name": "Tupandactylus imperator",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Frugivore",
     "continent": "South America",
@@ -145,7 +145,7 @@
   },
   {
     "name": "Dsungaripterus weii",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Durophage",
     "continent": "Asia",
@@ -161,7 +161,7 @@
   },
   {
     "name": "Cearadactylus atrox",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Piscivore",
     "continent": "South America",
@@ -177,7 +177,7 @@
   },
   {
     "name": "Scaphognathus crassirostris",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Medium",
     "diet": "Generalist",
     "continent": "Europe",
@@ -193,7 +193,7 @@
   },
   {
     "name": "Ludodactylus sibbicki",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Piscivore",
     "continent": "South America",
@@ -209,7 +209,7 @@
   },
   {
     "name": "Hatzegopteryx thambema",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Carnivore",
     "continent": "Europe",
@@ -225,7 +225,7 @@
   },
   {
     "name": "Caiuajara dobruskii",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Frugivore",
     "continent": "South America",
@@ -241,7 +241,7 @@
   },
   {
     "name": "Dimorphodon macronyx",
-    "period": "Early Jurassic",
+    "period": "Jurassic",
     "difficulty": "Easy",
     "diet": "Generalist",
     "continent": "Europe",
@@ -257,7 +257,7 @@
   },
   {
     "name": "Geosternbergia sternbergi",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Piscivore",
     "continent": "North America",
@@ -273,7 +273,7 @@
   },
   {
     "name": "Pteranodon longiceps",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Piscivore",
     "continent": "North America",
@@ -289,7 +289,7 @@
   },
   {
     "name": "Thanatosdrakon amaru",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Carnivore",
     "continent": "South America",
@@ -305,7 +305,7 @@
   },
   {
     "name": "Tropeognathus mesembrinus",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Piscivore",
     "continent": "South America",
@@ -321,7 +321,7 @@
   },
   {
     "name": "Barbaridactylus grandis",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Piscivore",
     "continent": "Africa",
@@ -337,7 +337,7 @@
   },
   {
     "name": "Maaradactylus kellneri",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Piscivore",
     "continent": "South America",
@@ -353,7 +353,7 @@
   },
   {
     "name": "Quetzalcoatlus northropi",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Carnivore",
     "continent": "North America",
@@ -369,7 +369,7 @@
   },
   {
     "name": "Tapejara wellnhoferi",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Frugivore",
     "continent": "South America",
@@ -385,7 +385,7 @@
   },
   {
     "name": "Aerotitan sudamericanus",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Carnivore",
     "continent": "South America",
@@ -401,7 +401,7 @@
   },
   {
     "name": "Alanqa saharica",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Generalist",
     "continent": "Africa",
@@ -417,7 +417,7 @@
   },
   {
     "name": "Arambourgiana philadelphiae",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Carnivore",
     "continent": "Asia",
@@ -433,7 +433,7 @@
   },
   {
     "name": "Coloborhynchus clavirostris",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Piscivore",
     "continent": "Europe",
@@ -449,7 +449,7 @@
   },
   {
     "name": "Darwinopterus modularis",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Medium",
     "diet": "Carnivore",
     "continent": "Asia",
@@ -465,7 +465,7 @@
   },
   {
     "name": "Eudimorphodon ranzii",
-    "period": "Late Triassic",
+    "period": "Triassic",
     "difficulty": "Medium",
     "diet": "Piscivore",
     "continent": "Europe",
@@ -481,7 +481,7 @@
   },
   {
     "name": "Kunpengopterus sinensis",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Hard",
     "diet": "Generalist",
     "continent": "Asia",
@@ -497,7 +497,7 @@
   },
   {
     "name": "Nyctosaurus gracilis",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Piscivore",
     "continent": "North America",
@@ -513,7 +513,7 @@
   },
   {
     "name": "Ornithocheirus simus",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Piscivore",
     "continent": "Europe",
@@ -529,7 +529,7 @@
   },
   {
     "name": "Pterodaustro guinazui",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Easy",
     "diet": "Filter Feeder",
     "continent": "South America",
@@ -545,7 +545,7 @@
   },
   {
     "name": "Rhamphorhynchus muensteri",
-    "period": "Late Jurassic",
+    "period": "Jurassic",
     "difficulty": "Easy",
     "diet": "Piscivore",
     "continent": "Europe",
@@ -561,7 +561,7 @@
   },
   {
     "name": "Thalassodromeus sethi",
-    "period": "Early Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Carnivore",
     "continent": "South America",
@@ -577,7 +577,7 @@
   },
   {
     "name": "Zhejiangopterus linhaiensis",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Hard",
     "diet": "Carnivore",
     "continent": "Asia",
@@ -593,7 +593,7 @@
   },
   {
     "name": "Preondactylus buffarinii",
-    "period": "Late Triassic",
+    "period": "Triassic",
     "difficulty": "Hard",
     "diet": "Insectivore",
     "continent": "Europe",
@@ -609,7 +609,7 @@
   },
   {
     "name": "Cryodrakon boreas",
-    "period": "Late Cretaceous",
+    "period": "Cretaceous",
     "difficulty": "Medium",
     "diet": "Carnivore",
     "continent": "North America",
@@ -625,7 +625,7 @@
   },
   {
     "name": "Caviramus schesaplanensis",
-    "period": "Late Triassic",
+    "period": "Triassic",
     "difficulty": "Hard",
     "diet": "Generalist",
     "continent": "Europe",
