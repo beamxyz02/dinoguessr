@@ -188,6 +188,16 @@ button{
 
 button:active{ transform: translateY(1px); }
 
+.beta-header {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #e74c3c;
+  margin: -4px 0 18px;
+  text-transform: uppercase;
+}
+
 #guessBtn{
   background: var(--accent-dark);
   color: var(--bone);
@@ -433,6 +443,53 @@ footer{
   font-size: 0.75rem;
   margin-top: 20px;
   letter-spacing: 0.5px;
+}
+
+/*  CUSTOM SCROLLBARS */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-light);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Panel scrollbars */
+.rules-content,
+#updatesList,
+.db-table-wrap {
+  scrollbar-color: #3f3a32 transparent;
+}
+
+.rules-content::-webkit-scrollbar-thumb,
+#updatesList::-webkit-scrollbar-thumb,
+.db-table-wrap::-webkit-scrollbar-thumb {
+  background: #3f3a32;
+}
+
+.rules-content::-webkit-scrollbar-thumb:hover,
+#updatesList::-webkit-scrollbar-thumb:hover,
+.db-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: #514b41;
 }
 
 #mobileResultsWrap { display: none; }
